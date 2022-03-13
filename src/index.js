@@ -5,6 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import  DataProvider from './redux/store'
 
+import {position, transitions, provider as AlertProvider} from 'react-alert';
+
+
 ReactDOM.render(
   <React.StrictMode>
     <DataProvider>
