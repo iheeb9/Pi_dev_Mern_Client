@@ -208,8 +208,9 @@ const dispatch =useDispatch()
 													
 													<li><a href="#">Buy and Sell on Eshop<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="blog-single-sidebar.html">Buy Products</a></li>
-															<li><a href="blog-single-sidebar.html">Sell product</a></li>
+														
+															<li>	<Link to={'/annonce'}>Buy Products</Link></li>
+															<li>	<Link to={'/addannonce'}>Sell Products</Link></li>
 														</ul>
 													</li>
 													<li><a href="#">Auction<i class="ti-angle-down"></i><span class="new">$</span></a>

@@ -3,6 +3,7 @@ import React from 'react'
 export default function Animation() {
   return (
     <div id="faza">
+      
 <div class="container">
     <div id="carousel">
         <figure><img src="https://i.imgur.com/YCkeccD.jpg" href="k"/></figure>

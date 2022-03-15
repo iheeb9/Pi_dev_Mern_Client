@@ -16,15 +16,21 @@ import { Redirect } from 'react-router-dom';
 import Animation from './Tools/Animation';
 import DetailAnnonce from './composants/Annonce/detailAnnonce';
 import { useHistory } from 'react-router-dom';
+import AddAnnonce from './composants/Annonce/addAnnonce';
+import { getPosts } from './redux/action/postAction';
+import UpdateAnnonce from './composants/Annonce/updateAnnonce';
 function App() {
   const a =useHistory()
-  console.log(a)
 const {auth} =useSelector(state=>state);
 const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(refreshToken())
-
 },[dispatch])
+
+useEffect(()=>{
+  dispatch(getPosts())
+ 
+ },[dispatch])
 
   return (
     <BrowserRouter>
@@ -38,9 +44,13 @@ useEffect(()=>{
      <Route exact path="/annonce" component={Annonce}/>
      <Route exact path="/allproduct" component={Allproduct}/>
      <Route exact path="/userprofil" component={UserProfile}/>
-     <Route exact path="/detailannonce" component={DetailAnnonce}/>
+     <Route exact path="/detailannonce/:id" component={DetailAnnonce}/>
      <Route exact path="/anim" component={Animation}/>
      <Route exact path="/notfound" component={Notfound}/>
+     
+     <Route exact path="/addannonce" component={AddAnnonce}/>
+     <Route exact path="/updateAnnonce/:id" component={UpdateAnnonce}/>
+
      
      <Footer/>
     </div>

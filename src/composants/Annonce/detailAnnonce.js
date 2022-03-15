@@ -1,6 +1,10 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 
-export default function DetailAnnonce() {
+export default function DetailAnnonce(props) {
+    const id = props.match.params.id;
+    const history=useHistory()
+
   return (
     <div>
        <div class="breadcrumb-area">

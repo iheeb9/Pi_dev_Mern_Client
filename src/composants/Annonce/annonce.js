@@ -1,7 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import ProgressBar from 'react-bootstrap/ProgressBar'
+import moment from 'moment'
+import Carousel from './Carousel'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { deletePost } from '../../redux/action/postAction'
 
 export default function Annonce() {
+  const history=useHistory()
+  const dispatch=useDispatch()
+  const {auth}=useSelector(state=>state)
+    const {post} =useSelector(state=>state)
+const handleEditPost =(post)=>{
+console.log(post)
+  }
+  
   return (
+      
     <div style={{textAlign:"left"}}>
       <div class="breadcrumb-area">
                     <nav aria-label="breadcrumb ">
@@ -11,6 +28,7 @@ export default function Annonce() {
     <li class="breadcrumb-item active " aria-current="page">Annonce</li>
   </ol>
 </nav>
+
             </div>
             <div class="li-main-blog-page pt-60 pb-55">
                 <div class="container">
@@ -96,160 +114,43 @@ export default function Annonce() {
                                 </div>
                             </div>
                         </div>
+                      
                         <div class="col-lg-9 order-lg-2 order-1">
-                            <div class="row li-main-content">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
+                        { post.loading?<ProgressBar animated now={50} striped variant="warning"  />:
+        <div class="row li-main-content">
+        
+            {post.posts.map((post,index) =>(<div class="col-lg-6 col-md-6">
+           <div style={{display:"flex",justifyContent:"end"}} >
+        <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}}>Copy..</button> 
+        <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}} onClick={() => history.replace("/updateAnnonce/" + post._id)} >edit</button>
+        <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}} onClick={()=>dispatch(deletePost({post,auth}))}  > delete </button>
+           </div>
+           
+             <div class="li-blog-single-item pb-25">
+          
+             <Carousel images={post.images} id={post._id} />
                                        
-                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">    <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-    </div>
-    <div class="carousel-item">    <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-    </div>
-    <div class="carousel-item">    <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>      </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
+                <div class="li-blog-content">
+                    <div class="li-blog-details">
+                        <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">{post.title}</a></h3>
+                        <div style={{color:"#F7941D",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
+                                                    
+                                               
+                                                    <a class="author" href="#">  <img src={post.user.avatar}  id="avatar"alt="User"  />_{post.user.fullname}</a>
                                                     <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
+                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
                                                 </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
+                                                <h6 style={{fontWeight:"inherit"}}>description:</h6>
+                                                <p>{post.content.slice(0, 40)}</p>
+                                                     <a class="read-more" href="blog-details-left-sidebar.html" style={{color:"#333",fontWeight:"bold"}}>More detail...</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
-                                            <a href="blog-details-left-sidebar.html"><img class="img-full" src="images/2.jpg" alt=""/></a>
-                                        </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
-                                                <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
-                                                </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
-                                            <a href="blog-details-left-sidebar.html"><img class="img-full" src="images/2.jpg" alt=""/></a>
-                                        </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
-                                                <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
-                                                </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
-                                            <a href="blog-details-left-sidebar.html"><img class="img-full" src="images/2.jpg" alt=""/></a>
-                                        </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
-                                                <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
-                                                </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
-                                            <a href="blog-details-left-sidebar.html"><img class="img-full" src="images/2.jpg" alt=""/></a>
-                                        </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
-                                                <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
-                                                </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-lg-6 col-md-6">
-                                    <div class="li-blog-single-item pb-25">
-                                        <div class="li-blog-banner">
-                                            <a href="blog-details-left-sidebar.html"><img class="img-full" src="images/2.jpg" alt=""/></a>
-                                        </div>
-                                        <div class="li-blog-content">
-                                            <div class="li-blog-details">
-                                                <h3 class="li-blog-heading pt-25"><a href="blog-details-left-sidebar.html">blog image post</a></h3>
-                                                <div class="li-blog-meta">
-                                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i> 25 nov 2018</a>
-                                                </div>
-                                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex.</p>
-                                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             
-                                
-                           
+                               
+                         ))}
+          
                                 <div class="col-lg-12">
                                     <div class="li-paginatoin-area text-center pt-25">
                                         <div class="row">
@@ -265,15 +166,10 @@ export default function Annonce() {
                                         </div>
                                     </div>
                                 </div>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
-                                <br/>
+                         
 
                                 
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </div>

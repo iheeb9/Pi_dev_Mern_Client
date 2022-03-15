@@ -30,7 +30,7 @@ export default function Register() {
 
     },[auth.token,history])
   return (
-            <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
+            <div class="col-sm-12 c ol-md-12 col-lg-6 col-xs-12">
                             <form onSubmit={handleSubmit}>
                                 <div class="login-form">
                                     <h4 class="login-title">Register</h4>

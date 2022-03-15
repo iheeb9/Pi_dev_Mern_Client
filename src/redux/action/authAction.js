@@ -1,4 +1,4 @@
-import { postDataAPI } from "../../utils/fechData"
+import { postDataAPI } from "../../utils/AnnoncefetchData"
 import valid from "../../utils/Valid"
 
 export const TYPES={
