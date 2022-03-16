@@ -9,10 +9,10 @@ export default function Register() {
     const history = useHistory()
 
     const initialState = { 
-        fullname: '', username: '', email: '', password: '', cf_password: '', gender: 'male'
+        fullname: '', username: '', email: '', password: '', cf_password: '', gender: 'male',mobile:''
     }
     const [userData, setUserData] = useState(initialState)
-    const { fullname, username, email, password, cf_password } = userData
+    const { fullname, username, email, password, cf_password ,mobile} = userData
     
   
     const handleChangeInput = e => {
@@ -90,6 +90,15 @@ export default function Register() {
                                          {notif.cf_password ? notif.cf_password : ''}
                                         </small>
                                         </div>  
+
+                                        <div class="col-md-6 mb-20">
+                                            <label>Mobile</label>
+                                            <input class="mb-0" type="text" placeholder="mobile"
+                                           onChange={handleChangeInput} value={mobile} name="mobile"
+                                            />
+                                            
+                                        </div>
+
 
 
                                         <div class="col-md-6 mb-20">
