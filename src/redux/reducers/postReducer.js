@@ -6,7 +6,7 @@ const initialState = {
     loading:false,
     posts:[],
     result:0,
-    page:2
+    vehicule:{}
 }
 
 const postReducer = (state = initialState, action) => {
@@ -25,10 +25,11 @@ const postReducer = (state = initialState, action) => {
                 
             }
             case POST_TYPE.GET_POSTS:
-            return{
+            return{ 
                 ...state,
                 posts: action.payload.posts,
-                result:action.payload.result
+                result:action.payload.result,
+                vehicule:action.payload.vehicule
                 
             }
             case POST_TYPE.UPDATE_POST:

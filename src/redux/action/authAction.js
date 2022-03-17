@@ -16,11 +16,13 @@ try {
 
     dispatch({
         type:'AUTH',
-        payload:{token:res.data.access_token}})
+        payload:{token:res.data.access_token,
+            user: res.data.user}})
     dispatch({
         type:'NOTIFY',
         payload:{ 
-            success: res.data.msg}})
+            success: res.data.msg
+            }})
 }catch(err){ 
     dispatch({
         type:'NOTIFY',

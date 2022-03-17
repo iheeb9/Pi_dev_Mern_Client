@@ -39,7 +39,7 @@ const dispatch =useDispatch()
                     onClick={() => dispatch(logout())}>
                         Logout
                     </Link></li>
-								:<li><i class="ti-power-off"></i><Link to={"register"}>Login </Link></li>}
+								:<li><i class="ti-power-off"></i><Link to={"/register"}>Login </Link></li>}
 							</ul>
 						</div>
 					</div>

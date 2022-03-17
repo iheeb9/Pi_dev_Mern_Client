@@ -55,6 +55,7 @@ export const getPosts =()=>async(dispatch)=>{
   try{
     dispatch({type:POST_TYPE.LOADING_POST,payload:true})
     const res=await getDataAPI('posts')
+    console.log(res.data)
     dispatch({type:POST_TYPE.GET_POSTS,payload:res.data
     })
 
@@ -115,3 +116,40 @@ export const deletePost = ({post, auth}) => async (dispatch) => {
       })
   }
 }
+
+export const likePost =({post,auth}) =>async(dispatch)=>{
+ 
+  const newPost={...post,likes:[...post.likes,auth.user]}
+  dispatch({type:POST_TYPE.UPDATE_POST,payload:newPost})
+  try{
+await patchDataAPI(`post/${post._id}/like`,null,auth.token)
+
+  }catch (err) {
+  dispatch({
+      type: "NOTIFY",
+      payload: {error: err.response.data.msg}
+  })
+}
+}
+  
+
+export const unLikePost = ({post, auth}) => async (dispatch) => {
+  const newPost = {...post, likes: post.likes.filter(like => like._id!== auth.user._id)}
+  console.log(newPost)
+  dispatch({ type: POST_TYPE.UPDATE_POST, payload: newPost})
+
+
+  try {
+      await patchDataAPI(`post/${post._id}/unlike`, null, auth.token)
+
+
+  } catch (err) {
+      dispatch({
+          type: "NOTIFY",
+          payload: {error: err.response.data.msg}
+      })
+  }
+}
+
+
+

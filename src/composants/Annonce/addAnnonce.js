@@ -68,9 +68,9 @@ const  handleChangeImages=e=>{
 
    files.forEach(file=>{
     if(!file) return err="Files does not exist."
-    if (file.type !=='image/jpg '&& file.type !=='image/png'){
-        return err="Image format is incorrect"
-    }
+    // if (file.type !=='image/jpg '&& file.type !=='image/png'){
+    //     return err="Image format is incorrect"
+    // }
     return newImages.push(file)
    })
    if (err) {dispatch({type:'NOTIFY',payload:{error:err}})}

@@ -26,11 +26,9 @@ const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(refreshToken())
 },[dispatch])
-
 useEffect(()=>{
   dispatch(getPosts())
- 
- },[dispatch])
+},[dispatch])
 
   return (
     <BrowserRouter>
