@@ -203,7 +203,7 @@ const dispatch =useDispatch()
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="#">Home</a></li>
-													<li><a href="#">Shop</a></li>												
+													<li><a href="Shop">Shop</a></li>												
 													<li><a href="#">Service</a></li>
 													
 													<li><a href="#">Buy and Sell on Eshop<i class="ti-angle-down"></i></a>
@@ -214,7 +214,7 @@ const dispatch =useDispatch()
 													</li>
 													<li><a href="#">Auction<i class="ti-angle-down"></i><span class="new">$</span></a>
 														<ul class="dropdown">
-															<li><a href="shop-grid.html">Create Room</a></li>
+															<li><a href="#">Create Room</a></li>
 															<li><a href="cart.html">Go bet</a></li>
 														</ul>
 													</li>
