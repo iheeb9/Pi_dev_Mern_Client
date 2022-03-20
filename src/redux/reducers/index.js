@@ -8,7 +8,7 @@ import cartReducer from './cartReducers'
 export default combineReducers({
     auth,
     notif,
-    productReducers,
-    cartReducer,
+    products: productReducers,
+    cart: cartReducer,
 
 })
