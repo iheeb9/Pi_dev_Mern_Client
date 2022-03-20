@@ -8,14 +8,14 @@ export default class Shop extends Component {
     super();
     this.state={
       products:data.products,
-
+      cartItems: [],
     }
   }
   render() {
     return (
     
       <div>
-        <div><Cart ></Cart></div>
+        <div><Cart cartItems={this.state.cartItems}></Cart></div>
         <Products products={this.state.products} ></Products>
       </div>
  
