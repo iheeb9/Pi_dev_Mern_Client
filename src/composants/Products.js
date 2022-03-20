@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Cart from "./Cart";
+import { connect } from "react-redux";
+import { addToCart } from "../redux/action/cartActions";
 
-export default class Products extends Component {
 
+ class Products extends Component {
 
 	render() {
 		return (
@@ -61,4 +62,10 @@ export default class Products extends Component {
 		);
 	}
 
-}
+}export default connect(
+	(state) =>({}) ,
+	{
+	  addToCart,
+	}
+  )(Products);
+  

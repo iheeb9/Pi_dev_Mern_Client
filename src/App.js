@@ -9,13 +9,14 @@ import Annonce from './composants/Annonce/annonce';
 import Allproduct from './composants/shop/Allproduct';
 import Login from './composants/register&login/register_login'
 import Notify from './Tools/notify';
-import { useDispatch, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/action/authAction';
 import UserProfile from './composants/user/userProfil';
 import Animation from './Tools/Animation';
 import DetailAnnonce from './composants/Annonce/detailAnnonce';
 import { useHistory } from 'react-router-dom';
 import Shop from './composants/Shop';
+import store from './redux/store';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
   }, [dispatch])
 
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <div className="App">
 
@@ -53,6 +55,7 @@ function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </Provider>
   );
 }
 

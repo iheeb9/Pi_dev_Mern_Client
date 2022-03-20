@@ -1,50 +1,24 @@
 import React, { Component } from "react";
 import Products from "./Products";
-import data from "../data.json"
 import Cart from "./Cart";
-
+import data from "../data.json";
 export default class Shop extends Component {
-  constructor() {
+
+  constructor(){
     super();
-    this.state = {
-      products: data.products,
-      cartItems: [],
-      size: "",
-      sort: "",
-    };
+    this.state={
+      products:data.products,
 
-  }
-  removeFromCart = (product) => {
-    const cartItems = this.state.cartItems.slice();
-    this.setState({
-      cartItems: cartItems.filter(x => x._id !== product._id),
-    });
-
-  }
-
-  addToCart = (product) => {
- 
-      const cartItems = this.state.cartItems.slice();
-      let alreadyExists = false;
-      cartItems.forEach((x) => {
-        if (x._id === product._id) {
-          alreadyExists = true;
-          x.count++;
-        }
-      });
-      if (!alreadyExists) {
-        cartItems.push({ ...product, count: 1 });
-      }   
-      this.setState({ cartItems })   
     }
-   
-
+  }
   render() {
     return (
+    
       <div>
-        <div><Cart cartItems={this.state.cartItems} removeFromCart={this.removeFromCart}></Cart></div>
-        <Products products={this.state.products} addToCart={this.addToCart}></Products>
+        <div><Cart ></Cart></div>
+        <Products products={this.state.products} ></Products>
       </div>
-    );
+ 
+       );
   }
 }

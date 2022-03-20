@@ -1,25 +1,35 @@
 
 import React, { Component } from "react";
-import { Fade } from "react-bootstrap";
-
-export default class Cart extends Component {
+import { connect } from "react-redux";
+import { removeFromCart } from "../redux/action/cartActions";
+ 
+class Cart extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          name: "",
+          email: "",
+          address: "",
+          showCheckout: false,
+        };
+      }
 
     render() {
         const { cartItems } = this.props;
         return (
             <div>
                 {cartItems.length === 0 ? (
-          <div className="cart cart-header">Cart is empty</div>
-        ) : (
-          <div className="cart cart-header">
-            You have {cartItems.length} in the cart{" "}
-          </div>
-        )}
+                    <div className="cart cart-header">Cart is empty</div>
+                ) : (
+                    <div className="cart cart-header">
+                        You have {cartItems.length} items in your cart{" "}
+                    </div>
+                )}
 
                 <div className="cart">
-                  
+
                     <div left cascade>
-                    <ul className="cart-items">
+                        <ul className="cart-items">
                             {cartItems.map((item) => (
                                 <li key={item._id}>
                                     <div>
@@ -40,13 +50,13 @@ export default class Cart extends Component {
                                 </li>
                             ))}
                         </ul>
-                        
-                                                Total:{" "}
-                                                {(
-                                                    cartItems.reduce((a, c) => a + c.price * c.count, 0)
-                                                )}
-                                            
-                      
+
+                        Total:{" "}
+                        {(
+                            cartItems.reduce((a, c) => a + c.price * c.count, 0)
+                        )}
+
+
                     </div>
                 </div>
 
@@ -56,5 +66,9 @@ export default class Cart extends Component {
 
     }
 
-}
+}export default connect((state)=>({
+    cartItems: state.cart.cartItems,
+}),
+removeFromCart
+)(Cart);
 
