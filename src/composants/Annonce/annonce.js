@@ -1,7 +1,12 @@
 import React from 'react'
+import Notify from '../../Tools/notify';
+import Navbar from '../../composants/Navbar/Navbar';
+import Footer from '../../composants/Footer/footer';
 
 export default function Annonce() {
   return (
+      <div>
+
     <div style={{textAlign:"left"}}>
       <div class="breadcrumb-area">
                     <nav aria-label="breadcrumb ">
@@ -279,6 +284,7 @@ export default function Annonce() {
                 </div>
   </div>
   </div>
-  
+ 
+  </div>
   )
 }
