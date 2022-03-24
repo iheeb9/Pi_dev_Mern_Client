@@ -214,7 +214,7 @@ export default function Navbar() {
 														</li>
 														<li><a href="#">Auction<i class="ti-angle-down"></i><span class="new">$</span></a>
 															<ul class="dropdown">
-																<li><a href="#">Create Room</a></li>
+																<li><a href="/auction">Create Room</a></li>
 																<li><a href="cart.html">Go bet</a></li>
 															</ul>
 														</li>

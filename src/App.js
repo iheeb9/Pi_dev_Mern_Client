@@ -9,13 +9,15 @@ import Annonce from "./composants/Annonce/annonce";
 import Allproduct from "./composants/shop/Allproduct";
 import Login from "./composants/register&login/register_login";
 import Notify from "./Tools/notify";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/action/authAction";
 import UserProfile from "./composants/user/userProfil";
 import Animation from "./Tools/Animation";
 import DetailAnnonce from "./composants/Annonce/detailAnnonce";
 import { useHistory } from "react-router-dom";
 import Shop from "./composants/Shop";
+import { Auction } from "./composants/Auction/Auction";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const a = useHistory();
@@ -41,6 +43,7 @@ function App() {
         <Route exact path="/detailannonce" component={DetailAnnonce} />
         <Route exact path="/anim" component={Animation} />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/auction" component={Auction} />
         <Route exact path="/notfound" component={Notfound} />
 
         <Footer />
