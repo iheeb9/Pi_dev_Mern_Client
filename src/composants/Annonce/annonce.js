@@ -78,7 +78,7 @@ const handleCatSearch=async(e)=>{
                                     <div class="li-sidebar-search-form">
                                         <form action="#">
                                             <input type="text" class="li-search-field" placeholder="search here" onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
-                                            <button type="submit"  class="li-search-btn" onClick={handleSearch}><i class="fa fa-search"></i></button>
+                                            <button type="submit"  class="li-search-btn" onClick={()=>handleSearch()}><i class="fa fa-search"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -108,40 +108,21 @@ const handleCatSearch=async(e)=>{
                                     </ul>
                                 </div> */}
                                 <div class="li-blog-sidebar">
-                                    <h4 class="li-blog-sidebar-title">Recent Post</h4>
-                                    <div class="li-recent-post pb-30">
+                                    <h4 class="li-blog-sidebar-title"></h4>
+                                      {post.posts.map((post,index) =>(index<3?<div class="li-recent-post pb-30">
                                         <div class="li-recent-post-thumb">
-                                            <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
+                                            <a >
+                                            {post.images.map((img,index) =>(index==0&&
+                                                <img class="img-full" src= {img.url} alt="Li's Product Image"/> ))}
                                             </a>
                                         </div>
                                         <div class="li-recent-post-des">
-                                            <span><a href="blog-details-left-sidebar.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
+                                            <span><Link to={`/detailannonce/${post._id}`} >{post.title} </Link></span>
+                                            <span class="li-post-date" style={{fontSize:"10px"}}>{post.createdAt}</span>
                                         </div>
-                                    </div>
-                                    <div class="li-recent-post pb-30">
-                                        <div class="li-recent-post-thumb">
-                                            <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-                                        </div>
-                                        <div class="li-recent-post-des">
-                                            <span><a href="blog-details-left-sidebar.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
-                                        </div>
-                                    </div>
-                                    <div class="li-recent-post pb-30">
-                                        <div class="li-recent-post-thumb">
-                                            <a href="blog-details-left-sidebar.html">
-                                                <img class="img-full" src="images/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-                                        </div>
-                                        <div class="li-recent-post-des">
-                                            <span><a href="blog-details-left-sidebar.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
-                                        </div>
-                                    </div>
+                                    </div>:null))}
+                              
+                                
                                 </div>
                                 {/* <div class="li-blog-sidebar">
                                     <h4 class="li-blog-sidebar-title">Tags</h4>

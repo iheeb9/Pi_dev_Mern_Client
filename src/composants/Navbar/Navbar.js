@@ -221,8 +221,9 @@ const dispatch =useDispatch()
 													</li>
 													<li><a href="#">Prototype<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
-															<li><a href="shop-grid.html">share Prototype</a></li>
-															<li><a href="cart.html">All your Prototype</a></li>
+														<li>	<Link to={'/shareprototype'}>Share protoype</Link></li>
+														
+														<li>	<Link to={'/allprototype'}>All your Prototype </Link></li>
 														</ul>
 													</li>
 													<li><a href="contact.html">Contact Us</a></li>

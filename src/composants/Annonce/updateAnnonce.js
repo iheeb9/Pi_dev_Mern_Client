@@ -82,9 +82,9 @@ const  handleChangeImages=e=>{
 
    files.forEach(file=>{
     if(!file) return err="Files does not exist."
-    if (file.type !=='image/jpg '&& file.type !=='image/png'){
-        return err="Image format is incorrect"
-    }
+    // if (file.type !=='image/jpg '&& file.type !=='image/png'){
+    //     return err="Image format is incorrect"
+    // }
     return newImages.push(file)
    })
    if (err) {dispatch({type:'NOTIFY',payload:{error:err}})}
@@ -110,7 +110,7 @@ const handlesubmit = (e)=>{
 								<div class="title">
 									<h4>Get in touch</h4>
 									<h3>Sell your Product</h3>
-								</div>
+								</div>  
 								<form class="form" method="post" onSubmit={handlesubmit}>
 									<div class="row">
 										<div class="col-lg-6 col-12">

@@ -44,6 +44,7 @@ export const createPost=({annonceData,images,auth,history})=>async(dispatch)=>{
     else{
       
     dispatch({type:'NOTIFY',payload:{error:"Please_Login"}})
+    history.push('/register')
    
     }
 }
@@ -55,7 +56,7 @@ export const getPosts =()=>async(dispatch)=>{
   try{
     dispatch({type:POST_TYPE.LOADING_POST,payload:true})
     const res=await getDataAPI('posts')
-    console.log(res.data)
+ 
     dispatch({type:POST_TYPE.GET_POSTS,payload:res.data
     })
 
@@ -102,7 +103,7 @@ export const deletePost = ({post, auth}) => async (dispatch) => {
 
   try {
     
-    dispatch({ type: 'NOTIFY', payload: {loading: true} })
+    dispatch({ type: 'NOTIFY', payload: {warning: "en cours..."} })
       const res = await deleteDataAPI(`post/${post._id}`, auth.token)
       dispatch({ type: POST_TYPE.DELETE_POST, payload: post })
    

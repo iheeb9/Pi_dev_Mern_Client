@@ -18,8 +18,8 @@ const Carousel = ({images, id}) => {
                         data-slide-to={index} className={isActive(index)} />
                     ))
                 }
-                
-            </ol>
+                    
+                </ol>
             </>}  */}
             <div className="carousel-inner">
                 {

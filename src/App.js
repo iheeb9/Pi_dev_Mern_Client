@@ -12,23 +12,30 @@ import Notify from './Tools/notify';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/action/authAction';
 import UserProfile from './composants/user/userProfil';
-import { Redirect } from 'react-router-dom';
-import Animation from './Tools/Animation';
 import DetailAnnonce from './composants/Annonce/detailAnnonce';
 import { useHistory } from 'react-router-dom';
 import AddAnnonce from './composants/Annonce/addAnnonce';
 import { getPosts } from './redux/action/postAction';
 import UpdateAnnonce from './composants/Annonce/updateAnnonce';
+import Shareprototype from './composants/protoype/shareprototype';
+import Allprototype from './composants/protoype/Allprototype';
+import SharedprototypeDetail from './composants/protoype/sharedprototypeDetail';
+import { getsharedpost } from './redux/action/sharedpostAction';
 function App() {
   const a =useHistory()
 const {auth} =useSelector(state=>state);
 const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(refreshToken())
+ dispatch(getPosts())
 },[dispatch])
+
+
 useEffect(()=>{
-  dispatch(getPosts())
-},[dispatch])
+  if (auth.token){
+    dispatch(getsharedpost(auth.token))}
+  
+},[dispatch,auth.token])
 
   return (
     <BrowserRouter>
@@ -43,12 +50,16 @@ useEffect(()=>{
      <Route exact path="/allproduct" component={Allproduct}/>
      <Route exact path="/userprofil" component={UserProfile}/>
      <Route exact path="/detailannonce/:id" component={DetailAnnonce}/>
-     <Route exact path="/anim" component={Animation}/>
+    
      <Route exact path="/notfound" component={Notfound}/>
      
      <Route exact path="/addannonce" component={AddAnnonce}/>
      <Route exact path="/updateAnnonce/:id" component={UpdateAnnonce}/>
-
+     <Route exact path="/shareprototype" component={Shareprototype}/>
+     
+     <Route exact path="/Allprototype" component={Allprototype}/>
+     <Route exact path="/sharedprototypedetail/:id" component={SharedprototypeDetail}/>
+     
      
      <Footer/>
     </div>

@@ -25,6 +25,13 @@ const dispatch=useDispatch()
     handleShow={() => dispatch({type: 'NOTIFY', payload: {}})}
     bgColor="bg-success" />
 }
+
+{
+    notif.warning && 
+    <Toast msg={{title: 'wait...', body: notif.warning,spinner:"wait"}} 
+    handleShow={() => dispatch({type: 'NOTIFY', payload: {}})}
+    bgColor="bg-warning" />
+}
     </div>
   )
 }

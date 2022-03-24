@@ -22,14 +22,14 @@ export default function DetailAnnonce(props) {
 }
   return (
     <div>
-       <div class="breadcrumb-area">
-                    <nav aria-label="breadcrumb ">
-  <ol class="breadcrumb " >
-                                
-    <li class="breadcrumb-item " style={{marginLeft:"175px"}}><Link to={'/annonce'}>annonce</Link></li>
-    <li class="breadcrumb-item active " aria-current="page">userProfile</li>
-  </ol>
-</nav>
+        <div class="breadcrumb-area">
+                        <nav aria-label="breadcrumb ">
+    <ol class="breadcrumb " >
+                                    
+        <li class="breadcrumb-item " style={{marginLeft:"175px"}}><Link to={'/annonce'}>annonce</Link></li>
+        <li class="breadcrumb-item active " aria-current="page">userProfile</li>
+    </ol>
+    </nav>
             </div>
        <div class="li-main-blog-page li-main-blog-details-page pt-60 pb-60 pb-sm-45 pb-xs-45 " style={{textAlign:"start"}}>
                 <div class="container">
@@ -58,41 +58,22 @@ export default function DetailAnnonce(props) {
 </div>
 
                                 
-                                <div class="li-blog-sidebar">
-                                    <h4 class="li-blog-sidebar-title">Recent Post</h4>
-                                    <div class="li-recent-post pb-30">
+<div class="li-blog-sidebar">
+                                    <h4 class="li-blog-sidebar-title"></h4>
+                                      {post.posts.map((post,index) =>(index<3?<div class="li-recent-post pb-30">
                                         <div class="li-recent-post-thumb">
-                                            <a href="blog-details.html">
-                                                <img class="img-full" src="/images/product/small-size/3.jpg" alt="Li's Product Image"/>
+                                            <a >
+                                            {post.images.map((img,index) =>(index==0&&
+                                                <img class="img-full" src= {img.url} alt="Li's Product Image"/> ))}
                                             </a>
                                         </div>
                                         <div class="li-recent-post-des">
-                                            <span><a href="blog-details.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
+                                            <span><Link to={`/detailannonce/${post._id}`} >{post.title} </Link></span>
+                                            <span class="li-post-date" style={{fontSize:"10px"}}>{post.createdAt}</span>
                                         </div>
-                                    </div>
-                                    <div class="li-recent-post pb-30">
-                                        <div class="li-recent-post-thumb">
-                                            <a href="blog-details.html">
-                                                <img class="img-full" src="/images/product/small-size/2.jpg" alt="Li's Product Image"/>
-                                            </a>
-                                        </div>
-                                        <div class="li-recent-post-des">
-                                            <span><a href="blog-details.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
-                                        </div>
-                                    </div>
-                                    <div class="li-recent-post pb-30">
-                                        <div class="li-recent-post-thumb">
-                                            <a href="blog-details.html">
-                                                <img class="img-full" src="/images/product/small-size/5.jpg" alt="Li's Product Image"/>
-                                            </a>
-                                        </div>
-                                        <div class="li-recent-post-des">
-                                            <span><a href="blog-details.html">First Blog Post</a></span>
-                                            <span class="li-post-date">25.11.2018</span>
-                                        </div>
-                                    </div>
+                                    </div>:null))}
+                              
+                                
                                 </div>
                               
                             </div>
@@ -102,10 +83,10 @@ export default function DetailAnnonce(props) {
                                 <div class="col-lg-12">
                         <div class="li-blog-single-item pb-30">
                         <div class="li-blog-banner" >
-                        <div class="preview-pic tab-content">
+                        <div class="preview-pic tab-content offset-4 col-lg-8">
                       {detailpost?.images.map((img,index)=>(
                           
-      <div className={`tab-pane ${isActive(index)}`} id={`pic-${index}`}><img src={img.url} style={{maxHeight:"400px",minHeight:"400px",minWidth:"300px",maxWidth:"600px"}}/></div>
+      <div className={`tab-pane ${isActive(index)}`} id={`pic-${index}`}><img src={img.url} /></div>
                       ))}
 						</div>
 						<ul class="preview-thumbnail nav nav-tabs" style={{width:"300px   "}}>

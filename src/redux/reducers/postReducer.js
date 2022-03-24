@@ -39,6 +39,7 @@ const postReducer = (state = initialState, action) => {
                     
                 };
             case POST_TYPE.DELETE_POST:
+                console.log(DeleteData(state.posts, action.payload._id))
                 return {
                    
                     ...state,
