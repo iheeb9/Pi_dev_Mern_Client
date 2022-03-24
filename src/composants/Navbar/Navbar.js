@@ -10,10 +10,8 @@ import {Route} from 'react-router-dom'
 
 export default function Navbar({history}) {
 const a =useHistory()
-const {auth}=useSelector(state=>state)
+const auth = useSelector(state=>state.auth)
 const dispatch =useDispatch()
-
-
 
   return (
       <div>
@@ -38,12 +36,12 @@ const dispatch =useDispatch()
 							<ul class="list-main">
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-								<li><i class="ti-user"></i> <a href="#">My account</a></li>
+								{auth.token? <li><i class="ti-user"></i>  <Link to={`/userprofil/ ${auth.user._id}`}> My account</Link></li>:null}
 								{auth.token ?<li><i class="ti-power-off"></i> <Link  to="/"
                     onClick={() => dispatch(logout())}>
                         Logout
                     </Link></li>
-								:<li><i class="ti-power-off"></i><Link to={"register"}>Login </Link></li>}
+								:<li><i class="ti-power-off"></i><Link to={"/register"}>Login </Link></li>}
 							</ul>
 						</div>
 					</div>
@@ -215,8 +213,9 @@ const dispatch =useDispatch()
 													
 													<li><a href="#">Buy and Sell on Eshop<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="blog-single-sidebar.html">Buy Products</a></li>
-															<li><a href="blog-single-sidebar.html">Sell product</a></li>
+														
+															<li>	<Link to={'/annonce'}>Buy Products</Link></li>
+															<li>	<Link to={'/addannonce'}>Sell Products</Link></li>
 														</ul>
 													</li>
 													<li><a href="#">Auction<i class="ti-angle-down"></i><span class="new">$</span></a>
@@ -227,8 +226,9 @@ const dispatch =useDispatch()
 													</li>
 													<li><a href="#">Prototype<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
-															<li><a href="shop-grid.html">share Prototype</a></li>
-															<li><a href="cart.html">All your Prototype</a></li>
+														<li>	<Link to={'/shareprototype'}>Share protoype</Link></li>
+														
+														<li>	<Link to={'/allprototype'}>All your Prototype </Link></li>
 														</ul>
 													</li>
 													<li><a href="contact.html">Contact Us</a></li>
