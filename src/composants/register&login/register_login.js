@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
 import Register from './register'
 import { useDispatch, useSelector } from 'react-redux'
-import {login} from '../../redux/action/authAction'
+import {login,register} from '../../redux/action/authAction'
+import axios from 'axios'
+import { GoogleLogin } from 'react-google-login';
+import { Link, useHistory } from 'react-router-dom'
+
+
+const initialStateg = {
+  email: '',
+  password: ''
+}
 export default function Login() {
 
-
-  const initialState = { email:'', password: '' }
+  const [user, setUser] = useState(initialStateg)
+  const initialState = { email:'', password: '',err: '', success: '' }
   const [userData, setUserData] = useState(initialState)
   const { email, password } = userData
-
+  const history = useHistory()
+ 
   const handleChangeInput =e=>{
     const {name,value}=e.target
     setUserData({...userData,[name]:value})
@@ -19,6 +29,23 @@ export default function Login() {
       dispatch (login(userData))
     }
 
+    const responseGoogle = async (response) => {
+      try {
+         // const res = await axios.post('/api/google_login', {tokenId: response.tokenId})
+             
+         
+          
+          //  dispatch (register(res.data.user,res.data.user.images))
+        
+            localStorage.setItem('firstLogin', true)
+           
+          
+
+      } catch (err) {
+          err.response.data.msg && 
+          setUserData({...userData, err: err.response.data.msg, success: ''})
+      }
+  }
   return (
     <div>
           <nav aria-label="breadcrumb ">
@@ -54,7 +81,7 @@ export default function Login() {
                                             </div>
                                         </div>
                                         <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                            <a href="#"> Forgotten pasward?</a>
+                                        <Link to="/ForgotPassword">Forgot your password?</Link>
                                         </div>
                                         <div class="col-md-12">
                                             <button class="register-button mt-0"  >Login</button>
@@ -62,7 +89,18 @@ export default function Login() {
                                     </div>
                                 </div>
                             </form>
+                                    <div className="social">
+                <GoogleLogin
+                    clientId="945006872248-2sj5j0e6eu1ungefd3fnpo0k1mrgsu64.apps.googleusercontent.com"
+                    buttonText="Login with google"
+                    onSuccess={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
+            
+
+            </div>
                         </div>
+                
                      <Register/>
                     </div>
                 </div>

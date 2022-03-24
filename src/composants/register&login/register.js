@@ -9,11 +9,33 @@ export default function Register() {
     const history = useHistory()
 
     const initialState = { 
-        fullname: '', username: '', email: '', password: '', cf_password: '', gender: 'male'
+        fullname: '', username: '', email: '', password: '', cf_password: '', gender: 'male',mobile:''
     }
     const [userData, setUserData] = useState(initialState)
-    const { fullname, username, email, password, cf_password } = userData
+
     
+    const { fullname, username, email, password, cf_password ,mobile} = userData
+    const [images,setimages]=useState([])
+    const deleteImage=(index)=>{
+        const newArr=[...images]
+         newArr.splice(index,1)
+         setimages(newArr) 
+        }
+        const  handleChangeImages=e=>{
+            const files=[...e.target.files]
+            let err=""
+            let newImages=[]
+         
+            files.forEach(file=>{
+             if(!file) return err="Files does not exist."
+             // if (file.type !=='image/jpg '&& file.type !=='image/png'){
+             //     return err="Image format is incorrect"
+             // }
+             return newImages.push(file)
+            })
+            if (err) {dispatch({type:'NOTIFY',payload:{error:err}})}
+            setimages([...images,...newImages])
+         }
   
     const handleChangeInput = e => {
         const { name, value } = e.target
@@ -22,7 +44,9 @@ export default function Register() {
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch(register(userData))
+        if (images.length==0)
+        return dispatch({type:'NOTIFY',payload:{error:"Please add you Photo"}})
+        dispatch(register(userData,images))
      
     }
     useEffect(()=>{
@@ -90,10 +114,57 @@ export default function Register() {
                                          {notif.cf_password ? notif.cf_password : ''}
                                         </small>
                                         </div>  
+<br/> <br/>
+                                        <div class="col-md-6 mb-20">
+                                            <label>Mobile</label>
+                                            <input class="mb-0" type="text" placeholder="mobile"
+                                           onChange={handleChangeInput} value={mobile} name="mobile"
+                                            />
+                                            
+                                        </div>
+                                      
+                                     
+                                        <div class="col-lg-4 col-12">
+							<div class="single-head">
+                               <div class="single-info">
+                               <h4 class="title"> Add photo</h4>
+									
+                                    <div class="col-lg-6 input_images" style={{position:"relative", display:"flex"}}>
+                                            <div className='file_upload' style={{overflow:"hidden",margin:"0 10px",position:"relative"}} >
+                                            <i className='fas fa-image' style={{fontSize:"2rem",cursor:"pointer",color:"#F7941D"}}/>
+                                            <input type='file' name='file' id='file'
+                                            multiple accept='image/*'style={{position:"absolute",top:"0",left:"0",opacity:"0",}} 
+                                            onChange={handleChangeImages}/>
+                                            </div>
+                                            
+										</div>
+                                      
+									<ul>
+										<li>Your photo will display here...</li>
+									</ul>
+								</div>
+								<div class="show_images " >
+								{ 
+                                   images.map((img,index)=>(
+                                        <div key={index} id="file_img ">
+                                              <button  onClick={()=>deleteImage(index)} type="button" class="close" aria-label="Close" style={{color:"#F7941D"}}>
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    <img src={img.url ? img.url:URL.createObjectURL(img) }
+                                             alt="images"></img>
+                                         
+                                             <hr></hr>
+                                        </div>
+                                    ))
+                                }
+								</div>
+                                </div>
+                                </div>
 
 
                                         <div class="col-md-6 mb-20">
                                         <div className="row justify-content-between mx-0 mb-1">
+                                            <label>Gendre</label>
                                          <label htmlFor="male">
                                              
                         Male: <input class="malefelameradio" type="radio" id="male" name="gender"
@@ -104,7 +175,9 @@ export default function Register() {
                         Female: <input type="radio" id="female" name="gender"
                         value="female" class="malefelameradio" onChange={handleChangeInput} />
                     </label>
+
                 </div>
+                           
 
                 </div>            
                                         <div class="col-12">
