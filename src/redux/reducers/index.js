@@ -8,5 +8,6 @@ export default combineReducers({
     notif,
     post,
     sharedpost,
+    user
 
 })

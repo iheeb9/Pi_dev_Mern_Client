@@ -1,4 +1,4 @@
-const valid = ({fullname, username, email, password, cf_password}) => {
+const valid = ({fullname, username }) => {
     const err = {}
 
     if(!fullname) {
@@ -13,22 +13,9 @@ const valid = ({fullname, username, email, password, cf_password}) => {
         err.username = "User name is up to 25 characters long."
     }
 
-    if(!email) {
-        err.email = "Please add your email."
-    }else if(!validateEmail(email)){
-        err.email = "Email format is incorrect."
-    }
 
-    if(!password) {
-        err.password = "Please add your password."
-    }else if(password.length < 6){
-        err.password = "Password must be at least 6 characters."
-    }
+
    
-
-    if(password !== cf_password) {
-        err.cf_password = "Confirm password did not match."
-    }
 
     return {
         errMsg: err,

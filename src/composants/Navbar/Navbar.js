@@ -7,9 +7,8 @@ import { logout } from '../../redux/action/authAction'
 
 export default function Navbar() {
 const a =useHistory()
-const {auth}=useSelector(state=>state)
+const auth = useSelector(state=>state.auth)
 const dispatch =useDispatch()
-
 
   return (
       <div>
@@ -34,7 +33,7 @@ const dispatch =useDispatch()
 							<ul class="list-main">
 								<li><i class="ti-location-pin"></i> Store location</li>
 								<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-								<li><i class="ti-user"></i> <a href="#">My account</a></li>
+								{auth.token? <li><i class="ti-user"></i>  <Link to={`/userprofil/ ${auth.user._id}`}> My account</Link></li>:null}
 								{auth.token ?<li><i class="ti-power-off"></i> <Link  to="/"
                     onClick={() => dispatch(logout())}>
                         Logout
