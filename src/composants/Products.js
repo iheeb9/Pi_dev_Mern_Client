@@ -25,9 +25,8 @@ import { addToCart } from "../redux/action/cartActions";
 													<div class="single-product">
 														<div class="product-img">
 															<a href="product-details.html">
-																<span>{product.title}</span>
-																<img class="default-img" src={product.image} alt={product.title} />
-																<img class="hover-img" src={product.image} alt={product.title} />
+																<span>{product.name}</span>
+															
 															</a>
 															<div class="button-head">
 																<div class="product-action">

@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import Affiche from '../Home/Affiche'
 import { logout } from '../../redux/action/authAction'
+import Cart from '../Cart'
 
 export default function Navbar() {
 	const a = useHistory()
 	const { auth } = useSelector(state => state)
 	const dispatch = useDispatch()
-	// const cartItems = this.state.cartItems;
-
 	return (
 		<div>
 
@@ -96,6 +95,8 @@ export default function Navbar() {
 										<div class="shopping-item">
 											<div class="dropdown-cart-header">
 												<span>2 Items</span>
+												<div></div>
+
 												<a href="shop">View Cart</a>
 											</div>
 											<ul class="shopping-list">
