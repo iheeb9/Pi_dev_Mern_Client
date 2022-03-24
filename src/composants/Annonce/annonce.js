@@ -168,9 +168,9 @@ const handleCatSearch=async(e)=>{
                         <div style={{color:"#F7941D",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta">
                                                     
-                                               
-                                                    <a class="author" href="#">  <img src={post.user.avatar}  id="avatar"alt="User"  />_{post.user.fullname}</a>
-                                                 
+                                                {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />_{post.user.fullname}</a>
+                                                 ))}
+                                                   
                                                     
                                                     <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a><br/>
                                              

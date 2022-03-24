@@ -1,4 +1,4 @@
-import { getDataAPI,putDataAPI } from "../../utils/fechData"
+import { getDataAPI,putDataAPI } from "../../utils/AnnoncefetchData"
 import valid from "../../utils/ValidUpdate"
 import { imageUpload } from '../../utils/imageUpload'
 export const TYPES={

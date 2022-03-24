@@ -22,6 +22,8 @@ import Shareprototype from './composants/protoype/shareprototype';
 import Allprototype from './composants/protoype/Allprototype';
 import SharedprototypeDetail from './composants/protoype/sharedprototypeDetail';
 import { getsharedpost } from './redux/action/sharedpostAction';
+import { GetAllUsers } from './redux/action/userAction';
+import ResetPassword from './composants/register&login/ResetPassword'
 function App() {
   const a =useHistory()
 const {auth} =useSelector(state=>state);
@@ -48,7 +50,7 @@ useEffect(()=>{
      
      <Route exact path="/" component={Home}/>
      
-     <Route exact path="/register" component={isLogged ? Notfound :Login} />
+     <Route exact path="/register" component={Login} />
      <Route exact path="/annonce" component={Annonce}/>
      <Route exact path="/allproduct" component={Allproduct}/>
      <Route exact path="/detailannonce/:id" component={DetailAnnonce}/>

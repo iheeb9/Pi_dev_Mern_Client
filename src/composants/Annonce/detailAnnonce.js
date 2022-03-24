@@ -39,7 +39,10 @@ export default function DetailAnnonce(props) {
                             <div  >
                         <div class="card-container  ">
 	<span class="pro">New</span>
-	<img class="round" src={detailpost?.user.avatar} alt="user" style={{width:"130px  "}}/>
+    {detailpost?.user.images.map((img)=>(
+        	<img class="round" src={img.url} alt="user" style={{width:"130px  "}}/>
+    ))}
+
 	<h3>{detailpost?.user.fullname}</h3>
 	
 	<p>{detailpost?.user.email} </p>
