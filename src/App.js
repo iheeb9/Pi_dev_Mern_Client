@@ -8,21 +8,29 @@ import { useEffect } from 'react';
 import Annonce from './composants/Annonce/annonce';
 import Allproduct from './composants/shop/Allproduct';
 import Login from './composants/register&login/register_login'
+import ForgotPassword from './composants/register&login/ForgotPassword'
 import Notify from './Tools/notify';
 import { useDispatch, useSelector } from 'react-redux';
 import { refreshToken } from './redux/action/authAction';
 import UserProfile from './composants/user/userProfil';
+import ResetPassword from './composants/register&login/ResetPassword';
 import { Redirect } from 'react-router-dom';
 import Animation from './Tools/Animation';
 import DetailAnnonce from './composants/Annonce/detailAnnonce';
 import { useHistory } from 'react-router-dom';
+import { GetAllUsers } from './redux/action/userAction';
+
 function App() {
-  const a =useHistory()
-  console.log(a)
-const {auth} =useSelector(state=>state);
+const a =useHistory()
+ 
+const auth=useSelector(state=>state.auth);
+const {isLogged} = auth
+
 const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(refreshToken())
+ dispatch(GetAllUsers ())
+
 
 },[dispatch])
 
@@ -34,13 +42,16 @@ useEffect(()=>{
      
      <Route exact path="/" component={Home}/>
      
-     <Route exact path="/register" component={Login}/>
+     <Route exact path="/register" component={isLogged ? Notfound :Login} />
      <Route exact path="/annonce" component={Annonce}/>
      <Route exact path="/allproduct" component={Allproduct}/>
-     <Route exact path="/userprofil" component={UserProfile}/>
+     <Route exact path="/userprofil/:id" component={UserProfile }/>
      <Route exact path="/detailannonce" component={DetailAnnonce}/>
      <Route exact path="/anim" component={Animation}/>
      <Route exact path="/notfound" component={Notfound}/>
+     <Route exact path="/ResetPassword/:token" component={ResetPassword}/>
+     <Route exact path="/ForgotPassword" component={ForgotPassword}/>
+  
      
      <Footer/>
     </div>
