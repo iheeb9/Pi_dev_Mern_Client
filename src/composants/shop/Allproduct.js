@@ -19,13 +19,13 @@ export default function Allproduct({ match }) {
   const Range = createSliderWithTooltip(Slider.Range);
 
   const [price,setPrice] =useState ([1,5000])
-  console.log("setprice",price)
+  //console.log("setprice",price)
 
-  console.log("ress", resPerPage);
-  console.log("pcccccc", resPerPage);
+  //console.log("ress", resPerPage);
+  //console.log("pcccccc", resPerPage);
 
   const dispatch = useDispatch();
-  console.log("crrentpage",currentPage)
+  //console.log("crrentpage",currentPage)
 
   const [category, setCategory] = useState("");
   const Categories = [
@@ -52,13 +52,14 @@ export default function Allproduct({ match }) {
 
   useEffect(() => {
     dispatch(getproductpage(keyword,currentPage, category,price));
-    dispatch(getProducts());
+   dispatch(getProducts());
+    //console.log("priceli yetb3ath",price)
   }, [dispatch, keyword,currentPage, category,price]);
 
   function setCurrentpageNo(PageNumber) {
     setCurrentPage(PageNumber);
   }
-   console.log("price",price)
+  // console.log("price",price)
   return (
     <div>
       {productReducerPage.loading ? (
@@ -86,12 +87,11 @@ export default function Allproduct({ match }) {
                       ))}
                     </ul>
                   </div>
-                  <div class="single-widget range">
+                  <div class="single-widget ">
                     <h3 class="title">Shop by Price</h3>
 
 
-
-<div className="px-5">
+<div className="px-8">
                         <Range
                             marks={{
                               1:`$1`,
@@ -106,10 +106,12 @@ export default function Allproduct({ match }) {
                               visible:true
                             }}
                             value={price}
-                            onChange={price =>setPrice(price)}
+                            onChange={(price) =>setPrice(price)}
                         />
                         
                       </div>
+
+
 
                       
                     {/*  <input type="range"/>   */}

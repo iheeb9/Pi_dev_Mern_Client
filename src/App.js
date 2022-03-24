@@ -29,7 +29,7 @@ import Cp from './composants/dashboardAd/AdminProduct/cp';
 function App() {
   const a =useHistory()
 const {auth,allproductr} =useSelector(state=>state);
-const cond=false
+const cond=true
 const dispatch=useDispatch()
 useEffect(()=>{
  dispatch(refreshToken())

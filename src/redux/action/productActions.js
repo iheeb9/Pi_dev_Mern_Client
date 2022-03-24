@@ -26,13 +26,13 @@ export const getProducts = (keyword='',currentPage,category)=> async (dispatch)=
         })
     }
 }
-export const getproductpage = (keyword='',currentPage,category,price=[])=> async (dispatch)=>{
+export const getproductpage = (keyword='',currentPage,category,price)=> async (dispatch)=>{
     try {
            dispatch ({ type: ALL_PRODUCTSPAGE_REQUEST })
-           let link=  `/product/all?keyword=${keyword}&page=${currentPage}`
+           let link=  `/product/all?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
                 console.log('price',link)
             if(category){
-             link=  `/product/all?keyword=${keyword}&page=${currentPage}&category=${category}&price[lte]=${price[1]}&price[gte]=${price[0]}`
+             link=  `/product/all?keyword=${keyword}&page=${currentPage}&category=${category}`
                     console.log("priceeeeeeeeeeeeeeeeeeeeeeeee",link)
             }
            const { data } = await axios.get(link)
