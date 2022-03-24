@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ProgressBar from 'react-bootstrap/ProgressBar'
@@ -11,7 +12,6 @@ import Oneannonce from './oneannonce'
 import { Link } from 'react-router-dom'
 import { getDataAPI } from '../../utils/AnnoncefetchData'
 import Notfound from '../Notfound/Notfound'
-
 
 export default function Annonce() {
   const history=useHistory()
@@ -57,7 +57,9 @@ const handleCatSearch=async(e)=>{
 
 
   return (
-      
+      <div>
+
+
     <div style={{textAlign:"left"}}>
       <div class="breadcrumb-area">
                     <nav aria-label="breadcrumb ">
@@ -238,6 +240,7 @@ const handleCatSearch=async(e)=>{
                 </div>
   </div>
   </div>
-  
+ 
+  </div>
   )
 }

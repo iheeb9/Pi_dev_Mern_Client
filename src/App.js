@@ -15,6 +15,18 @@ import { refreshToken } from './redux/action/authAction';
 import UserProfile from './composants/user/userProfil';
 import DetailAnnonce from './composants/Annonce/detailAnnonce';
 import { useHistory } from 'react-router-dom';
+
+import Detailsproduct from './composants/Product/detailsproduct'
+import { AddProd } from './composants/dashboardAd/AdminProduct/AddProd';
+import Loading from './Tools/Loading';
+import ListP from './composants/dashboardAd/AdminProduct/ListP';
+import NavBar from './composants/dashboardAd/basedashboard/NavBar';
+import SideBar from './composants/dashboardAd/basedashboard/SideBar';
+import UpProd from './composants/dashboardAd/AdminProduct/UpProd';
+import Addcat from './composants/dashboardAd/admincategory/Addcat';
+import { getProducts } from './redux/action/productActions';
+import Cp from './composants/dashboardAd/AdminProduct/cp';
+
 import AddAnnonce from './composants/Annonce/addAnnonce';
 import { getPosts } from './redux/action/postAction';
 import UpdateAnnonce from './composants/Annonce/updateAnnonce';
@@ -26,15 +38,15 @@ import { GetAllUsers } from './redux/action/userAction';
 import ResetPassword from './composants/register&login/ResetPassword'
 function App() {
   const a =useHistory()
-const {auth} =useSelector(state=>state);
+const {auth,allproductr} =useSelector(state=>state);
 const dispatch=useDispatch()
+const cond=true
 useEffect(()=>{
  dispatch(refreshToken())
  dispatch(getPosts())
+  dispatch(getProducts())
  dispatch(GetAllUsers ())
 },[dispatch])
-
-
 
 useEffect(()=>{
   if (auth.token){
@@ -44,7 +56,10 @@ useEffect(()=>{
 
   return (
     <BrowserRouter>
+    {cond?
     <div className="App">
+
+    
      <Notify/>
      <Navbar/>
      
@@ -68,11 +83,32 @@ useEffect(()=>{
      
      <Route exact path="/Allprototype" component={Allprototype}/>
      <Route exact path="/sharedprototypedetail/:id" component={SharedprototypeDetail}/>
+       
+       
+         <Route exact path="/detailp/:id" component={Detailsproduct}/>
+    <Route exact path="/search/:keyword" component={Allproduct}/>
      
      
      <Footer/>
+  {/* admin */}
+   
+   </div>:<div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+      <NavBar />
+
+      <div className="app-main">
+        <SideBar />
+        <div className="app-main__outer">
+     <Route exact path="/addp" component={AddProd}/>
+     <Route exact path="/listp" component={ListP}/>
+     <Route exact path="/upp/:id" component={UpProd}/>
+    <Route exact path="/category" component={Addcat}/>  
+     {/* <Route exact path="/cp" component={Cp}/>   */}   
+     </div>
+      </div>
     </div>
+     }
     </BrowserRouter>
+    
   );
 }
 

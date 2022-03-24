@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import Affiche from '../Home/Affiche'
 import { logout } from '../../redux/action/authAction'
 
-export default function Navbar() {
+import Search from '../Product/search';
+import {Route} from 'react-router-dom'
+
+export default function Navbar({history}) {
 const a =useHistory()
 const auth = useSelector(state=>state.auth)
 const dispatch =useDispatch()
@@ -65,20 +68,23 @@ const dispatch =useDispatch()
 						</div>
 						<div class="mobile-nav"></div>
 					</div>
-					<div class="col-lg-8 col-md-7 col-12">
-						<div class="search-bar-top">
+				 	<div class="col-lg-8 col-md-7 col-12">
+						 <Route render ={({history})=><Search history={history}/> }/>
+				{/*		<div class="search-bar-top">
 							
 							<div class="search-bar">
 								
 							All category
-								<form>
+								<form onSubmit={searchHandler}>
 									
-									<input name="search" placeholder="Search Products Here....." type="search"/>
+									<input name="search" placeholder="Search Products Here....." type="search"
+											onChange={(e)=> setKeyword(e.target.value)}
+									/>
 									<button class="btnn"><i class="ti-search"></i></button>
 								</form>
 							</div>
-						</div>
-					</div>
+						</div>*/}
+					</div> 
                 
 					<div class="col-lg-2 col-md-3 col-12">
 						<div class="right-bar">
