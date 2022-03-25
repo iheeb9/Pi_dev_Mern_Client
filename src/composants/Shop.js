@@ -5,34 +5,28 @@ import data from "../data.json";
 import axios from "axios";
 
 export default class Shop extends Component {
-
-  constructor(){
+  constructor() {
     super();
-  
-    this.state={
-     /// products:data.products,
-     // products:data.products,
+
+    this.state = {
+      /// products:data.products,
+      // products:data.products,
       cartItems: [],
       products: [],
-
-    }
-  
+    };
   }
-  componentDidMount(){
-    axios.get('/api/product/all').then(res=>{
+  componentDidMount() {
+    axios.get("/api/product/all").then((res) => {
       console.log(res);
-      this.setState({products:res.data.data});
+      this.setState({ products: res.data.data });
     });
   }
 
   render() {
     return (
-    
       <div>
-        <div><Cart cartItems={this.state.cartItems}></Cart></div>
-        <Products products={this.state.products} ></Products>
+        <Products products={this.state.products}></Products>
       </div>
- 
-       );
+    );
   }
 }

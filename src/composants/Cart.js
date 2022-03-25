@@ -1,60 +1,64 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { connect } from "react-redux";
 import { removeFromCart } from "../redux/action/cartActions";
 
-class Cart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      email: "",
-      address: "",
-      showCheckout: false,
-    };
+function Cart({ cartItems, removeFromCart }) {
+  useEffect(() => {
+    console.log("Cart items", cartItems);
+  }, [cartItems]);
+
+  function getTotalItems() {
+    return cartItems
+      ?.map((item) => item.count)
+      .reduce((sum, current) => sum + current, 0);
   }
 
-  render() {
-    const { cartItems } = this.props;
-    return (
-      <div>
-        {cartItems.length === 0 ? (
-          <div className="cart cart-header">Cart is empty</div>
-        ) : (
-          <div className="cart cart-header">
-            You have {cartItems.length} items in your cart{" "}
+  return (
+    <>
+      <div class="shopping-item">
+        <div class="dropdown-cart-header">
+          <span>{getTotalItems()} Items</span>
+          <a href="#">View Cart</a>
+        </div>
+        <ul class="shopping-list">
+          {cartItems.map((item) => (
+            <li>
+              <a
+                href="#"
+                class="remove"
+                title="Remove this item"
+                onClick={() => removeFromCart(item)}
+              >
+                <i class="fa fa-remove"></i>
+              </a>
+              <a class="cart-img" href="#">
+                <img src={item.image[0].url} alt="#" />
+              </a>
+              <h4>
+                <a href="#">{item.name}</a>
+              </h4>
+              <p class="quantity">
+                {item.count}x - <span class="amount">${item.price}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <div class="bottom">
+          <div class="total">
+            <span>Total</span>
+            <span class="total-amount">
+              ${cartItems.reduce((a, c) => a + c.price * c.count, 0)}
+            </span>
           </div>
-        )}
-
-        <div className="cart">
-          <div left cascade>
-            <ul className="cart-items">
-              {cartItems.map((item) => (
-                <li key={item._id}>
-                  <div>
-                    <img src={item.image[0].url} alt={item.title}></img>
-                  </div>
-                  <div>
-                    <div>{item.title}</div>
-                    <div className="right">
-                      {item.price} x {item.count}{" "}
-                      <button
-                        className="button"
-                        onClick={() => this.props.removeFromCart(item)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            Total: {cartItems.reduce((a, c) => a + c.price * c.count, 0)}
-          </div>
+          <a href="checkout.html" class="btn animate">
+            Checkout
+          </a>
         </div>
       </div>
-    );
-  }
+    </>
+  );
 }
+
 export default connect(
   (state) => ({
     cartItems: state.cart.cartItems,
