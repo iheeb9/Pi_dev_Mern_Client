@@ -12,6 +12,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { FormControl, InputGroup } from "react-bootstrap";
 
 export function AddAuction() {
   const dispatch = useDispatch();
@@ -56,78 +57,78 @@ export function AddAuction() {
 
   return (
     <>
-      <Paper elevation={24}>
-        {/* Page title */}
-        <Typography variant="h4">Post Ad</Typography>
+      <div >
+        <Paper elevation={24}>
+          {/* Page title */}
+          <Typography variant="h4">Post Ad</Typography>
 
-        {/* Form */}
-        <Box>
-          <InputLabel>Product Name*</InputLabel>
-          <TextField
-            name="name"
-            onChange={(e) => {
-              setProductName(e.target.value);
-            }}
-            size="small"
-          ></TextField>
-        </Box>
-
-        <Box>
-          <InputLabel>Description*</InputLabel>
-          <TextField
-            name="description"
-            multiline
-            placeholder="Product description"
-            onChange={(e) => setProductDescription(e.target.value)}
-            size="small"
-            rows={3}
-          />
-        </Box>
-
-        <Box>
-          <InputLabel>Base Price*</InputLabel>
-          <TextField
-            name="price"
-            onChange={(e) => {
-              setPrice(parseFloat(e.target.value));
-            }}
-            size="small"
-            type="number"
-            placeholder="Auction will start from this price point."
-          ></TextField>
-        </Box>
-
-        <Box>
-          <InputLabel>Start time*</InputLabel>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker
-              label="Basic example"
-              value={startTime}
-              onChange={(newValue) => {
-                setStartTime(newValue);
+          {/* Form */}
+          <Box>
+            <InputLabel>Product Name*</InputLabel>
+            <TextField
+              name="name"
+              onChange={(e) => {
+                setProductName(e.target.value);
               }}
-              renderInput={(params) => <TextField {...params} />}
-              ampm={false}
-            />
-          </LocalizationProvider>
-        </Box>
+              size="small"
+            ></TextField>
+          </Box>
 
-        <Box>
-          <InputLabel>Start time*</InputLabel>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DateTimePicker
-              label="Basic example"
-              value={endTime}
-              onChange={(newValue) => {
-                setEndTime(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-              ampm={false}
+          <Box>
+            <InputLabel>Description*</InputLabel>
+            <TextField
+              name="description"
+              multiline
+              placeholder="Product description"
+              onChange={(e) => setProductDescription(e.target.value)}
+              size="small"
+              rows={3}
             />
-          </LocalizationProvider>
-        </Box>
-        <Button onClick={onSubmit}>Submit</Button>
-      </Paper>
+          </Box>
+
+          <Box>
+            <InputLabel>$ Base Price*</InputLabel>
+            <TextField
+              name="price"
+              onChange={(e) => {
+                setPrice(parseFloat(e.target.value));
+              }}
+              size="small"
+              type="number"
+              placeholder="Auction will start from this price point."
+            ></TextField>
+          </Box>
+
+          <Box>
+            <InputLabel>Start time*</InputLabel>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                value={startTime}
+                onChange={(newValue) => {
+                  setStartTime(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+                ampm={false}
+              />
+            </LocalizationProvider>
+          </Box>
+
+          <Box>
+            <InputLabel>Start time*</InputLabel>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                value={endTime}
+                onChange={(newValue) => {
+                  setEndTime(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+                ampm={false}
+              />
+            </LocalizationProvider>
+          </Box>
+          <Button onClick={onSubmit}>Submit</Button>
+        </Paper>
+      </div>
     </>
   );
 }

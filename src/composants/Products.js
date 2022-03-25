@@ -26,7 +26,7 @@ import { addToCart } from "../redux/action/cartActions";
 														<div class="product-img">
 															<a href="product-details.html">
 																<span>{product.name}</span>
-															
+																
 															</a>
 															<div class="button-head">
 																<div class="product-action">

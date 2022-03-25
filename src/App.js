@@ -18,6 +18,9 @@ import { useHistory } from "react-router-dom";
 import Shop from "./composants/Shop";
 import { Auction } from "./composants/Auction/Auction";
 import { Toaster } from "react-hot-toast";
+import {FetchAuction} from "../src/composants/Auction/FetchAuction";
+import {BidAuction} from "../src/composants/Auction/BidAuction"
+
 
 function App() {
   const a = useHistory();
@@ -44,6 +47,11 @@ function App() {
         <Route exact path="/anim" component={Animation} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/auction" component={Auction} />
+        <Route exact path="/fetchauction" component={FetchAuction} />
+        <Route
+              path="/bid/:id"
+              render={(props) => <BidAuction {...props} />}
+            ></Route>
         <Route exact path="/notfound" component={Notfound} />
 
         <Footer />
