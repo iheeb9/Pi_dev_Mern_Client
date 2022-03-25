@@ -1,6 +1,6 @@
 import { AddAuction } from "./AddAuction";
 
 
-export function Auction() {
+export default function Auction() {
   return <AddAuction />;
 }
