@@ -39,7 +39,7 @@ import ResetPassword from "./composants/register&login/ResetPassword";
 import Shop from "./composants/Shop";
 import Auction from "./composants/Auction/Auction";
 import { AuctionDetails } from "./composants/Auction/AuctionDetails";
-import BidAuction from "./composants/Auction/BidAuction";
+import { BidAuction } from "./composants/Auction/BidAuction";
 
 function App() {
   const a = useHistory();
