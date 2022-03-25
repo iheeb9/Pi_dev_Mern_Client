@@ -19,7 +19,7 @@ export default class Shop extends Component {
   
   }
   componentDidMount(){
-    axios.get('/product/all').then(res=>{
+    axios.get('/api/product/all').then(res=>{
       console.log(res);
       this.setState({products:res.data.data});
     });

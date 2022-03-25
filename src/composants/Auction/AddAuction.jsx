@@ -37,7 +37,7 @@ export function AddAuction() {
 
     try {
       // send body to backend
-      await axios.post(`/auction`, auction);
+      await axios.post(`/api/auction`, auction);
       // show success/error message
       dispatch({
         type: "NOTIFY",
