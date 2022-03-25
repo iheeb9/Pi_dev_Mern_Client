@@ -3,7 +3,7 @@ import React from "react";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
 
-export class FetchAuction extends React.Component {
+export class AuctionDetails extends React.Component {
     constructor() {
        
             super();
