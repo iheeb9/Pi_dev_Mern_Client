@@ -1,0 +1,35 @@
+//All product
+export const ALL_PRODUCTS_REQUEST = 'ALL_PRODUCTS_REQUEST'
+export const ALL_PRODUCTS_SUCCESS = 'ALL_PRODUCTS_SUCCESS'
+export const ALL_PRODUCTS_FAIL = 'ALL_PRODUCTS_FAIL'
+export const DELETE_PRODUCT ='DELETE_PRODUCT'
+export const UPDATE_PRODUCT ='UPDATE_PRODUCT'
+//pagination
+export const ALL_PRODUCTSPAGE_REQUEST = 'ALL_PRODUCTSPAGE_REQUEST'
+export const ALL_PRODUCTSPAGE_SUCCESS = 'ALL_PRODUCTSPAGE_SUCCESS'
+export const ALL_PRODUCTSPAGE_FAIL = 'ALL_PRODUCTSPAGE_FAIL'
+
+//detail product
+export const Detail_PRODUCTS_REQUEST = 'Detail_PRODUCTS_REQUEST'
+export const Detail_PRODUCTS_SUCCESS = 'Detail_PRODUCTS_SUCCESS'
+export const Detail_PRODUCTS_FAIL = 'Detail_PRODUCTS_FAIL'
+
+//New product 
+export const Add_PRODUCTS_REQUEST = 'Add_PRODUCTS_REQUEST'
+export const Add_PRODUCTS_SUCCESS = 'Add_PRODUCTS_SUCCESS'
+export const Add_PRODUCTS_FAIL = 'Add_PRODUCTS_FAIL'
+
+//Delete product 
+export const Delete_PRODUCTS_REQUEST = 'Delete_PRODUCTS_REQUEST'
+export const Delete_PRODUCTS_SUCCESS = 'Delete_PRODUCTS_SUCCESS'
+export const Delete_PRODUCTS_FAIL = 'Delete_PRODUCTS_FAIL'
+
+
+//Category 
+export const ALL_CATEGORY_REQUEST = 'ALL_CATEGORY_REQUEST'
+export const ALL_CATEGORY_SUCCESS = 'ALL_CATEGORY_SUCCESS'
+export const ALL_CATEGORY_FAIL = 'ALL_CATEGORY_FAIL'
+
+
+
+export const CLEAR_ERRORS = 'CLEAR_ERRORS'

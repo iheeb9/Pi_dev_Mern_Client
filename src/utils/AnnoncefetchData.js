@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-export const getDataAPI = async (url, token) => {
+export const getDataAPI = async (url) => {
+    const res = await axios.get(`/api/${url}`, {
+  
+    })
+    return res;
+}
+export const getDataAPIToken = async (url,token) => {
     const res = await axios.get(`/api/${url}`, {
         headers: { Authorization: token}
     })
@@ -18,6 +24,7 @@ export const putDataAPI = async (url, post, token) => {
     const res = await axios.put(`/api/${url}`, post, {
         headers: { Authorization: token}
     })
+    
     return res;
 }
 
@@ -25,6 +32,7 @@ export const patchDataAPI = async (url, post, token) => {
     const res = await axios.patch(`/api/${url}`, post, {
         headers: { Authorization: token}
     })
+    console.log(res)
     return res;
 }
 

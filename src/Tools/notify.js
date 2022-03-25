@@ -20,13 +20,19 @@ export default function Notify() {
         />
       )}
 
-      {notif.success && (
-        <Toast
-          msg={{ title: "Success", body: notif.success }}
-          handleShow={() => dispatch({ type: "NOTIFY", payload: {} })}
-          bgColor="bg-success"
-        />
-      )}
+      {
+        notif.success &&
+        <Toast msg={{ title: 'Success', body: notif.success }}
+          handleShow={() => dispatch({ type: 'NOTIFY', payload: {} })}
+          bgColor="bg-success" />
+      }
+
+      {
+        notif.warning &&
+        <Toast msg={{ title: 'wait...', body: notif.warning, spinner: "wait" }}
+          handleShow={() => dispatch({ type: 'NOTIFY', payload: {} })}
+          bgColor="bg-warning" />
+      }
     </div>
   );
 }

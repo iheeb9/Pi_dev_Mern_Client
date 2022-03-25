@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import Affiche from '../Home/Affiche'
 import { logout } from '../../redux/action/authAction'
-import Cart from '../Cart'
 
-export default function Navbar() {
+import Search from '../Product/search';
+import { Route } from 'react-router-dom'
+
+export default function Navbar({ history }) {
 	const a = useHistory()
-	const { auth } = useSelector(state => state)
+	const auth = useSelector(state => state.auth)
 	const dispatch = useDispatch()
+
 	return (
 		<div>
 
@@ -33,12 +36,12 @@ export default function Navbar() {
 									<ul class="list-main">
 										<li><i class="ti-location-pin"></i> Store location</li>
 										<li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li>
-										<li><i class="ti-user"></i> <a href="#">My account</a></li>
+										{auth.token ? <li><i class="ti-user"></i>  <Link to={`/userprofil/ ${auth.user._id}`}> My account</Link></li> : null}
 										{auth.token ? <li><i class="ti-power-off"></i> <Link to="/"
 											onClick={() => dispatch(logout())}>
 											Logout
 										</Link></li>
-											: <li><i class="ti-power-off"></i><Link to={"register"}>Login </Link></li>}
+											: <li><i class="ti-power-off"></i><Link to={"/register"}>Login </Link></li>}
 									</ul>
 								</div>
 							</div>
@@ -66,18 +69,21 @@ export default function Navbar() {
 								<div class="mobile-nav"></div>
 							</div>
 							<div class="col-lg-8 col-md-7 col-12">
-								<div class="search-bar-top">
-
-									<div class="search-bar">
-
-										All category
-										<form>
-
-											<input name="search" placeholder="Search Products Here....." type="search" />
-											<button class="btnn"><i class="ti-search"></i></button>
-										</form>
-									</div>
-								</div>
+								<Route render={({ history }) => <Search history={history} />} />
+								{/*		<div class="search-bar-top">
+							
+							<div class="search-bar">
+								
+							All category
+								<form onSubmit={searchHandler}>
+									
+									<input name="search" placeholder="Search Products Here....." type="search"
+											onChange={(e)=> setKeyword(e.target.value)}
+									/>
+									<button class="btnn"><i class="ti-search"></i></button>
+								</form>
+							</div>
+						</div>*/}
 							</div>
 
 							<div class="col-lg-2 col-md-3 col-12">
@@ -95,9 +101,7 @@ export default function Navbar() {
 										<div class="shopping-item">
 											<div class="dropdown-cart-header">
 												<span>2 Items</span>
-												<div></div>
-
-												<a href="shop">View Cart</a>
+												<a href="#">View Cart</a>
 											</div>
 											<ul class="shopping-list">
 												<li>
@@ -209,8 +213,9 @@ export default function Navbar() {
 
 														<li><a href="#">Buy and Sell on Eshop<i class="ti-angle-down"></i></a>
 															<ul class="dropdown">
-																<li><a href="blog-single-sidebar.html">Buy Products</a></li>
-																<li><a href="blog-single-sidebar.html">Sell product</a></li>
+
+																<li>	<Link to={'/annonce'}>Buy Products</Link></li>
+																<li>	<Link to={'/addannonce'}>Sell Products</Link></li>
 															</ul>
 														</li>
 														<li><a href="#">Auction<i class="ti-angle-down"></i><span class="new">$</span></a>
@@ -221,8 +226,9 @@ export default function Navbar() {
 														</li>
 														<li><a href="#">Prototype<i class="ti-angle-down"></i><span class="new">New</span></a>
 															<ul class="dropdown">
-																<li><a href="shop-grid.html">share Prototype</a></li>
-																<li><a href="cart.html">All your Prototype</a></li>
+																<li>	<Link to={'/shareprototype'}>Share protoype</Link></li>
+
+																<li>	<Link to={'/allprototype'}>All your Prototype </Link></li>
 															</ul>
 														</li>
 														<li><a href="contact.html">Contact Us</a></li>

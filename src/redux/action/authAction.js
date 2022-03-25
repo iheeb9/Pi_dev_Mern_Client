@@ -1,11 +1,12 @@
-import { postDataAPI } from "../../utils/fechData"
+import { postDataAPI } from "../../utils/AnnoncefetchData"
 import valid from "../../utils/Valid"
-
+import ValidPassword from "../../utils/ValidPassword"
+import { imageUpload } from '../../utils/imageUpload'
+import { upload } from "@testing-library/user-event/dist/upload"
+import axios from 'axios'
 export const TYPES={
     AUTH:'AUTH'
 }
-
-
 
 export const login=(data)=>  async (dispatch)=> {
 try {
@@ -16,17 +17,23 @@ try {
 
     dispatch({
         type:'AUTH',
-        payload:{token:res.data.access_token}})
+
+        payload:{
+            token: res.data.access_token,
+            user: res.data.user
+        }})
     dispatch({
         type:'NOTIFY',
         payload:{ 
-            success: res.data.msg}})
+            success: res.data.msg
+            }})
 }catch(err){ 
     dispatch({
         type:'NOTIFY',
         payload:{error:err.response.data.msg}})
 }
 }
+
 
 export const refreshToken = () => async (dispatch) => {
     const firstLogin = localStorage.getItem("firstLogin")
@@ -59,17 +66,19 @@ export const refreshToken = () => async (dispatch) => {
 
 
 
-export const register = (data) => async (dispatch) => {
-
+export const register = (data,images) => async (dispatch) => {
+    let media=[]
     const check = valid(data)
     console.log(check.errLength)
     if(check.errLength > 0)
     return dispatch({type: 'NOTIFY', payload: check.errMsg})
-
+    if (images.length>0) media=await imageUpload(images)
+    console.log(media)
+ const newdata={fullname:data.fullname,username:data.username,email:data.email,password:data.password,gender:data.gender,mobile:data.mobile,images:media}
     try {
         dispatch({type: 'NOTIFY', payload: {loading: true}})
 
-        const res = await postDataAPI('register', data)
+        const res = await postDataAPI('register',newdata )
         dispatch({ 
             type: 'AUTH', 
             payload: {
@@ -95,6 +104,7 @@ export const register = (data) => async (dispatch) => {
         })
     }
 }
+
 export const logout = () => async (dispatch) => {
     try {
         localStorage.removeItem('firstLogin')
@@ -109,5 +119,26 @@ export const logout = () => async (dispatch) => {
         })
     }
 }
-
+export const ForgotPassword = (email) => async (dispatch) => {
+    try 
     
+    {dispatch({type: 'NOTIFY', payload: {loading: true}})
+
+       const res= await postDataAPI('forgotPassword',email)
+       
+        dispatch({ 
+            type: 'NOTIFY', 
+            payload: {
+                success: res.data.msg
+            }})
+    } catch (err) {
+        dispatch({ 
+            type: 'NOTIFY', 
+            payload: {
+                error: err.response.data.msg
+            } 
+        })
+    }
+}
+
+       
