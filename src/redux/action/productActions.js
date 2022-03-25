@@ -13,7 +13,7 @@ export const getProducts = (keyword='',currentPage,category)=> async (dispatch)=
     try {
            dispatch ({ type: ALL_PRODUCTS_REQUEST })
          
-           const { data } = await axios.get("/product/allp")
+           const { data } = await axios.get("/api/product/allp")
             dispatch({
                 type: ALL_PRODUCTS_SUCCESS,
                 payload:data
@@ -29,10 +29,10 @@ export const getProducts = (keyword='',currentPage,category)=> async (dispatch)=
 export const getproductpage = (keyword='',currentPage,category,price)=> async (dispatch)=>{
     try {
            dispatch ({ type: ALL_PRODUCTSPAGE_REQUEST })
-           let link=  `/product/all?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
+           let link=  `/api/product/all?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
                 console.log('price',link)
             if(category){
-             link=  `/product/all?keyword=${keyword}&page=${currentPage}&category=${category}`
+             link=  `/api/product/all?keyword=${keyword}&page=${currentPage}&category=${category}`
                     console.log("priceeeeeeeeeeeeeeeeeeeeeeeee",link)
             }
            const { data } = await axios.get(link)
@@ -53,7 +53,7 @@ export const getProductDetails = (id)=> async (dispatch)=>{
     try {
            dispatch ({ type: Detail_PRODUCTS_REQUEST})
 
-           const {res} = await axios.get(`/product/find/${id}`)
+           const {res} = await axios.get(`/api/product/find/${id}`)
             dispatch({
                 type: Detail_PRODUCTS_SUCCESS,
                 payload:res.data
@@ -76,7 +76,7 @@ export const AddProduct = (name,description,images,countInStock,price,category) 
         if (images.length>0 ) media= await imageUpload(images)
         
 
-        const {data} = await axios.post(`/product/add`,{name,description,image:media,price,countInStock,category})
+        const {data} = await axios.post(`/api/product/add`,{name,description,image:media,price,countInStock,category})
      console.log(data)
             dispatch({
                 type:Add_PRODUCTS_SUCCESS,
@@ -94,7 +94,7 @@ export const DeleteProduct = (id) => async (dispatch )=> {
         
     
        
-        const {data} = await axios.delete(`/product/del/${id}`)
+        const {data} = await axios.delete(`/api/product/del/${id}`)
         console.log("efbnvfklb222",data)
         dispatch({
             type:DELETE_PRODUCT,
@@ -112,7 +112,7 @@ export const UpdateProduct = (product,history) => async (dispatch ) => {
     const imgOldUrl = product.image.filter(img => img.url)
     try{
         if(imgNewUrl.length > 0) media = await imageUpload(imgNewUrl)
-        const {data } = await axios.put(`/product/up/${product.id}`,{name:product.name,image:[...imgOldUrl, ...media],description:product.description,category:product.category,price:product.price,stock:product.countInStock})
+        const {data } = await axios.put(`/api/product/up/${product.id}`,{name:product.name,image:[...imgOldUrl, ...media],description:product.description,category:product.category,price:product.price,stock:product.countInStock})
         console.log("countinstock",product.countInStock)
         dispatch({
             type:UPDATE_PRODUCT,
