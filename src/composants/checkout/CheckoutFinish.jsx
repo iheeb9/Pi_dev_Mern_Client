@@ -1,3 +1,3 @@
 export function CheckoutFinish() {
-  return <>This is finish!</>;
+  return <>Your order has been placed successfully!</>;
 }

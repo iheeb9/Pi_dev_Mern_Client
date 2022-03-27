@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  placeOrder,
-  clearOrder,
-  fetchOrders,
-} from "../redux/action/orderAction";
-import { removeFromCart } from "../redux/action/cartActions";
+import { placeOrder } from "../redux/action/orderAction";
 import { connect } from "react-redux";
 import CheckoutCart from "./checkout/CheckoutCart";
 import { CheckoutDeliveryAddress } from "./checkout/CheckoutDeliveryAddress";
@@ -12,7 +7,7 @@ import { CheckoutPayment } from "./checkout/CheckoutPayment";
 import { CheckoutFinish } from "./checkout/CheckoutFinish";
 import { CheckoutSummary } from "./checkout/CheckoutSummary";
 
-export function Checkout({ cartItems, placeOrder }) {
+function Checkout({ cartItems, placeOrder }) {
   const steps = ["cart", "delivery", "payment", "finish"];
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
@@ -31,15 +26,25 @@ export function Checkout({ cartItems, placeOrder }) {
   }
 
   function next() {
-    if (currentStepIndex === 3) {
-      // last step, place order
-      console.log("deliveryAddressData", deliveryAddressData);
-      console.log("paymentMethodData", paymentMethodData);
+    if (currentStepIndex === 2) {
+      finnishCheckout();
     }
 
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
+  }
+
+  async function finnishCheckout() {
+    const order = {
+      cartItems,
+      shippingAddress: deliveryAddressData,
+      paymentMethod: paymentMethodData,
+      total: cartItems.reduce((a, c) => a + c.price * c.count, 0),
+    };
+    console.log("order", order);
+    await placeOrder(order);
+    setCurrentStepIndex(3);
   }
 
   function getStepClass(requiredStep) {
@@ -87,15 +92,21 @@ export function Checkout({ cartItems, placeOrder }) {
                   )}
                   {currentStepIndex === 3 && <CheckoutFinish />}
                   <div class="panel-footer">
-                    <button class="btn back-btn" onClick={back}>
-                      Back
-                    </button>
-                    <button
-                      class={`btn next-btn ${!canProceed ? "disabled" : ""}`}
-                      onClick={next}
-                    >
-                      Next Step
-                    </button>
+                    {currentStepIndex !== 3 && (
+                      <>
+                        <button class="btn back-btn" onClick={back}>
+                          Back
+                        </button>
+                        <button
+                          class={`btn next-btn ${
+                            !canProceed ? "disabled" : ""
+                          }`}
+                          onClick={next}
+                        >
+                          Next Step
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -113,12 +124,8 @@ export function Checkout({ cartItems, placeOrder }) {
 export default connect(
   (state) => ({
     cartItems: state.cart.cartItems,
-    order: state.order.order,
   }),
   {
-    removeFromCart,
     placeOrder,
-    clearOrder,
-    fetchOrders,
   }
 )(Checkout);

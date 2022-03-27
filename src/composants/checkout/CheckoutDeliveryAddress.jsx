@@ -8,7 +8,7 @@ export function CheckoutDeliveryAddress({
   onValueChange,
 }) {
   const [deliveryAddressData, setDeliveryAddressData] = useState({});
-  const requiredInputs = ["street", "country", "city", "zip"];
+  const requiredInputs = ["address", "country", "city", "postalCode"];
 
   countries.registerLocale(enLocale);
   const countryObj = countries.getNames("en", { select: "official" });
@@ -50,10 +50,10 @@ export function CheckoutDeliveryAddress({
                 Street Address<span>*</span>
               </label>
               <input
-                name="street"
+                name="address"
                 type="text"
                 placeholder=""
-                value={deliveryAddressData.street || ""}
+                value={deliveryAddressData.address || ""}
                 onChange={handleChangeInput}
               />
             </div>
@@ -65,7 +65,7 @@ export function CheckoutDeliveryAddress({
               </label>
               <select
                 class="custom-select"
-                name="cathegorie"
+                name="country"
                 id="inputGroupSelect01"
                 value={deliveryAddressData.country || ""}
                 onChange={(e) => selectCountryHandler(e.target.value)}
@@ -101,10 +101,10 @@ export function CheckoutDeliveryAddress({
                 Zip Code<span>*</span>
               </label>
               <input
-                name="zip"
+                name="postalCode"
                 type="text"
                 placeholder=""
-                value={deliveryAddressData.zip || ""}
+                value={deliveryAddressData.postalCode || ""}
                 onChange={handleChangeInput}
               />
             </div>

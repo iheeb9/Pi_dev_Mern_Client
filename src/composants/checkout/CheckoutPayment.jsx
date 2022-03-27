@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export function CheckoutPayment({ value, canProceedChange, onValueChange }) {
   const [paymentData, setPaymentData] = useState({});
-  const requiredInputs = ["payment", "number", "validUntil", "cvc"];
+  const requiredInputs = ["payment", "name", "number", "validUntil", "cvc"];
 
   useEffect(() => {
     validate();
