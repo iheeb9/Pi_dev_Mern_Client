@@ -90,8 +90,6 @@ function App() {
             path="/sharedprototypedetail/:id"
             component={SharedprototypeDetail}
           />
-
-          <Route exact path="/shop" component={Shop} />
           <Route exact path="/checkout" component={Checkout} />
 
           <Route exact path="/auction" component={Auction} />
