@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Box,
   Paper,
@@ -12,7 +13,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { FormControl, InputGroup } from "react-bootstrap";
+import { Form, FormControl, InputGroup } from "react-bootstrap";
 
 export function AddAuction() {
   const dispatch = useDispatch();
@@ -57,78 +58,99 @@ export function AddAuction() {
 
   return (
     <>
-      <div >
-        <Paper elevation={24}>
-          {/* Page title */}
-          <Typography variant="h4">Post Ad</Typography>
+      <div class="topbar">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-12 col-12">
+              <div class="top-left">
+                <ul class="list-main">
+                  <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
+                  <li><i class="ti-email"></i> support@shophub.com</li>
+                  <li><i class="ti-email"></i> support@shophub.com</li>
 
-          {/* Form */}
-          <Box>
-            <InputLabel>Product Name*</InputLabel>
-            <TextField
-              name="name"
-              onChange={(e) => {
-                setProductName(e.target.value);
-              }}
-              size="small"
-            ></TextField>
-          </Box>
-
-          <Box>
-            <InputLabel>Description*</InputLabel>
-            <TextField
-              name="description"
-              multiline
-              placeholder="Product description"
-              onChange={(e) => setProductDescription(e.target.value)}
-              size="small"
-              rows={3}
-            />
-          </Box>
-
-          <Box>
-            <InputLabel>$ Base Price*</InputLabel>
-            <TextField
-              name="price"
-              onChange={(e) => {
-                setPrice(parseFloat(e.target.value));
-              }}
-              size="small"
-              type="number"
-              placeholder="Auction will start from this price point."
-            ></TextField>
-          </Box>
-
-          <Box>
-            <InputLabel>Start time*</InputLabel>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                value={startTime}
-                onChange={(newValue) => {
-                  setStartTime(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-                ampm={false}
-              />
-            </LocalizationProvider>
-          </Box>
-
-          <Box>
-            <InputLabel>Start time*</InputLabel>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DateTimePicker
-                value={endTime}
-                onChange={(newValue) => {
-                  setEndTime(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
-                ampm={false}
-              />
-            </LocalizationProvider>
-          </Box>
-          <Button onClick={onSubmit}>Submit</Button>
-        </Paper>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+
+
+
+      <form id="monForm">
+     <div>
+       <div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label>
+                  Nom :
+                </label>
+
+                  <input type="text" onChange={(e) => {
+                    setProductName(e.target.value);
+                  }} />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label>
+                  Price :
+               </label>
+
+                  <input type="text" onChange={(e) => {
+                    setPrice(parseFloat(e.target.value));
+                  }} />
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <label>
+                  Note :
+                </label>
+
+                  <input type="text" onChange={(e) => setProductDescription(e.target.value)}
+                  />
+              </div></div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+
+                <InputLabel>Start time</InputLabel>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DateTimePicker
+                    value={startTime}
+                    onChange={(newValue) => {
+                      setStartTime(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                    ampm={false}
+                  />
+                </LocalizationProvider>
+
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="form-group">
+                <InputLabel>Start End</InputLabel>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DateTimePicker
+                    value={endTime}
+                    onChange={(newValue) => {
+                      setEndTime(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                    ampm={false}
+                  />
+                </LocalizationProvider>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <Button className="button primary animate" onClick={onSubmit}>Confirmation</Button>
+      </form>
+
     </>
   );
 }

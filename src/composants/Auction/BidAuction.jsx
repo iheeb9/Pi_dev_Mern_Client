@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Card, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
 
@@ -44,17 +45,33 @@ export function BidAuction(props) {
 
   return (
     <>
-      <div> Product: {product.name} </div>
-      <div> Price: {auction.currentPrice?.$numberDecimal}</div>
+   
+          {/* Card component with props yPos,title,subtitle */}
+          <Card
+            yPos={48}
+            title={"GEEKSFORGEEKS"}
+            subtitle="Don't learn alone"
+            edsfSEFE></Card>
+         
+        
       <div>
-        Bid Amount:
-        <input
-          type="amount"
-          value={bidAmount}
-          onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-        />
+        <label>
+        Price:
+        </label>
+        <div> {auction.currentPrice?.$numberDecimal}</div>
+        
+          Bid Amount:
+          <input
+            type="namber"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+          />
+        
+        <div>
+        <button className="button primary animate" onClick={placeBid}>Place Bid</button>
+        </div>
       </div>
-      <button onClick={placeBid}>Place Bid</button>
+      
     </>
   );
 }

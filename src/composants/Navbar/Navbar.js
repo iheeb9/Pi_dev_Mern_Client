@@ -309,7 +309,7 @@ export default function Navbar({ history }) {
                                   <a href="/auction">Create Room</a>
                                 </li>
                                 <li>
-                                  <a href="/auction-details">Go bet</a>
+                                  <a href="/auction-details">Go Bid</a>
                                 </li>
                               </ul>
                             </li>
