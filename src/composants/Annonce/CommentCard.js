@@ -29,7 +29,7 @@ const handleRemove = () => {
     <div class="author-avatar pt-15">
                 {comment.user.images.map((img)=>(
 
-<img class="round" src={img.url} alt={comment.user.fullname} style={{width:"130px  "}}/>
+ <img src={img.url}  id="avatar"alt="User"  />
                 ))}
     </div>
     <div class="comment-body pl-15">

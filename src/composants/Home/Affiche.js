@@ -18,7 +18,7 @@ export default function Affiche() {
 								<div class="col-lg-7 col-12">
 									<div class="hero-text">
 										<h1><span>UP TO 50% OFF </span>Shirt For Man</h1>
-										<p>Maboriosam in a nesciung eget magnae <br/>
+										<p style={{color:"white"}}> Maboriosam in a nesciung eget magnae <br/>
                                          dapibus disting tloctio in the find it pereri <br/> odiy maboriosm.</p>
 										<div class="button">
 											<a href="#" class="btn">Shop Now!</a>

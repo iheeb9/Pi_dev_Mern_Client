@@ -147,7 +147,7 @@ export default function Navbar({ history }) {
           <div class="container">
             <div class="cat-nav-head">
               <div class="row">
-                {a.location.pathname == "/" ? (
+                {/* {a.location.pathname == "/" ? (
                   <div class="col-lg-3">
                     <div class="all-category">
                       <h3 class="cat-heading">
@@ -266,7 +266,7 @@ export default function Navbar({ history }) {
                       </ul>
                     </div>
                   </div>
-                ) : null}
+                ) : null} */}
                 <div class="col-lg-9 col-12">
                   <div class="menu-area">
                     <nav class="navbar navbar-expand-lg">

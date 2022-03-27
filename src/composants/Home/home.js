@@ -1406,7 +1406,7 @@ export default function HOme() {
 			</div>
 		</div>
 	</section>
-	<div class="product-area most-popular section">
+	{/* <div class="product-area most-popular section">
         <div class="container">
             <div class="row">
 				<div class="col-12">
@@ -1521,7 +1521,8 @@ export default function HOme() {
                 </div>
             </div>
         </div>
-    </div>
+    </div> */}
+	<br/><br/><br/><br/><br/>	
 	<section class="shop-home-list section">
 		<div class="container">
 			<div class="row">

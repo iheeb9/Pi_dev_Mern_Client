@@ -23,7 +23,7 @@ export default function Annonce() {
 
     
   const handleSearch = async (e) => {
-   
+    e.preventDefault();
     if(!search) dispatch(getPosts())
     try {
         dispatch({type:POST_TYPE.LOADING_POST,payload:true})
@@ -70,6 +70,7 @@ const handleCatSearch=async(e)=>{
   </ol>
 </nav>
 
+
             </div>
             <div class="li-main-blog-page pt-60 pb-55">
                 <div class="container">
@@ -78,9 +79,9 @@ const handleCatSearch=async(e)=>{
                             <div class="li-blog-sidebar-wrapper">
                                 <div class="li-blog-sidebar">
                                     <div class="li-sidebar-search-form">
-                                        <form action="#">
-                                            <input type="text" class="li-search-field" placeholder="search here" onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
-                                            <button type="submit"  class="li-search-btn" onClick={()=>handleSearch()}><i class="fa fa-search"></i></button>
+                                        <form >
+                                            <input type="te xt" class="li-search-field" placeholder="search here" onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
+                                            <button  class="li-search-btn" onClick={(e)=>handleSearch(e)}><i class="fa fa-search"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -112,10 +113,10 @@ const handleCatSearch=async(e)=>{
                                 <div class="li-blog-sidebar">
                                     <h4 class="li-blog-sidebar-title"></h4>
                                       {post.posts.map((post,index) =>(index<3?<div class="li-recent-post pb-30">
-                                        <div class="li-recent-post-thumb">
+                                        <div class="li-recent-post-thumb" >
                                             <a >
                                             {post.images.map((img,index) =>(index==0&&
-                                                <img class="img-full" src= {img.url} alt="Li's Product Image"/> ))}
+                                                <img   style={{minHeight:"70px"}}class="img-full" src= {img.url} alt="Li's Product Image"/> ))}
                                             </a>
                                         </div>
                                         <div class="li-recent-post-des">
@@ -144,14 +145,14 @@ const handleCatSearch=async(e)=>{
                         { post.loading?<ProgressBar animated now={50} striped variant="warning"  />:
         <div class="row li-main-content">
         
-            {post.posts.map((post,index) =>(<div class="col-lg-4 col-md-6">
+            {post.posts.map((post,index) =>(<div class="col-lg-6 col-md-6">
            <div style={{display:"flex",justifyContent:"end"}} >
-        {/* <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}}>Copy..</button> */}
+        <button style={{margin:"2px" , fontSize:"10px"  }}>Copy..</button>
          {
         auth.token
         ?auth.user._id==post.user._id
-        ? <> <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}} onClick={() => history.replace("/updateAnnonce/" + post._id)} >edit</button>
-        <button style={{margin:"2px",backgroundColor:"yellow" , fontSize:"10px"}} onClick={()=>dispatch(deletePost({post,auth}))}  > delete </button>
+        ? <> <button style={{margin:"2px" , fontSize:"10px"}} onClick={() => history.replace("/updateAnnonce/" + post._id)} >edit</button>
+        <button style={{margin:"2px", fontSize:"10px"}} onClick={()=>dispatch(deletePost({post,auth}))}  > delete </button>
          </>:null:null
     
         }
@@ -167,17 +168,19 @@ const handleCatSearch=async(e)=>{
                          <h3 class="li-blog-heading pt-25"> <Link to={`detailannonce/${post._id}`} >{post.title} </Link></h3>
                                           {auth.token&&  <Oneannonce post={post}></Oneannonce>}   
                                                 </div>
-                        <div style={{color:"#F7941D",fontWeight:"bold"}}> {post.price} dt</div>
-                                                <div class="li-blog-meta">
-                                                    
+                        <div style={{color:"#333",fontWeight:"bold"}}> {post.price} dt</div>
+                                                <div class="li-blog-meta d-flex" >
+{/*                                                     
                                                 {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />_{post.user.fullname}</a>
-                                                 ))}
+                                                 ))} */}
                                                    
+                                                   <a class="post-time" href="#"><i class="fa fa-user"></i>{post.user.fullname}</a>
+                                                   
+                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
                                                     
-                                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a><br/>
+                                                   <a class="comment" href="#"><i class="fa fa-comment-o"></i> {post.comments.length} comment</a> 
                                              
                                                     <a class="post-time" href="#"><i class="fa fa-thumbs-up"></i>{post.likes.length}</a>
-                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> {post.comments.length} comment</a> 
                                                 </div>
                                                 
                                                 <h6 style={{fontWeight:"inherit"}}>description:</h6>
