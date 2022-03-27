@@ -15,7 +15,7 @@ import { CheckoutSummary } from "./checkout/CheckoutSummary";
 export function Checkout({ cartItems }) {
   return (
     <div>
-      <section id="contact-us" class="contact-us section">
+      <section id="contact-us" class="contact-us section checkout">
         <div class="container">
           <div class="checkout-progress-bar-container">
             <div class="checkout-progress-bar">
@@ -36,6 +36,10 @@ export function Checkout({ cartItems }) {
                   {/* <CheckoutDeliveryAddress /> */}
                   {/* <CheckoutPayment /> */}
                   {/* <CheckoutFinish /> */}
+                  <div class="panel-footer">
+                    <button class="btn back-btn">Back</button>
+                    <button class="btn next-btn">Next Step</button>
+                  </div>
                 </div>
               </div>
               <div class="col-lg-4 col-12">
