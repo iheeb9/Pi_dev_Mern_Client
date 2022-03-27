@@ -6424,7 +6424,7 @@ img {
   }
   .step:nth-child(2):before {
 	right: -25px;
-	content: 'Delivery';
+	content: 'Address';
   }
   .step:nth-child(3):before {
 	right: -30px;

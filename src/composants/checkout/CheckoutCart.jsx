@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import {
   removeFromCart,
@@ -5,11 +6,36 @@ import {
   increaseItemCount,
 } from "../../redux/action/cartActions";
 
-function CheckoutCart({ cartItems, decreaseItemCount, increaseItemCount }) {
+function CheckoutCart({
+  canProceedChange,
+  cartItems,
+  decreaseItemCount,
+  increaseItemCount,
+  removeFromCart,
+}) {
   function getItemTotal(itemPrice, itemCount) {
     return `$ ${itemCount * itemPrice}`;
   }
 
+  useEffect(() => {
+    validate();
+  }, [cartItems]);
+
+  useEffect(() => {
+    validate();
+  }, []);
+
+  function validate() {
+    if (cartItems.length === 0) {
+      canProceedChange(false);
+      return;
+    }
+    canProceedChange(true);
+  }
+
+  if (cartItems.length === 0) {
+    return <>Cart is Empty !</>;
+  }
   return (
     <>
       <div class="container checkout">

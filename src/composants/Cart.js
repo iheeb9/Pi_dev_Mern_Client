@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { removeFromCart } from "../redux/action/cartActions";
 import {
-  createOrder,
+  placeOrder,
   clearOrder,
   fetchOrders,
 } from "../redux/action/orderAction";
 
-function Cart({ cartItems, removeFromCart, createOrder, order, clearOrder }) {
+function Cart({ cartItems, removeFromCart, placeOrder, order, clearOrder }) {
   useEffect(() => {
     console.log("Cart items", cartItems);
   }, [cartItems]);
@@ -21,7 +21,7 @@ function Cart({ cartItems, removeFromCart, createOrder, order, clearOrder }) {
   const [address, setaddress] = useState("");
   const [email, setemail] = useState("");
 
-  function placeOrder(e) {
+  function createOrder(e) {
     const order = {
       name: "chh",
       email: "email",
@@ -29,7 +29,7 @@ function Cart({ cartItems, removeFromCart, createOrder, order, clearOrder }) {
       cartItems: cartItems,
       total: cartItems.reduce((a, c) => a + c.price * c.count, 0),
     };
-    createOrder(order);
+    placeOrder(order);
   }
 
   return (
@@ -85,7 +85,7 @@ export default connect(
   }),
   {
     removeFromCart,
-    createOrder,
+    placeOrder,
     clearOrder,
     fetchOrders,
   }

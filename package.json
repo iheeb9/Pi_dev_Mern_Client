@@ -29,6 +29,7 @@
     "framer": "^2.1.0",
     "http-proxy-middleware": "^2.0.4",
     "i": "^0.3.7",
+    "i18n-iso-countries": "^7.4.0",
     "mdbreact": "^5.2.0",
     "moment": "^2.29.1",
     "npm": "^8.5.5",

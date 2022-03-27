@@ -1,6 +1,6 @@
 import { CREATE_ORDER, CLEAR_CART, CLEAR_ORDER, FETCH_ORDERS } from "../../type";
 
-export const createOrder = (order) => (dispatch) => {
+export const placeOrder = (order) => (dispatch) => {
   
   fetch("/api/orders/api/order", {
     method: "POST",
