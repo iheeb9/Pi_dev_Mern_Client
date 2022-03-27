@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../../type";
+import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_CART_ITEMS } from "../../type";
 
 export const addToCart = (product) => (dispatch, getState) => {
   const cartItems = getState().cart.cartItems.slice();
@@ -26,3 +26,23 @@ export const removeFromCart = (product) => (dispatch, getState) => {
   dispatch({ type: REMOVE_FROM_CART, payload: { cartItems } });
   localStorage.setItem("cartItems", JSON.stringify(cartItems));
 };
+
+export const decreaseItemCount = (product) => (dispatch, getState) => {
+  let cartItems = getState().cart.cartItems.slice();
+  const targetItem = cartItems.find((item) => item._id === product._id);
+  if (targetItem.count > 1) {
+    targetItem.count--;
+  } else {
+    cartItems = cartItems.filter((item) => item._id !== product._id);
+  }
+  dispatch({ type: UPDATE_CART_ITEMS, payload: { cartItems } });
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+};
+
+export const increaseItemCount = (product) => (dispatch, getState) => {
+  const cartItems = getState().cart.cartItems.slice();
+  const targetItem = cartItems.find((item) => item._id === product._id);
+  targetItem.count++;
+  dispatch({ type: UPDATE_CART_ITEMS, payload: { cartItems } });
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+}

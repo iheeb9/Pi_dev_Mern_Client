@@ -40,6 +40,7 @@ import Shop from "./composants/Shop";
 import Auction from "./composants/Auction/Auction";
 import { AuctionDetails } from "./composants/Auction/AuctionDetails";
 import { BidAuction } from "./composants/Auction/BidAuction";
+import { Checkout } from "./composants/Checkout";
 
 function App() {
   const a = useHistory();
@@ -91,6 +92,8 @@ function App() {
           />
 
           <Route exact path="/shop" component={Shop} />
+          <Route exact path="/checkout" component={Checkout} />
+
           <Route exact path="/auction" component={Auction} />
           <Route exact path="/auction-details" component={AuctionDetails} />
           <Route
