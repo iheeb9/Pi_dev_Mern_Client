@@ -6,13 +6,24 @@ import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
 import { CCol, CContainer, CRow, CAvatar } from '@coreui/react';
 import '@coreui/coreui/dist/css/coreui.min.css'
-import DateTimePicker from "@mui/lab/DateTimePicker";
+import Countdown from 'react-countdown';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 export function BidAuction(props) {
+  const Completionist = () => <span>You are good to go!</span>;
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <Completionist />;
+    } else {
+      return <span>{hours}:{minutes}:{seconds}</span>;
+    }
+  };
   const id = props.match.params.id;
 
   const [auction, setAuction] = useState({});
   const [product, setProduct] = useState({});
+  const [end, setendTime] = useState(new Date());
+
 
   const [bidAmount, setBidAmount] = useState(0);
 
@@ -24,6 +35,7 @@ export function BidAuction(props) {
     const result = await axios.get("/api/auction/" + id);
     setAuction(result.data);
     setProduct(result.data.product);
+    setendTime(result.data.endTime);
     setBidAmount(parseFloat(result.data.currentPrice?.$numberDecimal) + 1);
   }
 
@@ -46,7 +58,6 @@ export function BidAuction(props) {
   if (!auction) {
     return <>Loading</>;
   }
-
   return (
     <>
 
@@ -57,6 +68,31 @@ export function BidAuction(props) {
           component="img"
           alt={auction.currentPrice?.$numberDecimal}
           height="140"
+          image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
+        />
+
+        <div>
+          <label>
+            CurrentPrice:
+          </label>
+          <div> {auction.currentPrice?.$numberDecimal}</div>
+
+          Bid Amount:
+          <input
+            type="namber"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+          />
+
+          <div>
+            <button className="button primary animate" onClick={placeBid}>Place Bid</button>
+          </div>
+        </div>
+      </Card>
+      <Card style={{ width: "18rem" }}>
+        <CardMedia
+          component="img"
+          alt={auction.currentPrice?.$numberDecimal}
           image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
         />
 
@@ -116,7 +152,15 @@ export function BidAuction(props) {
               {auction.currentPrice?.$numberDecimal}            </div>
           </div>
           <hr />
-        
+          
+          <CountdownCircleTimer
+            isPlaying
+            duration={10}
+            colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+            colorsTime={[7, 5, 2, 0]}
+          >
+            {({ remainingTime }) => remainingTime}
+          </CountdownCircleTimer>
           <div class="row align-items-end">{auction.endTime}</div>
         </div>
       </Card>
