@@ -44,7 +44,7 @@ export default function Navbar({ history }) {
                     {auth.token ? (
                       <li>
                         <i class="ti-user"></i>{" "}
-                        <Link to={`/userprofil/ ${auth.user._id}`}>
+                        <Link to={`/userprofil/${auth.user._id}`}>
                           {" "}
                           My account
                         </Link>

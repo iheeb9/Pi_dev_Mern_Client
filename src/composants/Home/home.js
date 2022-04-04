@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import Affiche from './Affiche'
-
+import Navbar from "../Navbar/Navbar";  
 export default function HOme() {
 
   return (
-    <div>
-        
+    <div>      
 	<Affiche/>
         	<section class="small-banner section">
 		<div class="container-fluid">

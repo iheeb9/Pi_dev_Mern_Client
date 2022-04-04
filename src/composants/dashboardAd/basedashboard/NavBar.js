@@ -1,7 +1,21 @@
-import React from 'react'
-
-
+import React, {useState, useEffect}  from 'react'
+import { useSelector,useDispatch } from 'react-redux'
+import { Link } from "react-router-dom";
+import { logout } from "../../../redux/action/authAction";
 export default function NavBar() {
+  const {notif,auth}=useSelector (state=>state) 
+  const {user} = auth
+  const initialState = { 
+    _id:'',fullname: '', username: '', email: '', password: '', cf_password: '', gender: 'male',mobile:'',images:[]
+}
+
+const [userData, setUserData] = useState(initialState)
+
+useEffect(()=>{
+  if (auth.token)      
+          setUserData(user)        
+       },[auth])
+       const dispatch = useDispatch();
   return (
     <div className="app-header header-shadow">
     <div className="app-header__logo">
@@ -73,6 +87,7 @@ export default function NavBar() {
               <div className="widget-content-left">
                 <div className="btn-group">
                   <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="p-0 btn">
+                    
                     <img width={42} className="rounded-circle" src="" alt="/" />
                     <i className="fa fa-angle-down ml-2 opacity-8" />
                   </a>
@@ -97,8 +112,12 @@ export default function NavBar() {
                 </div>
               </div>
               <div className="widget-content-left ml-3 header-user-info">
-                <div className="widget-heading">Alina Mclourd</div>
-                <div className="widget-subheading">VP People Manager</div>
+                <div className="widget-heading">{userData.fullname} {userData.username}</div>
+                <div className="widget-subheading">Admin</div>
+                <i class="ti-power-off"></i>{" "}
+                        <Link to="/" onClick={() => dispatch(logout())}>
+                          Logout
+                        </Link>
               </div>
               <div className="widget-content-right header-user-info ml-3">
                 <button type="button" className="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">

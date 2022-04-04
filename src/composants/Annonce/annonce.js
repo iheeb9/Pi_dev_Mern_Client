@@ -170,12 +170,13 @@ const handleCatSearch=async(e)=>{
                                                 </div>
                         <div style={{color:"#333",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta d-flex" >
-{/*                                                     
-                                                {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />_{post.user.fullname}</a>
-                                                 ))} */}
-                                                   
-                                                   <a class="post-time" href="#"><i class="fa fa-user"></i>{post.user.fullname}</a>
-                                                   
+                                                {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />
+                                                <Link to={`/userprofil/${post.user._id}`}>
+                          {" "}
+                          {post.user.fullname}
+                        </Link> </a>
+                                                                 ))}                                       
+                                                  
                                                     <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
                                                     
                                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> {post.comments.length} comment</a> 

@@ -85,6 +85,7 @@ export const updatePost = ({annonceData, images, auth, id,history}) => async (di
         content:annonceData.content,images: [...imgOldUrl, ...media] ,title:annonceData.title,price:annonceData.price,tags:annonceData.tags,location:annonceData.location,cathegorie:annonceData.cathegorie 
  
       }, auth.token)
+      
       dispatch({ type: POST_TYPE.UPDATE_POST, payload: res.data.post })
       
       dispatch({ type:'NOTIFY', payload: {success: res.data.msg} })

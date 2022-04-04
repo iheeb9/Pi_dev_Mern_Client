@@ -1,11 +1,14 @@
-import { getDataAPI,putDataAPI } from "../../utils/AnnoncefetchData"
+import { getDataAPI,putDataAPI,deleteDataAPI} from "../../utils/AnnoncefetchData"
 import valid from "../../utils/ValidUpdate"
+import axios from "axios"
 import { imageUpload } from '../../utils/imageUpload'
 export const TYPES={
 GET_ALL_USERS_REQUEST:'GET_ALL_USERS_REQUEST',
 GET_ALL_USERS_SUCCESS:'GET_ALL_USERS_SUCCESS',
 GET_ALL_USERS_FAILED:'GET_ALL_USERS_FAILED',
-UPDATE_USER_INFO_:'UPDATE_USER_INFO'
+UPDATE_USER_INFO_:'UPDATE_USER_INFO',
+MAKE_ADMIN:'MAKE_ADMIN',
+DELETE_USER:'DELETE_USER'
 }
 
 
@@ -29,6 +32,32 @@ export const GetAllUsers=()=>  async (dispatch)=> {
     }
 
     }
+    export const deleteUser = (id) => async (dispatch) => {
+ 
+
+        try {
+           
+          const { res } = await axios.delete(`/api/DeleteUser/${id}`)
+          const dat = await   getDataAPI('getuser')
+          console.log("res")
+          dispatch({
+              type:'GET_ALL_USERS_SUCCESS',
+              payload:{
+                  users:dat.data
+              }})
+          dispatch({ type:'NOTIFY', 
+          payload:
+           {success: "User Deleted"} 
+          })
+          
+          
+        } catch (err) {
+            dispatch({
+                type: "NOTIFY",
+                payload: {error: err.response.data.msg}
+            })
+        }
+      }
 
     export const UpdateUser=(data,images, auth,a)=>  async (dispatch)=> {
         let media=[]
@@ -53,7 +82,7 @@ export const GetAllUsers=()=>  async (dispatch)=> {
             dispatch({ 
                 type: 'UPDATE_USER_INFO', 
                 payload: {
-                     //token: res.data.access_token,
+                     
                     user: res.data.user
                 } 
             })
@@ -75,3 +104,37 @@ export const GetAllUsers=()=>  async (dispatch)=> {
                 } 
             })
         }  }  
+        export const MakeAdmin=(id)=>  async (dispatch)=> {
+        
+      
+            try {
+                dispatch({type: 'NOTIFY', payload: {loading: true}})
+              
+           
+               
+                const res = await putDataAPI(`MakeAdmin/${id}`, {role:"admin"})
+                const dat = await   getDataAPI('getuser')
+                console.log("res")
+                dispatch({
+                    type:'GET_ALL_USERS_SUCCESS',
+                    payload:{
+                        users:dat.data
+                    }})
+                
+                // localStorage.setItem("firstLogin", true)
+                dispatch({ 
+                    type: 'NOTIFY', 
+                    payload: {
+                        success: res.data.msg
+                    }})
+                   
+                    
+            }
+             catch (err) {
+                dispatch({ 
+                    type: 'NOTIFY', 
+                    payload: {
+                        error: err.response.data.msg
+                    } 
+                })
+            }  }  

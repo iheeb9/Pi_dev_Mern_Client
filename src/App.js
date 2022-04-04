@@ -4,7 +4,7 @@ import Footer from "./composants/Footer/footer";
 import Home from "./composants/Home/home";
 import { BrowserRouter, Route } from "react-router-dom";
 import Notfound from "./composants/Notfound/Notfound";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import Annonce from "./composants/Annonce/annonce";
 import Allproduct from "./composants/shop/Allproduct";
 import Login from "./composants/register&login/register_login";
@@ -15,7 +15,7 @@ import { refreshToken } from "./redux/action/authAction";
 import UserProfile from "./composants/user/userProfil";
 import DetailAnnonce from "./composants/Annonce/detailAnnonce";
 import { useHistory } from "react-router-dom";
-
+import ListUsers from "./composants/dashboardAd/AdminUsers/ListUsers";
 import Detailsproduct from "./composants/Product/detailsproduct";
 import { AddProd } from "./composants/dashboardAd/AdminProduct/AddProd";
 import Loading from "./Tools/Loading";
@@ -47,6 +47,7 @@ function App() {
   const { auth, allproductr } = useSelector((state) => state);
   const dispatch = useDispatch();
   const cond = true;
+  const [admin,setadmin]=useState('')
   useEffect(() => {
     dispatch(refreshToken());
     dispatch(getPosts());
@@ -57,19 +58,24 @@ function App() {
   useEffect(() => {
     if (auth.token) {
       dispatch(getsharedpost(auth.token));
+      setadmin(auth.user.role)
     }
   }, [dispatch, auth.token]);
 
   return (
     <BrowserRouter>
-      {cond ? (
+     <div className="App">
+    <Notify />
+    <Route exact path="/register" component={Login} />
+    
+    </div>
+      {admin==="user" ? 
         <div className="App">
           <Notify />
           <Navbar />
 
-          <Route exact path="/" component={Home} />
 
-          <Route exact path="/register" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/annonce" component={Annonce} />
           <Route exact path="/allproduct" component={Allproduct} />
           <Route exact path="/detailannonce/:id" component={DetailAnnonce} />
@@ -105,22 +111,24 @@ function App() {
           <Footer />
           {/* admin */}
         </div>
-      ) : (
-        <div className="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+       : 
+        <div >
           <NavBar />
 
           <div className="app-main">
             <SideBar />
             <div className="app-main__outer">
+            
               <Route exact path="/addp" component={AddProd} />
               <Route exact path="/listp" component={ListP} />
               <Route exact path="/upp/:id" component={UpProd} />
               <Route exact path="/category" component={Addcat} />
+              <Route exact path="/ListUsers" component={ListUsers} />
               {/* <Route exact path="/cp" component={Cp}/>   */}
             </div>
           </div>
         </div>
-      )}
+      }
     </BrowserRouter>
   );
 }
