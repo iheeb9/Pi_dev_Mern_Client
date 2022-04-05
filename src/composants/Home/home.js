@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import Affiche from './Affiche'
-
+import Navbar from "../Navbar/Navbar";  
 export default function HOme() {
 
   return (
-    <div>
-        
+    <div>      
 	<Affiche/>
         	<section class="small-banner section">
 		<div class="container-fluid">
@@ -1406,7 +1405,7 @@ export default function HOme() {
 			</div>
 		</div>
 	</section>
-	<div class="product-area most-popular section">
+	{/* <div class="product-area most-popular section">
         <div class="container">
             <div class="row">
 				<div class="col-12">
@@ -1521,7 +1520,8 @@ export default function HOme() {
                 </div>
             </div>
         </div>
-    </div>
+    </div> */}
+	<br/><br/><br/><br/><br/>	
 	<section class="shop-home-list section">
 		<div class="container">
 			<div class="row">

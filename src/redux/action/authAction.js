@@ -4,10 +4,11 @@ import ValidPassword from "../../utils/ValidPassword"
 import { imageUpload } from '../../utils/imageUpload'
 import { upload } from "@testing-library/user-event/dist/upload"
 import axios from 'axios'
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 export const TYPES={
     AUTH:'AUTH'
 }
-
+const history=useHistory
 export const login=(data)=>  async (dispatch)=> {
 try {
     dispatch({type:'NOTIFY',payload:{loading:true}})
@@ -20,13 +21,17 @@ try {
 
         payload:{
             token: res.data.access_token,
-            user: res.data.user
+            user: res.data.user,
+            
+            
         }})
     dispatch({
         type:'NOTIFY',
         payload:{ 
             success: res.data.msg
             }})
+
+           
 }catch(err){ 
     dispatch({
         type:'NOTIFY',
@@ -109,7 +114,7 @@ export const logout = () => async (dispatch) => {
     try {
         localStorage.removeItem('firstLogin')
         await postDataAPI('logout')
-        window.location.href = "/"
+        window.location.href = "/register"
     } catch (err) {
         dispatch({ 
             type: 'NOTIFY', 
@@ -140,5 +145,7 @@ export const ForgotPassword = (email) => async (dispatch) => {
         })
     }
 }
+
+
 
        

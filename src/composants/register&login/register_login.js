@@ -5,7 +5,7 @@ import {login,register} from '../../redux/action/authAction'
 import axios from 'axios'
 import { GoogleLogin } from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom'
-
+import Navbar from "../Navbar/Navbar";  
 
 const initialStateg = {
   email: '',
@@ -47,7 +47,9 @@ export default function Login() {
       }
   }
   return (
+
     <div>
+      <Navbar/>
           <nav aria-label="breadcrumb ">
   <ol class="breadcrumb " >
                                 
