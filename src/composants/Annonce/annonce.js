@@ -154,7 +154,7 @@ const handleCatSearch=async(e)=>{
         ? <> <button style={{margin:"2px" , fontSize:"10px"}} onClick={() => history.replace("/updateAnnonce/" + post._id)} >edit</button>
         <button style={{margin:"2px", fontSize:"10px"}} onClick={()=>dispatch(deletePost({post,auth}))}  > delete </button>
          </>:null:null
-    
+
         }
         
          </div>
@@ -171,10 +171,7 @@ const handleCatSearch=async(e)=>{
                         <div style={{color:"#333",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta d-flex" >
                                                 {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />
-                                                <Link to={`/userprofil/${post.user._id}`}>
-                          {" "}
-                          {post.user.fullname}
-                        </Link> </a>
+                                               </a>
                                                                  ))}                                       
                                                   
                                                     <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
