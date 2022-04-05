@@ -6,8 +6,9 @@ import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
 import { CCol, CContainer, CRow, CAvatar } from '@coreui/react';
 import '@coreui/coreui/dist/css/coreui.min.css'
-import Countdown from 'react-countdown';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import Datetime from 'react-datetime';
+import { DatePicker } from "@mui/lab";
 
 export function BidAuction(props) {
   const Completionist = () => <span>You are good to go!</span>;
@@ -22,7 +23,7 @@ export function BidAuction(props) {
 
   const [auction, setAuction] = useState({});
   const [product, setProduct] = useState({});
-  const [end, setendTime] = useState(new Date());
+  const [end, setendTime] = useState({});
 
 
   const [bidAmount, setBidAmount] = useState(0);
@@ -35,14 +36,23 @@ export function BidAuction(props) {
     const result = await axios.get("/api/auction/" + id);
     setAuction(result.data);
     setProduct(result.data.product);
-    setendTime(result.data.endTime);
+    setendTime (result.data.endTime);
     setBidAmount(parseFloat(result.data.currentPrice?.$numberDecimal) + 1);
+    console.log(result.data.endTime);
+    console.log(new Date().getTime());
+
+
+
+
+
+
   }
 
   async function placeBid() {
     const data = {
       auctionId: id,
       amount: bidAmount,
+      
     };
 
     const result = await axios.post(
@@ -58,11 +68,14 @@ export function BidAuction(props) {
   if (!auction) {
     return <>Loading</>;
   }
+
   return (
     <>
 
       <CAvatar src="https://img1.freepng.fr/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg" status="success" />
       <CAvatar color="secondary" status="danger">CUI</CAvatar>
+      <div class="lign-md-8">
+      <div class="row">
       <Card style={{ width: "18rem" }}>
         <CardMedia
           component="img"
@@ -89,40 +102,10 @@ export function BidAuction(props) {
           </div>
         </div>
       </Card>
-      <Card style={{ width: "18rem" }}>
-        <CardMedia
-          component="img"
-          alt={auction.currentPrice?.$numberDecimal}
-          image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
-        />
-
-        <div>
-          <label>
-            CurrentPrice:
-          </label>
-          <div> {auction.currentPrice?.$numberDecimal}</div>
-
-          Bid Amount:
-          <input
-            type="namber"
-            value={bidAmount}
-            onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-          />
-
-          <div>
-            <button className="button primary animate" onClick={placeBid}>Place Bid</button>
-          </div>
-        </div>
-      </Card>
-
+      
       <Card style={{ width: "18rem" }}>
 
-        <div
-          class="single-head"
-          style={{
-            padding: "2em",
-          }}
-        >
+    
           <div class="row single-info mb-0">
             <div class="col-3">
               <i class="fa fa-shopping-basket"></i>
@@ -155,15 +138,15 @@ export function BidAuction(props) {
           
           <CountdownCircleTimer
             isPlaying
-            duration={10}
+            duration={541}
             colors={['#004777', '#F7B801', '#A30000', '#A30000']}
             colorsTime={[7, 5, 2, 0]}
           >
             {({ remainingTime }) => remainingTime}
           </CountdownCircleTimer>
           <div class="row align-items-end">{auction.endTime}</div>
-        </div>
       </Card>
+      </div>      </div>
 
     </>
   );

@@ -44,6 +44,7 @@
     "react-countdown": "^2.3.2",
     "react-countdown-circle-timer": "^3.0.9",
     "react-countdown-clock": "^2.9.0",
+    "react-datetime": "^3.1.1",
     "react-dom": "^17.0.2",
     "react-fade": "^1.1.1",
     "react-fade-in": "^2.0.1",
