@@ -1,16 +1,35 @@
+import { CardMedia } from "@mui/material";
 import axios from "axios";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import { Card, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
+import { CCol, CContainer, CRow, CAvatar } from "@coreui/react";
+import "@coreui/coreui/dist/css/coreui.min.css";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import Datetime from "react-datetime";
+import { DatePicker } from "@mui/lab";
 
 export function BidAuction(props) {
+  const Completionist = () => <span>You are good to go!</span>;
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <Completionist />;
+    } else {
+      return (
+        <span>
+          {hours}:{minutes}:{seconds}
+        </span>
+      );
+    }
+  };
   const id = props.match.params.id;
 
   const [socket, setSocket] = useState(null);
   const [auction, setAuction] = useState({});
   const [product, setProduct] = useState({});
+  const [end, setendTime] = useState({});
 
   const [bidAmount, setBidAmount] = useState(0);
 
@@ -36,7 +55,10 @@ export function BidAuction(props) {
     const result = await axios.get("/api/auction/" + id);
     setAuction(result.data);
     setProduct(result.data.product);
+    setendTime(result.data.endTime);
     setBidAmount(parseFloat(result.data.currentPrice?.$numberDecimal) + 1);
+    console.log(result.data.endTime);
+    console.log(new Date().getTime());
   }
 
   async function placeBid() {
@@ -61,116 +83,81 @@ export function BidAuction(props) {
 
   return (
     <>
-      {/* Card component with props yPos,title,subtitle */}
-      <Card
-        yPos={48}
-        title={"GEEKSFORGEEKS"}
-        subtitle="Don't learn alone"
-        edsfSEFE
-      ></Card>
+      <CAvatar
+        src="https://img1.freepng.fr/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg"
+        status="success"
+      />
+      <CAvatar color="secondary" status="danger">
+        CUI
+      </CAvatar>
+      <div class="lign-md-8">
+        <div class="row">
+          <Card style={{ width: "18rem" }}>
+            <CardMedia
+              component="img"
+              alt={auction.currentPrice?.$numberDecimal}
+              height="140"
+              image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
+            />
 
-      <div>
-        <label>Price:</label>
-        <div> {auction.currentPrice?.$numberDecimal}</div>
-        Bid Amount:
-        <input
-          type="namber"
-          value={bidAmount}
-          onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-        />
-        <div>
-          <button className="button primary animate" onClick={placeBid}>
-            Place Bid
-          </button>
-        </div>
-      </div>
+            <div>
+              <label>CurrentPrice:</label>
+              <div> {auction.currentPrice?.$numberDecimal}</div>
+              Bid Amount:
+              <input
+                type="namber"
+                value={bidAmount}
+                onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+              />
+              <div>
+                <button className="button primary animate" onClick={placeBid}>
+                  Place Bid
+                </button>
+              </div>
+            </div>
+          </Card>
 
-      <div class="auction single-widget recent-post">
-        <h3 class="title">Recent post</h3>
-        <div class="single-post first">
-          <div class="image">
-            <img src="https://via.placeholder.com/75x75" alt="#" />
-          </div>
-          <div class="content">
-            <h5>
-              <a href="#">Girls Dress</a>
-            </h5>
-            <p class="price">$99.50</p>
-            <ul class="reviews">
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li>
-                <i class="ti-star"></i>
-              </li>
-              <li>
-                <i class="ti-star"></i>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="single-post first">
-          <div class="image">
-            <img src="https://via.placeholder.com/75x75" alt="#" />
-          </div>
-          <div class="content">
-            <h5>
-              <a href="#">Women Clothings</a>
-            </h5>
-            <p class="price">$99.50</p>
-            <ul class="reviews">
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li>
-                <i class="ti-star"></i>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="single-post first">
-          <div class="image">
-            <img src="https://via.placeholder.com/75x75" alt="#" />
-          </div>
-          <div class="content">
-            <h5>
-              <a href="#">Man Tshirt</a>
-            </h5>
-            <p class="price">$99.50</p>
-            <ul class="reviews">
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-              <li class="yellow">
-                <i class="ti-star"></i>
-              </li>
-            </ul>
-          </div>
-        </div>
+          <Card style={{ width: "18rem" }}>
+            <div class="row single-info mb-0">
+              <div class="col-3">
+                <i class="fa fa-shopping-basket"></i>
+              </div>
+              <div class="col-9" style={{ paddingTop: ".5em" }}>
+                <h4 class="title"> Details</h4>
+              </div>
+            </div>
+            <h6
+              style={{
+                fontSize: "10px",
+                textAlign: "left",
+                margin: "0px",
+                color: "#757575",
+              }}
+            ></h6>
+            <hr />
+            <div>
+              <div class="d-flex justify-content-between">
+                BasePrice:
+                {auction.basePrice?.$numberDecimal}
+              </div>
+              <div class="d-flex justify-content-between">
+                CurrentPrice:
+                {auction.currentPrice?.$numberDecimal}{" "}
+              </div>
+            </div>
+            <hr />
+
+            <CountdownCircleTimer
+              isPlaying
+              duration={541}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[7, 5, 2, 0]}
+            >
+              {({ remainingTime }) => remainingTime}
+            </CountdownCircleTimer>
+            <div class="row align-items-end">{auction.endTime}</div>
+          </Card>
+        </div>{" "}
       </div>
     </>
   );
