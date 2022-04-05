@@ -1,4 +1,5 @@
 import axios from "axios";
+import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import { Card, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
@@ -7,14 +8,29 @@ import { store } from "../../redux/store";
 export function BidAuction(props) {
   const id = props.match.params.id;
 
+  const [socket, setSocket] = useState(null);
   const [auction, setAuction] = useState({});
   const [product, setProduct] = useState({});
 
   const [bidAmount, setBidAmount] = useState(0);
 
   useEffect(() => {
+    setupSocket();
     fetchDetails();
   }, []);
+
+  useEffect(() => {
+    console.log(auction);
+  }, [auction]);
+
+  function setupSocket() {
+    const newSocket = io(`http://${window.location.hostname}:7000`);
+    newSocket.on("bid-placed", ({ auction }) => {
+      setAuction(auction);
+      setBidAmount(parseFloat(auction.currentPrice?.$numberDecimal) + 1);
+    });
+    setSocket(newSocket);
+  }
 
   async function fetchDetails() {
     const result = await axios.get("/api/auction/" + id);
@@ -45,33 +61,117 @@ export function BidAuction(props) {
 
   return (
     <>
-   
-          {/* Card component with props yPos,title,subtitle */}
-          <Card
-            yPos={48}
-            title={"GEEKSFORGEEKS"}
-            subtitle="Don't learn alone"
-            edsfSEFE></Card>
-         
-        
+      {/* Card component with props yPos,title,subtitle */}
+      <Card
+        yPos={48}
+        title={"GEEKSFORGEEKS"}
+        subtitle="Don't learn alone"
+        edsfSEFE
+      ></Card>
+
       <div>
-        <label>
-        Price:
-        </label>
+        <label>Price:</label>
         <div> {auction.currentPrice?.$numberDecimal}</div>
-        
-          Bid Amount:
-          <input
-            type="namber"
-            value={bidAmount}
-            onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-          />
-        
+        Bid Amount:
+        <input
+          type="namber"
+          value={bidAmount}
+          onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+        />
         <div>
-        <button className="button primary animate" onClick={placeBid}>Place Bid</button>
+          <button className="button primary animate" onClick={placeBid}>
+            Place Bid
+          </button>
         </div>
       </div>
-      
+
+      <div class="auction single-widget recent-post">
+        <h3 class="title">Recent post</h3>
+        <div class="single-post first">
+          <div class="image">
+            <img src="https://via.placeholder.com/75x75" alt="#" />
+          </div>
+          <div class="content">
+            <h5>
+              <a href="#">Girls Dress</a>
+            </h5>
+            <p class="price">$99.50</p>
+            <ul class="reviews">
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li>
+                <i class="ti-star"></i>
+              </li>
+              <li>
+                <i class="ti-star"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="single-post first">
+          <div class="image">
+            <img src="https://via.placeholder.com/75x75" alt="#" />
+          </div>
+          <div class="content">
+            <h5>
+              <a href="#">Women Clothings</a>
+            </h5>
+            <p class="price">$99.50</p>
+            <ul class="reviews">
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li>
+                <i class="ti-star"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="single-post first">
+          <div class="image">
+            <img src="https://via.placeholder.com/75x75" alt="#" />
+          </div>
+          <div class="content">
+            <h5>
+              <a href="#">Man Tshirt</a>
+            </h5>
+            <p class="price">$99.50</p>
+            <ul class="reviews">
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+              <li class="yellow">
+                <i class="ti-star"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -107,4 +207,3 @@ export function getAuthRequestHeaders() {
 //   "auctionId": "623a3aa9c233303441dfd0d4",
 //   "amount": 100.1
 // }
-
