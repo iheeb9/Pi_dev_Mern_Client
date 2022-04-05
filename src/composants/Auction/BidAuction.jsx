@@ -10,6 +10,9 @@ import "@coreui/coreui/dist/css/coreui.min.css";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Datetime from "react-datetime";
 import { DatePicker } from "@mui/lab";
+import moment from "moment";
+var momentDurationFormatSetup = require("moment-duration-format");
+momentDurationFormatSetup(moment);
 
 export function BidAuction(props) {
   const Completionist = () => <span>You are good to go!</span>;
@@ -29,7 +32,7 @@ export function BidAuction(props) {
   const [socket, setSocket] = useState(null);
   const [auction, setAuction] = useState({});
   const [product, setProduct] = useState({});
-  const [end, setendTime] = useState({});
+  const [remainingTimeDuration, setRemainingTimeDuration] = useState(0);
 
   const [bidAmount, setBidAmount] = useState(0);
 
@@ -55,10 +58,12 @@ export function BidAuction(props) {
     const result = await axios.get("/api/auction/" + id);
     setAuction(result.data);
     setProduct(result.data.product);
-    setendTime(result.data.endTime);
     setBidAmount(parseFloat(result.data.currentPrice?.$numberDecimal) + 1);
-    console.log(result.data.endTime);
-    console.log(new Date().getTime());
+
+    // calculate remaining time
+    const endTime = result.data.endTime;
+    const remainingTime = moment.duration(moment(endTime).diff(moment()));
+    setRemainingTimeDuration(remainingTime.asSeconds());
   }
 
   async function placeBid() {
@@ -77,6 +82,20 @@ export function BidAuction(props) {
     }
   }
 
+  const renderTime = ({ remainingTime }) => {
+    if (remainingTime === 0) {
+      return <div className="timer">Too late...</div>;
+    }
+
+    return (
+      <div className="timer">
+        <div className="value">
+          {moment.duration({ seconds: remainingTime }).format()}
+        </div>
+      </div>
+    );
+  };
+
   if (!auction) {
     return <>Loading</>;
   }
@@ -91,73 +110,105 @@ export function BidAuction(props) {
         CUI
       </CAvatar>
       <div class="lign-md-8">
-        <div class="row">
-          <Card style={{ width: "18rem" }}>
-            <CardMedia
-              component="img"
-              alt={auction.currentPrice?.$numberDecimal}
-              height="140"
-              image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
-            />
+        <div class="container p-3">
+          <div class="row">
+            <div class="col-3">
+              <Card style={{ width: "18rem" }}>
+                <div class="row single-info mb-0">
+                  <div class="col-3">
+                    <i class="fa fa-shopping-basket"></i>
+                  </div>
+                  <div class="col-9" style={{ paddingTop: ".5em" }}>
+                    <h4 class="title"> Details</h4>
+                  </div>
+                </div>
+                <h6
+                  style={{
+                    fontSize: "10px",
+                    textAlign: "left",
+                    margin: "0px",
+                    color: "#757575",
+                  }}
+                ></h6>
+                <hr />
+                <div>
+                  <div class="d-flex justify-content-between">
+                    BasePrice:
+                    {auction.basePrice?.$numberDecimal}$
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    CurrentPrice:
+                    {auction.currentPrice?.$numberDecimal}$
+                  </div>
+                </div>
+                <hr />
 
-            <div>
-              <label>CurrentPrice:</label>
-              <div> {auction.currentPrice?.$numberDecimal}</div>
-              Bid Amount:
-              <input
-                type="namber"
-                value={bidAmount}
-                onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-              />
-              <div>
-                <button className="button primary animate" onClick={placeBid}>
-                  Place Bid
-                </button>
-              </div>
+                <CountdownCircleTimer
+                  isPlaying
+                  duration={remainingTimeDuration}
+                  colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                  colorsTime={[7, 5, 2, 0]}
+                >
+                  {renderTime}
+                </CountdownCircleTimer>
+                <div class="row align-items-end">
+                  Ends at: {moment(auction.endTime).format("HH:mm:ss")}
+                </div>
+              </Card>
             </div>
-          </Card>
+            <div class="col-3">
+              <Card style={{ height: "29rem", width: "18rem" }}>
+                <CardMedia
+                  component="img"
+                  alt={auction.currentPrice?.$numberDecimal}
+                  image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
+                />
 
-          <Card style={{ width: "18rem" }}>
-            <div class="row single-info mb-0">
-              <div class="col-3">
-                <i class="fa fa-shopping-basket"></i>
-              </div>
-              <div class="col-9" style={{ paddingTop: ".5em" }}>
-                <h4 class="title"> Details</h4>
-              </div>
+                <div>
+                  <label>Current price:</label>
+                  <div> {auction.currentPrice?.$numberDecimal}$</div>
+                  Bid Amount:
+                  <input
+                    type="namber"
+                    value={bidAmount}
+                    onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+                  />
+                  <div>
+                    <button
+                      className="button primary animate"
+                      onClick={placeBid}
+                    >
+                      Place Bid
+                    </button>
+                  </div>
+                </div>
+              </Card>
             </div>
-            <h6
-              style={{
-                fontSize: "10px",
-                textAlign: "left",
-                margin: "0px",
-                color: "#757575",
-              }}
-            ></h6>
-            <hr />
-            <div>
-              <div class="d-flex justify-content-between">
-                BasePrice:
-                {auction.basePrice?.$numberDecimal}
-              </div>
-              <div class="d-flex justify-content-between">
-                CurrentPrice:
-                {auction.currentPrice?.$numberDecimal}{" "}
-              </div>
+            <div class="col-6">
+              <Card style={{ height: "29rem" }}>
+                <ul>
+                  {auction?.bids?.map((bid) => (
+                    // {moment(bid.time).format("HH:mm:ss")} {bid.user.fullname}
+                    // {bid.amount.$numberDecimal}
+                    <div class="checkout-item-row row mb-3">
+                      <div class="col-2 m-0 p-0">
+                        {moment(bid.time).format("HH:mm:ss")}
+                      </div>
+                      <div class="col-9 d-flex justify-content-between">
+                        <div class="">
+                          {bid.user.fullname}
+                        </div>
+                        <div class="">
+                          {bid.amount.$numberDecimal} $
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </ul>
+              </Card>
             </div>
-            <hr />
-
-            <CountdownCircleTimer
-              isPlaying
-              duration={541}
-              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-              colorsTime={[7, 5, 2, 0]}
-            >
-              {({ remainingTime }) => remainingTime}
-            </CountdownCircleTimer>
-            <div class="row align-items-end">{auction.endTime}</div>
-          </Card>
-        </div>{" "}
+          </div>
+        </div>
       </div>
     </>
   );
