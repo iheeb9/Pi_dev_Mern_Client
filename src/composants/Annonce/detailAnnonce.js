@@ -40,7 +40,7 @@ export default function DetailAnnonce(props) {
                         <div class="card-container  ">
 	<span class="pro">New</span>
     {detailpost?.user.images.map((img)=>(
-        	<img class="round" src={img.url} alt="user" style={{width:"170px  ",height:"200px"}}/>
+        	<img class="round" src={img.url} alt="user" style={{width:"100px  ",height:"100px"}}/>
     ))}
 
 	<h3>{detailpost?.user.fullname}</h3>
@@ -138,14 +138,9 @@ export default function DetailAnnonce(props) {
                                             
                                         </ul>
                                     </div>
-                                    <div class="li-blog-sharing text-center pt-30">
-                                                    <h4>share this post:</h4>
-                                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                                </div>
+                              
                                 </div>
+                              
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,7 @@ import { Card, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
 import { CCol, CContainer, CRow, CAvatar } from "@coreui/react";
-import "@coreui/coreui/dist/css/coreui.min.css";
+// import "@coreui/coreui/dist/css/coreui.min.css";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Datetime from "react-datetime";
 import { DatePicker } from "@mui/lab";
