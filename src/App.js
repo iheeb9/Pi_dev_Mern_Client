@@ -64,16 +64,28 @@ function App() {
 
   return (
     <BrowserRouter>
-     <div className="App">
-    <Notify />
-    <Route exact path="/register" component={Login} />
-    
-    </div>
-      {admin==="user" ? 
+
+      {auth.token&&admin==="admin" ? 
+       <div >
+       <NavBar />
+
+       <div className="app-main">
+         <SideBar />
+         <div className="app-main__outer">
+         
+           <Route exact path="/addp" component={AddProd} />
+           <Route exact path="/listp" component={ListP} />
+           <Route exact path="/upp/:id" component={UpProd} />
+           <Route exact path="/category" component={Addcat} />
+           <Route exact path="/ListUsers" component={ListUsers} />
+           {/* <Route exact path="/cp" component={Cp}/>   */}
+         </div>
+       </div>
+     </div>:
         <div className="App">
           <Notify />
           <Navbar />
-
+          <Route exact path="/register" component={Login} />
 
           <Route exact path="/" component={Home} />
           <Route exact path="/annonce" component={Annonce} />
@@ -111,23 +123,8 @@ function App() {
           <Footer />
           {/* admin */}
         </div>
-       : 
-        <div >
-          <NavBar />
-
-          <div className="app-main">
-            <SideBar />
-            <div className="app-main__outer">
-            
-              <Route exact path="/addp" component={AddProd} />
-              <Route exact path="/listp" component={ListP} />
-              <Route exact path="/upp/:id" component={UpProd} />
-              <Route exact path="/category" component={Addcat} />
-              <Route exact path="/ListUsers" component={ListUsers} />
-              {/* <Route exact path="/cp" component={Cp}/>   */}
-            </div>
-          </div>
-        </div>
+       
+       
       }
     </BrowserRouter>
   );

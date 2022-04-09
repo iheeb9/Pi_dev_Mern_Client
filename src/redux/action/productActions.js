@@ -70,7 +70,7 @@ export const getProductDetails = (id) => async (dispatch) => {
         })
     }
 }
-export const AddProduct = (name, description, images, countInStock, price, category) => async (dispatch) => {
+export const AddProduct = (name, description, images, countInStock, price, category,red) => async (dispatch) => {
     let media = []
 
     try {
@@ -84,6 +84,7 @@ export const AddProduct = (name, description, images, countInStock, price, categ
             type: Add_PRODUCTS_SUCCESS,
             payload: data
         })
+        red.push('/listp')
     } catch (error) {
         dispatch({
             type: Add_PRODUCTS_FAIL,

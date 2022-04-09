@@ -49,7 +49,6 @@ export default function Login() {
   return (
 
     <div>
-      <Navbar/>
           <nav aria-label="breadcrumb ">
   <ol class="breadcrumb " >
                                 
