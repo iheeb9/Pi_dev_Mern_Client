@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Zoom from "./zoom";
 import {
   Box,
   Paper,
@@ -18,6 +18,8 @@ import { imageUpload } from "../../utils/imageUpload";
 
 export function AddAuction() {
   const dispatch = useDispatch();
+  const [joinMeeting, setJoinMeeting] = useState(false);
+
 
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
@@ -101,7 +103,16 @@ export function AddAuction() {
         </div>
       </div>
 
-
+      {joinMeeting ? (
+        <Zoom />
+      ) : (
+        <header className="App-header">
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <button style={{border: '1px solid #fff'}} onClick={() => setJoinMeeting(true)}>Join Meeting</button>
+        </header>
+      )}
 
 
 

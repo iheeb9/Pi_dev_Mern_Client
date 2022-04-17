@@ -6,7 +6,6 @@ import { Card, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { store } from "../../redux/store";
 import { CCol, CContainer, CRow, CAvatar } from "@coreui/react";
-import "@coreui/coreui/dist/css/coreui.min.css";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Datetime from "react-datetime";
 import { DatePicker } from "@mui/lab";
@@ -102,13 +101,7 @@ export function BidAuction(props) {
 
   return (
     <>
-      <CAvatar
-        src="https://img1.freepng.fr/20180626/ehy/kisspng-avatar-user-computer-icons-software-developer-5b327cc951ae22.8377289615300354013346.jpg"
-        status="success"
-      />
-      <CAvatar color="secondary" status="danger">
-        CUI
-      </CAvatar>
+      
       <div class="lign-md-8">
         <div class="container p-3">
           <div class="row">

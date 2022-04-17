@@ -25,7 +25,8 @@ import SideBar from "./composants/dashboardAd/basedashboard/SideBar";
 import UpProd from "./composants/dashboardAd/AdminProduct/UpProd";
 import Addcat from "./composants/dashboardAd/admincategory/Addcat";
 import { getProducts } from "./redux/action/productActions";
-import Cp from "./composants/dashboardAd/AdminProduct/cp";
+import zoom from "./composants/Auction/zoom";
+
 
 import AddAnnonce from "./composants/Annonce/addAnnonce";
 import { getPosts } from "./redux/action/postAction";
@@ -41,6 +42,7 @@ import Auction from "./composants/Auction/Auction";
 import { AuctionDetails } from "./composants/Auction/AuctionDetails";
 import { BidAuction } from "./composants/Auction/BidAuction";
 import Checkout from "./composants/Checkout";
+import DetectionHand from "./composants/Auction/DetectionHand";
 
 function App() {
   const a = useHistory();
@@ -48,6 +50,8 @@ function App() {
   const dispatch = useDispatch();
   const cond = true;
   const [admin,setadmin]=useState('')
+  const [joinMeeting, setJoinMeeting] = useState(false);
+  
   useEffect(() => {
     dispatch(refreshToken());
     dispatch(getPosts());
@@ -100,6 +104,7 @@ function App() {
 
           <Route exact path="/auction" component={Auction} />
           <Route exact path="/auction-details" component={AuctionDetails} />
+          <Route exact path="/hand" component={DetectionHand} />
           <Route
             path="/bid/:id"
             render={(props) => <BidAuction {...props} />}
