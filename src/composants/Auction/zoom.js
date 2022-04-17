@@ -1,4 +1,5 @@
-import { ZoomMtg } from "@zoomus/websdk";
+import { useEffect, useState } from "react";
+import { Buffer } from "buffer";
 
 const crypto = require("crypto"); // crypto comes with Node.js
 
@@ -21,6 +22,7 @@ function generateSignature(apiKey, apiSecret, meetingNumber, role) {
   });
 }
 
+var zoom;
 var apiKey = "-OXo1PO7S8yz6JDcdjb0aQ";
 var apiSecret = "ABUxYLd5NqJ6hfoYzgTq3Qg7Wsmbu3bgQ3Zj";
 var meetingNumber = 98549276177;
@@ -38,10 +40,11 @@ const Zoom = () => {
   // loading zoom libraries before joining on component did mount
   useEffect(() => {
     const { ZoomMtg } = require("@zoomus/websdk");
+    zoom = ZoomMtg;
     showZoomDIv();
-    ZoomMtg.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av");
-    ZoomMtg.preLoadWasm();
-    ZoomMtg.prepareJssdk();
+    zoom.setZoomJSLib("https://source.zoom.us/1.9.0/lib", "/av");
+    zoom.preLoadWasm();
+    zoom.prepareJssdk();
     initiateMeeting();
   }, []);
 
@@ -50,14 +53,13 @@ const Zoom = () => {
   };
 
   const initiateMeeting = () => {
-    const { ZoomMtg } = require("@zoomus/websdk");
-    ZoomMtg.init({
+    zoom.init({
       leaveUrl: leaveUrl,
       isSupportAV: true,
       success: (success) => {
         console.log(success);
 
-        ZoomMtg.join({
+        zoom.join({
           signature: signature,
           meetingNumber: meetingNumber,
           userName: userName,
