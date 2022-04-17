@@ -14,7 +14,7 @@ export default function Icon() {
     >
       <img
       style={{width:'90px',borderRadius:'100%'}}
-      src="https://cdn.dribbble.com/users/1953813/screenshots/5350927/chatbot-icon.jpg" />
+      src="https://res.cloudinary.com/socila-marketing/image/upload/v1650208223/istockphoto-1073043572-612x612_e3mpom.jpg" />
     </a>
     {act && <Cbot closer = {setAct}/>}
   </div>
