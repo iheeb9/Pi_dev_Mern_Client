@@ -103,17 +103,7 @@ export function AddAuction() {
         </div>
       </div>
 
-      {joinMeeting ? (
-        <Zoom />
-      ) : (
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <button style={{border: '1px solid #fff'}} onClick={() => setJoinMeeting(true)}>Join Meeting</button>
-        </header>
-      )}
-
+  
 
 
       <form id="monForm">

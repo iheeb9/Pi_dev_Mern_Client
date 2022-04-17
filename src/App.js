@@ -1,3 +1,5 @@
+
+
 import "./App.css";
 import Navbar from "./composants/Navbar/Navbar";
 import Footer from "./composants/Footer/footer";
@@ -25,8 +27,7 @@ import SideBar from "./composants/dashboardAd/basedashboard/SideBar";
 import UpProd from "./composants/dashboardAd/AdminProduct/UpProd";
 import Addcat from "./composants/dashboardAd/admincategory/Addcat";
 import { getProducts } from "./redux/action/productActions";
-import zoom from "./composants/Auction/zoom";
-
+import Cp from "./composants/dashboardAd/AdminProduct/cp";
 
 import AddAnnonce from "./composants/Annonce/addAnnonce";
 import { getPosts } from "./redux/action/postAction";
@@ -42,7 +43,6 @@ import Auction from "./composants/Auction/Auction";
 import { AuctionDetails } from "./composants/Auction/AuctionDetails";
 import { BidAuction } from "./composants/Auction/BidAuction";
 import Checkout from "./composants/Checkout";
-import DetectionHand from "./composants/Auction/DetectionHand";
 
 function App() {
   const a = useHistory();
@@ -50,8 +50,6 @@ function App() {
   const dispatch = useDispatch();
   const cond = true;
   const [admin,setadmin]=useState('')
-  const [joinMeeting, setJoinMeeting] = useState(false);
-  
   useEffect(() => {
     dispatch(refreshToken());
     dispatch(getPosts());
@@ -68,16 +66,28 @@ function App() {
 
   return (
     <BrowserRouter>
-     <div className="App">
-    <Notify />
-    <Route exact path="/register" component={Login} />
-    
-    </div>
-      {admin==="user" ? 
+
+      {auth.token&&admin==="admin" ? 
+       <div >
+       <NavBar />
+
+       <div className="app-main">
+         <SideBar />
+         <div className="app-main__outer">
+         
+           <Route exact path="/addp" component={AddProd} />
+           <Route exact path="/listp" component={ListP} />
+           <Route exact path="/upp/:id" component={UpProd} />
+           <Route exact path="/category" component={Addcat} />
+           <Route exact path="/ListUsers" component={ListUsers} />
+           {/* <Route exact path="/cp" component={Cp}/>   */}
+         </div>
+       </div>
+     </div>:
         <div className="App">
           <Notify />
           <Navbar />
-
+          <Route exact path="/register" component={Login} />
 
           <Route exact path="/" component={Home} />
           <Route exact path="/annonce" component={Annonce} />
@@ -104,7 +114,6 @@ function App() {
 
           <Route exact path="/auction" component={Auction} />
           <Route exact path="/auction-details" component={AuctionDetails} />
-          <Route exact path="/hand" component={DetectionHand} />
           <Route
             path="/bid/:id"
             render={(props) => <BidAuction {...props} />}
@@ -116,23 +125,8 @@ function App() {
           <Footer />
           {/* admin */}
         </div>
-       : 
-        <div >
-          <NavBar />
-
-          <div className="app-main">
-            <SideBar />
-            <div className="app-main__outer">
-            
-              <Route exact path="/addp" component={AddProd} />
-              <Route exact path="/listp" component={ListP} />
-              <Route exact path="/upp/:id" component={UpProd} />
-              <Route exact path="/category" component={Addcat} />
-              <Route exact path="/ListUsers" component={ListUsers} />
-              {/* <Route exact path="/cp" component={Cp}/>   */}
-            </div>
-          </div>
-        </div>
+       
+       
       }
     </BrowserRouter>
   );
