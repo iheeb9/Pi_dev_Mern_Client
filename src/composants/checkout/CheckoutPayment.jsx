@@ -1,13 +1,46 @@
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export function CheckoutPayment({ value, canProceedChange, onValueChange }) {
   const [paymentData, setPaymentData] = useState({});
+  //const cartItems  = useSelector((state) => state.cart.cartItems);
+
   const requiredInputs = ["payment", "name", "number", "validUntil", "cvc"];
+
+
+
+/* // payement 
+ const stripe = useStripe();
+  const elements = useElements();
+  const  PUBLIC_KEY= "pk_test_51KoSyaBSBzdg4Hx8lJGrXaCFSb0n3KAy65hzk3mQl4TFC3UztX4AKYU9dKc1Tz4aX21NFzEKo2FXPT1lx5TszkeB00i04DlPDv"
+
+  const stripeTestPromise = loadStripe(PUBLIC_KEY);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+    });
+
+    if (!error) {
+      console.log("Stripe 23 | token generated!", paymentMethod);
+      //send token to backend here
+    } else {
+      console.log(error.message);
+    }
+  }; */
 
   useEffect(() => {
     validate();
+  
     setPaymentData(value);
   }, []);
+
+ 
+
 
   useEffect(() => {
     validate();
@@ -60,7 +93,9 @@ export function CheckoutPayment({ value, canProceedChange, onValueChange }) {
           </div>
         </label>
       </div>
-      <form class="form" method="post">
+      {/* <form  onSubmit={handleSubmit} class="form"> */}
+
+      <form   class="form">
         <div class="row">
           <div class="col-lg-6 col-12">
             <div class="form-group">
@@ -126,6 +161,10 @@ export function CheckoutPayment({ value, canProceedChange, onValueChange }) {
               on the back of your card separate from its number.
             </p>
           </div>
+          <div>
+               <button className="btn btn-warning">payement</button>
+          </div>
+       
         </div>
       </form>
     </>

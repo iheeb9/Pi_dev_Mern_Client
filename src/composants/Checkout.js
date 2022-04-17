@@ -6,9 +6,11 @@ import { CheckoutDeliveryAddress } from "./checkout/CheckoutDeliveryAddress";
 import { CheckoutPayment } from "./checkout/CheckoutPayment";
 import { CheckoutFinish } from "./checkout/CheckoutFinish";
 import { CheckoutSummary } from "./checkout/CheckoutSummary";
+import { loadStripe } from "@stripe/stripe-js";
 
 function Checkout({ cartItems, placeOrder }) {
   const steps = ["cart", "delivery", "payment", "finish"];
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
 
@@ -42,30 +44,29 @@ function Checkout({ cartItems, placeOrder }) {
       paymentMethod: paymentMethodData,
       total: cartItems.reduce((a, c) => a + c.price * c.count, 0),
     };
-    console.log("order", order);
+    console.log("orderrrrrrrrrrrrrr", order);
+
     await placeOrder(order);
     setCurrentStepIndex(3);
   }
-
   function getStepClass(requiredStep) {
     if (steps.indexOf(requiredStep) > currentStepIndex - 1) {
       return "step";
     }
     return "step active";
   }
-
   return (
     <div>
       <section id="contact-us" class="contact-us section checkout">
         <div class="container">
-          <div class="checkout-progress-bar-container">
+          {/* <div class="checkout-progress-bar-container">
             <div class="checkout-progress-bar">
               <div class={getStepClass("cart")}></div>
               <div class={getStepClass("delivery")}></div>
               <div class={getStepClass("payment")}></div>
               <div class={getStepClass("finish")}></div>
             </div>
-          </div>
+          </div> */}
           <div class="contact-head">
             <div class="row">
               <div class="col-lg-8 col-12">
@@ -73,7 +74,8 @@ function Checkout({ cartItems, placeOrder }) {
                   <div class="title">
                     <h3>Checkout here!</h3>
                   </div>
-                  {currentStepIndex === 0 && (
+                  <CheckoutCart canProceedChange={canProceedChange} />
+                {/*   {currentStepIndex === 0 && (
                     <CheckoutCart canProceedChange={canProceedChange} />
                   )}
                   {currentStepIndex === 1 && (
@@ -90,8 +92,20 @@ function Checkout({ cartItems, placeOrder }) {
                       onValueChange={setPaymentMethodData}
                     />
                   )}
-                  {currentStepIndex === 3 && <CheckoutFinish />}
+                  {currentStepIndex === 3 && <CheckoutFinish />} */}
                   <div class="panel-footer">
+                   
+                      <>
+                        <button class="btn back-btn" >
+                          Back
+                        </button>
+                        <button class="btn back-btn">
+                          payment                        
+                        </button>
+                      </>
+                
+                  </div> 
+                 {/*  <div class="panel-footer">
                     {currentStepIndex !== 3 && (
                       <>
                         <button class="btn back-btn" onClick={back}>
@@ -107,7 +121,7 @@ function Checkout({ cartItems, placeOrder }) {
                         </button>
                       </>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div class="col-lg-4 col-12">
