@@ -13,7 +13,7 @@ export default function Icon() {
       onClick={()=>setAct(!act)}
     >
       <img
-      style={{width:'90px',borderRadius:'100%'}}
+      style={{width:'70px',borderRadius:'100%'}}
       src="https://res.cloudinary.com/socila-marketing/image/upload/v1650208223/istockphoto-1073043572-612x612_e3mpom.jpg" />
     </a>
     {act && <Cbot closer = {setAct}/>}
