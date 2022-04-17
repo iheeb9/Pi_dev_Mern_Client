@@ -27,7 +27,7 @@ export function AddAuction() {
   const [productDescription, setProductDescription] = useState("");
   const [price, setPrice] = useState(0.0);
   const [image, setimage] = useState();
-  const [media,setmedia]=useState();
+  const [media, setmedia] = useState();
   async function onSubmit() {
     let mediaa = []
     if (!image) { dispatch({ type: 'NOTIFY', payload: { error: "select your image" } }) } else {
@@ -97,13 +97,22 @@ export function AddAuction() {
                   <li><i class="ti-email"></i> support@shophub.com</li>
 
                 </ul>
-              </div>
+                </div>
+                {joinMeeting ? (
+                  <Zoom />
+                ) : (
+                  <header className="App-header">
+
+                    <button style={{ border: '1px solid #fff' }} onClick={() => setJoinMeeting(true)}>Join Meeting</button>
+                  </header>
+                )}
             </div>
           </div>
         </div>
+
       </div>
 
-  
+
 
 
       <form id="monForm">
@@ -184,19 +193,19 @@ export function AddAuction() {
 
             </div>
             {image ? <div>{image.map((img) => (
-                  <img src={URL.createObjectURL(img)} class="img-fluid" style={{ maxHeight: "400px" }} />
+              <img src={URL.createObjectURL(img)} class="img-fluid" style={{ maxHeight: "400px" }} />
 
-                ))}</div> : <div> </div>}
-                
+            ))}</div> : <div> </div>}
+
           </div>
         </div>
 
         <Button className="button primary animate" onClick={onSubmit}>Confirmation</Button>
       </form>
-      
-    
+
+
 
 
     </>
-      );
+  );
 }
