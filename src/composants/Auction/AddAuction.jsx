@@ -98,7 +98,10 @@ export function AddAuction() {
 
                 </ul>
                 </div>
-                {joinMeeting ? (
+               
+            </div>
+          </div>
+          {joinMeeting ? (
                   <Zoom />
                 ) : (
                   <header className="App-header">
@@ -106,8 +109,6 @@ export function AddAuction() {
                     <button style={{ border: '1px solid #fff' }} onClick={() => setJoinMeeting(true)}>Join Meeting</button>
                   </header>
                 )}
-            </div>
-          </div>
         </div>
 
       </div>

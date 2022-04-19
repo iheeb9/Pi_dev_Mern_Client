@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Buffer } from "buffer";
+
 
 const crypto = require("crypto"); // crypto comes with Node.js
 
@@ -22,14 +22,16 @@ function generateSignature(apiKey, apiSecret, meetingNumber, role) {
   });
 }
 
+
 var zoom;
 var apiKey = "-OXo1PO7S8yz6JDcdjb0aQ";
 var apiSecret = "ABUxYLd5NqJ6hfoYzgTq3Qg7Wsmbu3bgQ3Zj";
-var meetingNumber = 98549276177;
+var meetingNumber = 91483015928
+;
 var leaveUrl = "http://localhost:3000"; // our redirect url
 var userName = "esprit";
 var userEmail = "esprit@gmail.com";
-var passWord = "rBb9AQ";
+var passWord = "SYi26x";
 
 var signature = "";
 generateSignature(apiKey, apiSecret, meetingNumber, 0).then((res) => {

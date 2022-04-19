@@ -62,8 +62,10 @@ function DetectionHand() {
           );
           const maxConfidence = confidence.indexOf(
             Math.max.apply(null, confidence)
-          );
+         );
+          // console.log(gesture.gestures[maxConfidence].name);
           console.log(gesture.gestures);
+          console.log(gesture.gestures[0].score);
           setEmoji(gesture.gestures);
           console.log(emoji);
         }
