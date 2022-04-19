@@ -1,6 +1,3 @@
-
-
-
 import React, { useRef, useState, useEffect } from "react";
 
 import * as tf from "@tensorflow/tfjs";
@@ -8,17 +5,17 @@ import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import "../../App.css";
 import { drawHand } from "../../utilities";
-import {bid} from "./BidHand"; 
+import { bid } from "./BidHand";
 import * as fp from "fingerpose";
 import victory from "../../victory.png";
 import thumbs_up from "../../thumbs_up.png";
 
-
-function DetectionHand() {
+function DetectionHand({ placeBid }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [emoji, setEmoji] = useState(null);
   const images = { thumbs_up: thumbs_up, victory: victory };
+
 
   const runHandpose = async () => {
     const net = await handpose.load();
@@ -46,12 +43,11 @@ function DetectionHand() {
 
       const hand = await net.estimateHands(video);
 
-
       if (hand.length > 0) {
         const GE = new fp.GestureEstimator([
           fp.Gestures.VictoryGesture,
           fp.Gestures.ThumbsUpGesture,
-          bid
+          bid,
         ]);
         const gesture = await GE.estimate(hand[0].landmarks, 4);
         if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
@@ -62,22 +58,26 @@ function DetectionHand() {
           );
           const maxConfidence = confidence.indexOf(
             Math.max.apply(null, confidence)
-         );
+          );
           // console.log(gesture.gestures[maxConfidence].name);
           console.log(gesture.gestures);
-          console.log(gesture.gestures[0].score);
+          // console.log(gesture.gestures[0].score);
+          // console.log(gesture.gestures[1].score);
           setEmoji(gesture.gestures);
           console.log(emoji);
+
+          await placeBid();
         }
       }
 
-      
       const ctx = canvasRef.current.getContext("2d");
       drawHand(hand, ctx);
     }
   };
 
-  useEffect(()=>{runHandpose()},[]);
+  useEffect(() => {
+    runHandpose();
+  }, []);
 
   return (
     <div className="App">
@@ -128,7 +128,6 @@ function DetectionHand() {
         ) : (
           ""
         )}
-
       </header>
     </div>
   );

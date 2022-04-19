@@ -10,6 +10,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Datetime from "react-datetime";
 import { DatePicker } from "@mui/lab";
 import moment from "moment";
+import DetectionHand from "./DetectionHand";
 var momentDurationFormatSetup = require("moment-duration-format");
 momentDurationFormatSetup(moment);
 
@@ -29,11 +30,11 @@ export function BidAuction(props) {
   const id = props.match.params.id;
 
   const [socket, setSocket] = useState(null);
-  const [auction, setAuction] = useState({});
+  const [auction, setAuction] = useState(null);
   const [product, setProduct] = useState({});
   const [remainingTimeDuration, setRemainingTimeDuration] = useState(0);
 
-  const [bidAmount, setBidAmount] = useState(0);
+  const [bidAmount, setBidAmount] = useState(null);
 
   useEffect(() => {
     setupSocket();
@@ -101,7 +102,7 @@ export function BidAuction(props) {
 
   return (
     <>
-      
+      {bidAmount ? <DetectionHand placeBid={placeBid} /> : null}
       <div class="lign-md-8">
         <div class="container p-3">
           <div class="row">
@@ -188,12 +189,8 @@ export function BidAuction(props) {
                         {moment(bid.time).format("HH:mm:ss")}
                       </div>
                       <div class="col-9 d-flex justify-content-between">
-                        <div class="">
-                          {bid.user.fullname}
-                        </div>
-                        <div class="">
-                          {bid.amount.$numberDecimal} $
-                        </div>
+                        <div class="">{bid.user.fullname}</div>
+                        <div class="">{bid.amount.$numberDecimal} $</div>
                       </div>
                     </div>
                   ))}
