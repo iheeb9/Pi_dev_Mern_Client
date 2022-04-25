@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { Component } from "react";
 
 import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
@@ -10,36 +10,43 @@ import * as fp from "fingerpose";
 import victory from "../../victory.png";
 import thumbs_up from "../../thumbs_up.png";
 
-function DetectionHand({ placeBid }) {
-  const webcamRef = useRef(null);
-  const canvasRef = useRef(null);
-  const [emoji, setEmoji] = useState(null);
-  const images = { thumbs_up: thumbs_up, victory: victory };
+class DetectionHand extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      webcamRef: React.createRef(null),
+      canvasRef: React.createRef(null),
+      images: { thumbs_up: thumbs_up, victory: victory },
+    };
+  }
 
+  componentDidMount() {
+    this.runHandpose();
+  }
 
-  const runHandpose = async () => {
+  runHandpose = async () => {
     const net = await handpose.load();
     console.log("Handpose model loaded.");
     setInterval(() => {
-      detect(net);
-    }, 10);
+      this.detect(net);
+    }, 300);
   };
 
-  const detect = async (net) => {
+  detect = async (net) => {
     if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
+      typeof this.state.webcamRef.current !== "undefined" &&
+      this.state.webcamRef.current !== null &&
+      this.state.webcamRef.current.video.readyState === 4
     ) {
-      const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
+      const video = this.state.webcamRef.current.video;
+      const videoWidth = this.state.webcamRef.current.video.videoWidth;
+      const videoHeight = this.state.webcamRef.current.video.videoHeight;
 
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
+      this.state.webcamRef.current.video.width = videoWidth;
+      this.state.webcamRef.current.video.height = videoHeight;
 
-      canvasRef.current.width = videoWidth;
-      canvasRef.current.height = videoHeight;
+      this.state.canvasRef.current.width = videoWidth;
+      this.state.canvasRef.current.height = videoHeight;
 
       const hand = await net.estimateHands(video);
 
@@ -60,77 +67,51 @@ function DetectionHand({ placeBid }) {
             Math.max.apply(null, confidence)
           );
           // console.log(gesture.gestures[maxConfidence].name);
-          console.log(gesture.gestures);
-          // console.log(gesture.gestures[0].score);
-          // console.log(gesture.gestures[1].score);
-          setEmoji(gesture.gestures);
-          console.log(emoji);
+          // console.log(gesture.gestures);
 
-          await placeBid();
+          if (gesture.gestures[0].score > 9) {
+            console.log("Bidding +200");
+            await this.props.placeBid(this.props.bidAmount + 200);
+            this.forceUpdate();
+            return;
+          }
+          if (gesture.gestures[1].score > 9) {
+            console.log("Bidding +100");
+            await this.props.placeBid(this.props.bidAmount + 100);
+            this.forceUpdate();
+            return;
+          }
         }
       }
 
-      const ctx = canvasRef.current.getContext("2d");
+      const ctx = this.state.canvasRef.current.getContext("2d");
       drawHand(hand, ctx);
     }
   };
 
-  useEffect(() => {
-    runHandpose();
-  }, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Webcam
-          ref={webcamRef}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zindex: 9,
-            width: 640,
-            height: 480,
-          }}
-        />
-
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zindex: 9,
-            width: 640,
-            height: 480,
-          }}
-        />
-        {emoji !== null ? (
-          <img
-            src={images[emoji]}
+  render() {
+    return (
+      <>
+        <div style={{ marginTop: "3em", float: "right", right: "0" }}>
+          <Webcam
+            ref={this.state.webcamRef}
             style={{
-              position: "absolute",
-              marginLeft: "auto",
-              marginRight: "auto",
-              left: 400,
-              bottom: 500,
-              right: 0,
-              textAlign: "center",
-              height: 100,
+              width: 240,
+              height: 240,
             }}
           />
-        ) : (
-          ""
-        )}
-      </header>
-    </div>
-  );
+
+          <canvas
+            ref={this.state.canvasRef}
+            style={{
+              width: 240,
+              height: 240,
+            }}
+          />
+        </div>
+      </>
+    );
+  }
 }
 
 export default DetectionHand;
