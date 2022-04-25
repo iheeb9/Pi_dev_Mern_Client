@@ -69,7 +69,7 @@ export function BidAuction(props) {
   async function placeBid(amount) {
     const data = {
       auctionId: id,
-      amount: amount ?? bidAmount,
+      amount: Number(amount) ? amount : bidAmount,
     };
 
     const result = await axios.post(
