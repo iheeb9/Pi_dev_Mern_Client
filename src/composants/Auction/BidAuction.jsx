@@ -66,10 +66,10 @@ export function BidAuction(props) {
     setRemainingTimeDuration(remainingTime.asSeconds());
   }
 
-  async function placeBid() {
+  async function placeBid(amount) {
     const data = {
       auctionId: id,
-      amount: bidAmount,
+      amount: amount ?? bidAmount,
     };
 
     const result = await axios.post(
@@ -102,102 +102,101 @@ export function BidAuction(props) {
 
   return (
     <>
-      {bidAmount ? <DetectionHand placeBid={placeBid} /> : null}
-      <div class="lign-md-8">
-        <div class="container p-3">
-          <div class="row">
-            <div class="col-3">
-              <Card style={{ width: "18rem" }}>
-                <div class="row single-info mb-0">
-                  <div class="col-3">
-                    <i class="fa fa-shopping-basket"></i>
-                  </div>
-                  <div class="col-9" style={{ paddingTop: ".5em" }}>
-                    <h4 class="title"> Details</h4>
-                  </div>
-                </div>
-                <h6
-                  style={{
-                    fontSize: "10px",
-                    textAlign: "left",
-                    margin: "0px",
-                    color: "#757575",
-                  }}
-                ></h6>
-                <hr />
-                <div>
-                  <div class="d-flex justify-content-between">
-                    BasePrice:
-                    {auction.basePrice?.$numberDecimal}$
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    CurrentPrice:
-                    {auction.currentPrice?.$numberDecimal}$
-                  </div>
-                </div>
-                <hr />
+      {bidAmount ? (
+        <DetectionHand placeBid={placeBid} bidAmount={bidAmount} />
+      ) : null}
+      <div class="row" style={{ width: "70%" }}>
+        <div class="col-3">
+          <Card style={{ width: "18rem" }}>
+            <div class="row single-info mb-0">
+              <div class="col-3">
+                <i class="fa fa-shopping-basket"></i>
+              </div>
+              <div class="col-9" style={{ paddingTop: ".5em" }}>
+                <h4 class="title"> Details</h4>
+              </div>
+            </div>
+            <h6
+              style={{
+                fontSize: "10px",
+                textAlign: "left",
+                margin: "0px",
+                color: "#757575",
+              }}
+            ></h6>
+            <hr />
+            <div>
+              <div class="d-flex justify-content-between">
+                BasePrice:
+                {auction.basePrice?.$numberDecimal}$
+              </div>
+              <div class="d-flex justify-content-between">
+                CurrentPrice:
+                {auction.currentPrice?.$numberDecimal}$
+              </div>
+            </div>
+            <hr />
 
-                <CountdownCircleTimer
-                  isPlaying
-                  duration={remainingTimeDuration}
-                  colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                  colorsTime={[7, 5, 2, 0]}
+            <CountdownCircleTimer
+              isPlaying
+              duration={remainingTimeDuration}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[7, 5, 2, 0]}
+            >
+              {renderTime}
+            </CountdownCircleTimer>
+            <div class="row align-items-end">
+              Ends at: {moment(auction.endTime).format("HH:mm:ss")}
+            </div>
+          </Card>
+        </div>
+        <div class="col-3">
+          <Card style={{ height: "29rem", width: "18rem" }}>
+            <CardMedia
+              component="img"
+              alt={auction.currentPrice?.$numberDecimal}
+              image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
+            />
+
+            <div>
+              <label>Current price:</label>
+              <div> {auction.currentPrice?.$numberDecimal}$</div>
+              Bid Amount:
+              <input
+                type="number"
+                value={bidAmount}
+                onChange={(e) => setBidAmount(parseFloat(e.target.value))}
+              />
+              <div>
+                <button
+                  className="button primary animate"
+                  onClick={placeBid}
+                  style={{ marginTop: "30px" }}
                 >
-                  {renderTime}
-                </CountdownCircleTimer>
-                <div class="row align-items-end">
-                  Ends at: {moment(auction.endTime).format("HH:mm:ss")}
-                </div>
-              </Card>
+                  Place Bid
+                </button>
+              </div>
             </div>
-            <div class="col-3">
-              <Card style={{ height: "29rem", width: "18rem" }}>
-                <CardMedia
-                  component="img"
-                  alt={auction.currentPrice?.$numberDecimal}
-                  image="https://greendealflow.com/wp-content/uploads/2020/11/header-bidding-auction-ss-1920_uusz3n-1120x630-1.gif"
-                />
-
-                <div>
-                  <label>Current price:</label>
-                  <div> {auction.currentPrice?.$numberDecimal}$</div>
-                  Bid Amount:
-                  <input
-                    type="namber"
-                    value={bidAmount}
-                    onChange={(e) => setBidAmount(parseFloat(e.target.value))}
-                  />
-                  <div>
-                    <button
-                      className="button primary animate"
-                      onClick={placeBid}
-                    >
-                      Place Bid
-                    </button>
+          </Card>
+        </div>
+        <div class="col-6">
+          <Card style={{ height: "29rem" }}>
+            <ul>
+              {auction?.bids?.map((bid) => (
+                // {moment(bid.time).format("HH:mm:ss")} {bid.user.fullname}
+                // {bid.amount.$numberDecimal}
+                <div class="checkout-item-row row mb-3">
+                  <div class="col-2 m-0 p-0">
+                    {moment(bid.time).format("HH:mm:ss")}
+                  </div>
+                  <div class="col-9 d-flex justify-content-between">
+                    <div class="">{bid.user.fullname}</div>
+                    <div class="">{bid.amount.$numberDecimal} $</div>
                   </div>
                 </div>
-              </Card>
-            </div>
-            <div class="col-6">
-              <Card style={{ height: "29rem" }}>
-                <ul>
-                  {auction?.bids?.map((bid) => (
-                    // {moment(bid.time).format("HH:mm:ss")} {bid.user.fullname}
-                    // {bid.amount.$numberDecimal}
-                    <div class="checkout-item-row row mb-3">
-                      <div class="col-2 m-0 p-0">
-                        {moment(bid.time).format("HH:mm:ss")}
-                      </div>
-                      <div class="col-9 d-flex justify-content-between">
-                        <div class="">{bid.user.fullname}</div>
-                        <div class="">{bid.amount.$numberDecimal} $</div>
-                      </div>
-                    </div>
-                  ))}
-                </ul>
-              </Card>
-            </div>
-          </div>
+              ))}
+            </ul>
+          </Card>
         </div>
       </div>
     </>
