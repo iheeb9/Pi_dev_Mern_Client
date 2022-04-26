@@ -4,12 +4,15 @@ import Navbar from "../Navbar/Navbar";
 import axios from 'axios';
 import Image from '../Product/image';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 export default function HOme() {
 
 
 	let [ lastp, setLastp ] = useState([])
     let [ lastc, setLastc ] = useState([])
+	
+	const {post} =useSelector(state=>state)
 
   useEffect(() => {
     async function getLastp() {
@@ -1598,41 +1601,25 @@ export default function HOme() {
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
-						<h2>From Our Blog</h2>
+						<h2>From User Post</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
+			{post.posts.map((post,index) =>(index<3?
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="shop-single-blog">
-						<img src="https://via.placeholder.com/370x300" alt="#"/>
+						
+					{post.images.map((img,index) =>(index==0&&
+                                                <img  src= {img.url} alt="Li's Product Image"/> ))}
+
 						<div class="content">
-							<p class="date">22 July , 2020. Monday</p>
-							<a href="#" class="title">Sed adipiscing ornare.</a>
-							<a href="#" class="more-btn">Continue Reading</a>
+							<p class="date">{post.createdAt}</p>
+							<a href="#" class="title">{post.title}</a>
+							<a href="#" class="more-btn"><Link to={`/detailannonce/${post._id}`} >Continue Reading </Link></a>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-12">
-					<div class="shop-single-blog">
-						<img src="https://via.placeholder.com/370x300" alt="#"/>
-						<div class="content">
-							<p class="date">22 July, 2020. Monday</p>
-							<a href="#" class="title">Man’s Fashion Winter Sale</a>
-							<a href="#" class="more-btn">Continue Reading</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-12">
-					<div class="shop-single-blog">
-						<img src="https://via.placeholder.com/370x300" alt="#"/>
-						<div class="content">
-							<p class="date">22 July, 2020. Monday</p>
-							<a href="#" class="title">Women Fashion Festive</a>
-							<a href="#" class="more-btn">Continue Reading</a>
-						</div>
-					</div>
-				</div>
+				</div>:null))}
 			</div>
 		</div>
 	</section>

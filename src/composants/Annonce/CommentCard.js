@@ -41,10 +41,10 @@ const handleRemove = () => {
 }
   return ( <>
     <div class="author-avatar pt-15">
-                {comment.user.images.map((img)=>(
+             
 
- <img src={img.url}  id="avatar"alt="User"  />
-                ))}
+ <img src={comment.user.images[0]}  id="avatar"alt="User"  />
+           
     </div>
     <div class="comment-body pl-15">
         {/* <span class="reply-btn pt-15 pt-xs-5" style={{margin:"20px"}}><a href="#">reply</a></span> */}
