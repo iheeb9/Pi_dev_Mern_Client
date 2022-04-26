@@ -37,8 +37,8 @@ export default function Login() {
           
           //  dispatch (register(res.data.user,res.data.user.images))
         
-            localStorage.setItem('firstLogin', true)
-           
+            // localStorage.setItem('firstLogin', true)
+           console.log(response)
           
 
       } catch (err) {
@@ -49,7 +49,6 @@ export default function Login() {
   return (
 
     <div>
-      <Navbar/>
           <nav aria-label="breadcrumb ">
   <ol class="breadcrumb " >
                                 
@@ -93,7 +92,7 @@ export default function Login() {
                             </form>
                                     <div className="social">
                 <GoogleLogin
-                    clientId="945006872248-2sj5j0e6eu1ungefd3fnpo0k1mrgsu64.apps.googleusercontent.com"
+                    clientId="217959173278-bbvuhutrl06d2n3jeg814qnld9ute0ik.apps.googleusercontent.com"
                     buttonText="Login with google"
                     onSuccess={responseGoogle}
                     cookiePolicy={'single_host_origin'}

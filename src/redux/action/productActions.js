@@ -7,6 +7,9 @@ import {
     CLEAR_ERRORS, ALL_PRODUCTSPAGE_REQUEST, ALL_PRODUCTSPAGE_SUCCESS, ALL_PRODUCTSPAGE_FAIL,
     DELETE_PRODUCT,
     UPDATE_PRODUCT,
+    NEW_REVIEW_REQUEST,
+    NEW_REVIEW_SUCCESS,
+    NEW_REVIEW_FAIL,
 } from "../../constants/productConstants";
 import { imageUpload } from '../../utils/uploadimage';
 
@@ -28,6 +31,7 @@ export const getProducts = (keyword = '', currentPage, category) => async (dispa
         })
     }
 }
+
 export const getproductpage = (keyword = '', currentPage, category, price) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTSPAGE_REQUEST })
@@ -70,7 +74,7 @@ export const getProductDetails = (id) => async (dispatch) => {
         })
     }
 }
-export const AddProduct = (name, description, images, countInStock, price, category) => async (dispatch) => {
+export const AddProduct = (name, description, images, countInStock, price, category,red) => async (dispatch) => {
     let media = []
 
     try {
@@ -84,6 +88,7 @@ export const AddProduct = (name, description, images, countInStock, price, categ
             type: Add_PRODUCTS_SUCCESS,
             payload: data
         })
+        red.push('/listp')
     } catch (error) {
         dispatch({
             type: Add_PRODUCTS_FAIL,
@@ -129,6 +134,28 @@ export const UpdateProduct = (product, history) => async (dispatch) => {
     }
 }
 
+// NEW REVIEW
+export const newReview = (reviewData) => async (dispatch) => {
+    try {
+      dispatch({ type: NEW_REVIEW_REQUEST });
+  
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+  
+      const { data } = await axios.post(`/api/product/review`, reviewData, config);
+  
+      dispatch({
+        type: NEW_REVIEW_SUCCESS,
+        payload: data.success,
+      });
+    } catch (error) {
+      dispatch({
+        type: NEW_REVIEW_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 //clear Errors 
 export const clearErrors = () => async (dispatch) => {
     dispatch({

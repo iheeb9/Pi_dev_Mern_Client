@@ -1,6 +1,15 @@
+import { useSelector } from "react-redux";
+
 export function CheckoutSummary() {
+  const cart = useSelector((state) => state.cart.cartItems);
+
+  const  total=cart.reduce((a, c) => a + c.price * c.count, 0)
+  const qteproduct= cart.reduce((a, c) => a+1 * c.count, 0)
+
   return (
-    <>
+    
+    <>       
+
       <div
         class="single-head"
         style={{
@@ -28,16 +37,16 @@ export function CheckoutSummary() {
         </h6>
         <hr />
         <div>
-          <div class="d-flex justify-content-between">Price: 100 Euros</div>
+          <div class="d-flex justify-content-between">Price: {total}</div>
           <div class="d-flex justify-content-between">
-            Delivery Charges: 30 Euros
+            Total Items: {qteproduct}
           </div>
           <div class="d-flex justify-content-between">
             Discount Price: 10 Euros
           </div>
         </div>
         <hr />
-        <div class="row align-items-end">Total: 140 Euros</div>
+        <div class="row align-items-end">Total:{total}Euros</div>
       </div>
     </>
   );

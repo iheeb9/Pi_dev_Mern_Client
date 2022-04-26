@@ -71,8 +71,8 @@ export default function UpProd(props) {
     setImage([...image, ...newImages]);
   };
 
-  const handlesubmit = () => {
-    //e.preventDefault();
+  const handlesubmit = (e) => {
+    e.preventDefault();
       let product= {name:name,description:description,price:price,image:image,countInStock:stock,id:id,history:history,category:category}
     dispatch(UpdateProduct( product ,history));
   
@@ -91,7 +91,7 @@ export default function UpProd(props) {
             <div class="title">
               <h4 style={{fontSize:"xx-large"}}>UpdateProduct</h4>
             </div>
-            <form class="form" method="post" >
+            <form class="form" >
               <div class="row">
                 <div class="col-lg-6 col-12">
                   <div class="form-group">
@@ -206,7 +206,7 @@ export default function UpProd(props) {
                                     
                 <div class="col-12">
                   <div class="form-group button">
-                    <button type="button " class="btn float-right" onClick={() => handlesubmit()}>Update </button>
+                    <button type="button " class="btn float-right" onClick={(e) => handlesubmit(e)}>Update </button>
                   </div>
                 </div>
               </div>

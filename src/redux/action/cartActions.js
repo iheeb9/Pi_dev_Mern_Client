@@ -1,9 +1,12 @@
+import axios from "axios";
 import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_CART_ITEMS } from "../../type";
 
 export const addToCart = (product) => (dispatch, getState) => {
+  console.log("weslttt",product)
   const cartItems = getState().cart.cartItems.slice();
   let alreadyExists = false;
-  cartItems.forEach((x) => {
+  
+    cartItems.forEach((x) => {
     if (x._id === product._id) {
       alreadyExists = true;
       x.count++;

@@ -45,19 +45,27 @@ import { BidAuction } from "./composants/Auction/BidAuction";
 import DetectionHand from "./composants/Auction/DetectionHand";
 
 import Checkout from "./composants/Checkout";
-
+import useAlan from "./composants/Alan"
+import Cbot from "./composants/chatbot.js/Cbot";
+import Icon from "./composants/chatbot/icon";
+import axios from "axios";
 function App() {
   const a = useHistory();
   const { auth, allproductr } = useSelector((state) => state);
   const dispatch = useDispatch();
   const cond = true;
   const [admin,setadmin]=useState('')
+
+  useAlan()
+
+  
   useEffect(() => {
     dispatch(refreshToken());
     dispatch(getPosts());
     dispatch(getProducts());
     dispatch(GetAllUsers());
   }, [dispatch]);
+  
 
   useEffect(() => {
     if (auth.token) {
@@ -89,6 +97,8 @@ function App() {
         <div className="App">
           <Notify />
           <Navbar />
+           {/* <Cbot/>  */}
+            <Icon/> 
           <Route exact path="/register" component={Login} />
 
           <Route exact path="/" component={Home} />
@@ -97,6 +107,11 @@ function App() {
           <Route exact path="/detailannonce/:id" component={DetailAnnonce} />
           <Route exact path="/userprofil/:id" component={UserProfile} />
           <Route exact path="/anim" component={Animation} />
+
+
+            <Route exact path="/cb" component={Cbot} />  
+
+
 
           <Route exact path="/notfound" component={Notfound} />
           <Route exact path="/ResetPassword/:token" component={ResetPassword} />

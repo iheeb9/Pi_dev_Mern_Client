@@ -35,11 +35,11 @@ export default function ListP() {
     <h3>Product List</h3>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Image</th>
-      <th scope="col">Price</th>
-      <th scope="col">descrition</th>
-      <th scope="col">Category</th>
+      <th scope="col">price</th>
+      <th scope="col">description</th>
+      <th scope="col">category</th>
       <th scope="col">Stock</th>
+      <th scope="col">image</th>
 
     </tr>
   </thead>

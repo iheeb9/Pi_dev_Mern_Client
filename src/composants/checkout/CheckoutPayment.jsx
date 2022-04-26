@@ -1,133 +1,64 @@
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import StripeContainer from "./StripeContainer";
 
 export function CheckoutPayment({ value, canProceedChange, onValueChange }) {
   const [paymentData, setPaymentData] = useState({});
+
   const requiredInputs = ["payment", "name", "number", "validUntil", "cvc"];
+  const [showItem, setShowItem] = useState(false);
+
+
 
   useEffect(() => {
     validate();
+  
     setPaymentData(value);
   }, []);
+  const cart = useSelector((state) => state.cart.cartItems);
+
+  const  total=cart.reduce((a, c) => a + c.price * c.count, 0)
+
+ 
+
 
   useEffect(() => {
     validate();
     onValueChange(paymentData);
   }, [paymentData]);
 
-  function handleChangeInput(e) {
-    const { name, value } = e.target;
-    setPaymentData({ ...paymentData, [name]: value });
-  }
+
 
   function validate() {
-    canProceedChange(requiredInputs.every((val) => paymentData[val]));
+    //canProceedChange(requiredInputs.every((val) => paymentData[val]));
+
   }
 
   return (
     <>
       <div class="payment-method">
         <label for="card" class="method method-card">
-          <div class="card-logos">
-            <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png" />
-            <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png" />
-          </div>
+            <img src="https://res.cloudinary.com/socila-marketing/image/upload/v1650729423/stripe_cz6bqy.webp" />
 
-          <div class="radio-input">
-            <input
-              id="card"
-              type="radio"
-              name="payment"
-              value="card"
-              checked={paymentData.payment === "card"}
-              onChange={handleChangeInput}
-            />
-            Pay with credit card
-          </div>
+          
+            {showItem ? (
+				<StripeContainer  />
+			) : (
+				<>
+					<h3>{total}</h3>
+					<button className="btn btn-primary" onClick={() => setShowItem(true)}>Payment</button>
+				</>
+			)}
         </label>
 
-        <label for="paypal" class="method paypal">
-          <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png" />
-          <div class="radio-input">
-            <input
-              id="paypal"
-              type="radio"
-              name="payment"
-              value="paypal"
-              checked={paymentData.payment === "paypal"}
-              onChange={handleChangeInput}
-            />
-            Pay with PayPal
-          </div>
-        </label>
+      
       </div>
-      <form class="form" method="post">
-        <div class="row">
-          <div class="col-lg-6 col-12">
-            <div class="form-group">
-              <label>
-                Name<span>*</span>
-              </label>
-              <input
-                name="name"
-                type="text"
-                placeholder=""
-                value={paymentData.name || ""}
-                onChange={handleChangeInput}
-              />
-            </div>
-          </div>
-          <div class="col-lg-6 col-12">
-            <div class="form-group">
-              <label>
-                Card Number
-                <span>*</span>
-              </label>
-              <input
-                name="number"
-                type="text"
-                placeholder=""
-                value={paymentData.number || ""}
-                onChange={handleChangeInput}
-              />
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="form-group">
-              <label>
-                Valid date
-                <span>*</span>
-              </label>
-              <input
-                name="validUntil"
-                type="text"
-                placeholder=""
-                value={paymentData.validUntil || ""}
-                onChange={handleChangeInput}
-              />
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <div class="form-group">
-              <label>
-                CVV / CVC<span>*</span>
-              </label>
-              <input
-                name="cvc"
-                type="text"
-                placeholder=""
-                value={paymentData.cvc || ""}
-                onChange={handleChangeInput}
-              />
-            </div>
-          </div>
-          <div class="col-6 p-0 mt-4 ccv-info">
-            <p>
-              * CVV or CVC is the card security code, unique three digits number
-              on the back of your card separate from its number.
-            </p>
-          </div>
-        </div>
-      </form>
+      {/* <form  onSubmit={handleSubmit} class="form"> */}
+
+     
     </>
   );
 }

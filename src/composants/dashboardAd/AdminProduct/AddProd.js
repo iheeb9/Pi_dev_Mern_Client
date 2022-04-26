@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { AddProduct } from "../../../redux/action/productActions";
 
 export const AddProd = ({ history }) => {
@@ -10,7 +11,7 @@ export const AddProd = ({ history }) => {
   const [stock, setStock] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-
+  const red=useHistory()
   const Categories = [
     "Electronics",
     "Cameras",
@@ -32,10 +33,14 @@ export const AddProd = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("categories", category);
-    dispatch(AddProduct(name, description, images, stock, price, category));
+    dispatch(AddProduct(name, description, images, stock, price, category,red));
     if ((!name, description)) return;
   };
-
+  const deleteImage = (index) => {
+    const newArr = [...images];
+    newArr.splice(index, 1);
+    setimages(newArr);
+  };
   const handleChangeImages = (e) => {
     const files = [...e.target.files];
     let err = "";
@@ -145,7 +150,22 @@ export const AddProd = ({ history }) => {
                                      
                                     multiple accept='image/*'style={{position:"absolute",top:"0",left:"0",opacity:"0",}} 
                                    />
-                                    </div>
+                                    </div>   {images.map((img, index) => (
+            <div key={index} style={{width:"30%" , height:"30%"}} id="file_img " className="mx-3" >
+              <button
+                onClick={() => deleteImage(index)}
+                type="button"
+                class="close"
+                aria-label="Close"
+                style={{ color: "#F7941D" }}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <img src={img.url?img.url:URL.createObjectURL(img)} alt="images" ></img>
+
+              <hr></hr>
+            </div>
+          ))}
                                     
             </div>
                                

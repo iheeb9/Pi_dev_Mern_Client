@@ -9,7 +9,6 @@ import {
 
 function Cart({ cartItems, removeFromCart, placeOrder, order, clearOrder }) {
   useEffect(() => {
-    console.log("Cart items", cartItems);
   }, [cartItems]);
 
   function getTotalItems() {
