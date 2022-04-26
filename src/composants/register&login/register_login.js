@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Register from './register'
 import { useDispatch, useSelector } from 'react-redux'
-import {login,register} from '../../redux/action/authAction'
+import {login,register,facebooklogin} from '../../redux/action/authAction'
 import axios from 'axios'
-import { GoogleLogin } from 'react-google-login';
+import  {GoogleLogin}  from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom'
 import Navbar from "../Navbar/Navbar";  
+import FacebookLogin from 'react-facebook-login';
 
 const initialStateg = {
   email: '',
@@ -28,22 +29,32 @@ export default function Login() {
       e.preventDefault()
       dispatch (login(userData))
     }
+    const responseFacebook = async (response) => {
+      try {
+  
+          const {accessToken, userID} = response
+          const res = await axios.post('/api/facebook_login', {accessToken, userID})
+
+        dispatch (facebooklogin(res.data))
+      
+      } catch (err) {
+  
+      }
+  }
 
     const responseGoogle = async (response) => {
       try {
-         // const res = await axios.post('/api/google_login', {tokenId: response.tokenId})
-             
-         
-          
-          //  dispatch (register(res.data.user,res.data.user.images))
+        console.log(response) 
+         const res = await axios.post('/api/google_login', {tokenId: response.tokenId})
+          dispatch (login(res.data.user))
         
-            localStorage.setItem('firstLogin', true)
+           // localStorage.setItem('firstLogin', true)
            
           
 
       } catch (err) {
-          err.response.data.msg && 
-          setUserData({...userData, err: err.response.data.msg, success: ''})
+        console.log('hhhhhhhhhhhhh') 
+       
       }
   }
   return (
@@ -67,6 +78,7 @@ export default function Login() {
                                     <div class="row">
                                         <div class="col-md-12 col-12 mb-20">
                                             <label>Email Address*</label>
+                                            
                                             <input class="mb-0" type="email" placeholder="Email Address" 
                                             onChange={handleChangeInput} value={email} name="email"/>
                                         </div>
@@ -77,28 +89,45 @@ export default function Login() {
                                         </div>
                                         <div class="col-md-8">
                                             <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
-                                                <input type="checkbox" id="remember_me"/>
-                                                <label for="remember_me">Remember me</label>
+                                               
+                                                <br></br> <br></br>
+                                                <button class="register-button mt-0"  >Login</button>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
+                                        
+                                        <div class="col-md-4 mt-10 mb-20 text-left text-md-midle">
                                         <Link to="/ForgotPassword">Forgot your password?</Link>
+                                        <Link to={`/faceid/${userData.email}`}>
+                                <button class="register-button mt-0"  >FaceId</button>
+                        </Link>
                                         </div>
+                                       
                                         <div class="col-md-12">
-                                            <button class="register-button mt-0"  >Login</button>
+                                            
+                                           
+                                           
                                         </div>
+                                       
                                     </div>
                                 </div>
-                            </form>
-                                    <div className="social">
+                                
+                            </form>  
+                            <div className="social">
                 <GoogleLogin
-                    clientId="945006872248-2sj5j0e6eu1ungefd3fnpo0k1mrgsu64.apps.googleusercontent.com"
+                    clientId="217959173278-bbvuhutrl06d2n3jeg814qnld9ute0ik.apps.googleusercontent.com"
                     buttonText="Login with google"
                     onSuccess={responseGoogle}
                     cookiePolicy={'single_host_origin'}
+                ></GoogleLogin>
+ 
+                   <FacebookLogin
+                appId="1352060542298869"
+                autoLoad={false}
+                fields="name,email,picture"
+                callback={responseFacebook} 
                 />
             
-
+          
             </div>
                         </div>
                 

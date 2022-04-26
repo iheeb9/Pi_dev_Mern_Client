@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react'
+import React, { Profiler, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import moment from 'moment'
@@ -170,9 +170,15 @@ const handleCatSearch=async(e)=>{
                                                 </div>
                         <div style={{color:"#333",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta d-flex" >
-                                                {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />
-                                               </a>
-                                                                 ))}                                       
+                                              { auth.token
+        ?auth.user._id==post.user._id?
+                                               <Link to={`/userprofil/${post?.user._id}`}>
+                                               <a class="author" href="#">  <img src={post.user?.images}  id="avatar"alt="User"  />
+                                               </a>      </Link>
+                                              
+                                              :<Link to={`/Profile/${post?.user._id}`}>
+                                              <a class="author" href="#">  <img src={post.user?.images}  id="avatar"alt="User"  />
+                                              </a>      </Link>:null }                                                    
                                                   
                                                     <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
                                                     

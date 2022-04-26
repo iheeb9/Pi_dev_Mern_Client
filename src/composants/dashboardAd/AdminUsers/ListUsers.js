@@ -51,8 +51,8 @@ export default function ListP() {
   </thead>
   <tbody>{user.users && user.users.map(user=>( /*   */
     <tr key={user._id}>
-        <td> {user.images.map((image)=><img class="round" src={image.url} alt="user" style={{width:"80px  ",height:"80px"}}/>
-   )}</td>
+        <td><img class="round" src={user.images} alt="user" style={{width:"80px  ",height:"80px"}}/>
+   </td>
       <td>{user.fullname}</td>
     
      

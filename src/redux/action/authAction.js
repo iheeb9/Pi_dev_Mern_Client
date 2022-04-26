@@ -11,19 +11,18 @@ export const TYPES={
 const history=useHistory
 export const login=(data)=>  async (dispatch)=> {
 try {
+
     dispatch({type:'NOTIFY',payload:{loading:true}})
     const res = await   postDataAPI('login', data)
-    console.log(res)
     localStorage.setItem("firstLogin",true)
-
     dispatch({
         type:'AUTH',
 
         payload:{
             token: res.data.access_token,
-            user: res.data.user,
+         user: res.data.user,
             
-            
+              
         }})
     dispatch({
         type:'NOTIFY',
@@ -38,6 +37,85 @@ try {
         payload:{error:err.response.data.msg}})
 }
 }
+export const faceId=(data)=>  async (dispatch)=> {
+    try {
+        dispatch({type:'NOTIFY',payload:{loading:true}})
+        const res = await   postDataAPI('faceId', data)
+        localStorage.setItem("firstLogin",true)
+        dispatch({
+            type:'AUTH',
+            payload:{
+                token: res.data.access_token,
+             user: res.data.user,
+                
+                  
+            }})
+        dispatch({
+            type:'NOTIFY',
+            payload:{ 
+                success: res.data.msg
+                }})
+             
+                window.location.href = `/`
+               
+    }catch(err){ 
+        dispatch({
+            type:'NOTIFY',
+            payload:{error:err.response.data.msg}})
+    }
+    }
+    export const googlelogin=(data)=>  async (dispatch)=> {
+        try {
+            dispatch({type:'NOTIFY',payload:{loading:true}}) 
+            localStorage.setItem("firstLogin",true)
+            dispatch({
+                type:'AUTH',
+             payload:{
+                    token: data.access_token,
+                 user:data.user,
+                    
+                      
+                }})
+            dispatch({
+                type:'NOTIFY',
+                payload:{ 
+                    success: data.msg
+                    }})
+        
+                   
+        }catch(err){ 
+            dispatch({
+                type:'NOTIFY',
+                payload:{error:err.response.data.msg}})
+        }
+        }
+    
+export const facebooklogin=(data)=>  async (dispatch)=> {
+    
+    try {
+        dispatch({type:'NOTIFY',payload:{loading:true}}) 
+        localStorage.setItem("firstLogin",true)
+        dispatch({
+            type:'AUTH',
+         payload:{
+                token: data.access_token,
+             user:data.user,
+                
+                  
+            }})
+        dispatch({
+            type:'NOTIFY',
+            payload:{ 
+                success: data.msg
+                }})
+    
+               
+    }catch(err){ 
+        dispatch({
+            type:'NOTIFY',
+            payload:{error:err.response.data.msg}})
+    }
+    }
 
 
 export const refreshToken = () => async (dispatch) => {
@@ -73,13 +151,15 @@ export const refreshToken = () => async (dispatch) => {
 
 export const register = (data,images) => async (dispatch) => {
     let media=[]
+    let img=""
     const check = valid(data)
     console.log(check.errLength)
     if(check.errLength > 0)
     return dispatch({type: 'NOTIFY', payload: check.errMsg})
-    if (images.length>0) media=await imageUpload(images)
-    console.log(media)
- const newdata={fullname:data.fullname,username:data.username,email:data.email,password:data.password,gender:data.gender,mobile:data.mobile,images:media}
+    if (images.length>0)
+     media=await imageUpload(images)
+  {media.map((i)=>img=i.url)}
+ const newdata={fullname:data.fullname,username:data.username,email:data.email,password:data.password,gender:data.gender,mobile:data.mobile,images:img}
     try {
         dispatch({type: 'NOTIFY', payload: {loading: true}})
 

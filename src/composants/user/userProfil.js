@@ -107,8 +107,8 @@ export default function UserProfile(props) {
                     <div className='col-lg-5'>
                         <div class="card-container  ">
 <span class="pro"> {k==a? <h6>My Account</h6> : <h6>Account</h6>} </span>  <br/>
-{userData.images.map((image)=><img class="round" src={image.url} alt="user" style={{width:"170px  ",height:"200px"}}/>
-   )}
+<img class="round" src={userData.images} alt="user" style={{width:"170px  ",height:"200px"}}/>
+   
    <br/>   
 	 { i==true ?
      <form  onSubmit={handleSubmit}>
@@ -257,8 +257,8 @@ export default function UserProfile(props) {
                                         <div style={{color:"#F7941D",fontWeight:"bold"}}> {post.price} dt</div>
                                                                 <div class="li-blog-meta">
                                                                     
-                                                                {post.user?.images.map((img)=>( <a class="author" href="#">  <img src={img.url}  id="avatar"alt="User"  />_{post.user.fullname}</a>
-                                                                 ))}
+                                                                <a class="author" href="#">  <img src={post.user?.images}  id="avatar"alt="User"  />_{post.user.fullname}</a>
+                                                               
                                                                    
                                                                     
                                                                     <a class="post-time" href="#"><i class="fa fa-calendar"></i>{moment(post.createdAt).fromNow()}</a>
@@ -276,7 +276,7 @@ export default function UserProfile(props) {
                                                     </div>
                                                   
                                                 </div>
-                                                  : <h2></h2>} 
+                                                  : <h2> </h2>} 
                                                </div>
                                         
                             ))}

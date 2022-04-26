@@ -8,11 +8,13 @@ import { useState,useEffect } from "react";
 import Annonce from "./composants/Annonce/annonce";
 import Allproduct from "./composants/shop/Allproduct";
 import Login from "./composants/register&login/register_login";
+import faceId from "./composants/register&login/faceId";
 import ForgotPassword from "./composants/register&login/ForgotPassword";
 import Notify from "./Tools/notify";
 import { useDispatch, useSelector } from "react-redux";
 import { refreshToken } from "./redux/action/authAction";
 import UserProfile from "./composants/user/userProfil";
+import Profile from "./composants/user/Profile";
 import DetailAnnonce from "./composants/Annonce/detailAnnonce";
 import { useHistory } from "react-router-dom";
 import ListUsers from "./composants/dashboardAd/AdminUsers/ListUsers";
@@ -65,7 +67,7 @@ function App() {
   return (
     <BrowserRouter>
 
-      {auth.token&&admin==="admin" ? 
+      {admin==="admin" ? 
        <div >
        <NavBar />
 
@@ -91,7 +93,9 @@ function App() {
           <Route exact path="/annonce" component={Annonce} />
           <Route exact path="/allproduct" component={Allproduct} />
           <Route exact path="/detailannonce/:id" component={DetailAnnonce} />
+          <Route exact path="/faceid/:mail" component={faceId} />
           <Route exact path="/userprofil/:id" component={UserProfile} />
+          <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/anim" component={Animation} />
 
           <Route exact path="/notfound" component={Notfound} />
