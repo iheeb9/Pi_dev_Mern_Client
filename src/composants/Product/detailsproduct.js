@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { getProductDetails, getProducts } from '../../redux/action/productActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { connect } from "react-redux";
+import { addToCart } from "../../redux/action/cartActions";
+import {useParams} from 'react-router-dom'
+
+
 import Image from './image';
 
 
 
- const Detailsproduct = (props) => {
-	 const [product,setproduct]=useState()
+ const Detailsproduct = ({addToCart}) => {
+	 let {id} = useParams();
+	 console.log("idddddd",id)
+	// const [product,setproduct]=useState()
 	 const dispatch=useDispatch()
 	useEffect(() => {
 		dispatch(getProducts());
 		
 	  }, [dispatch]);
     const {allproductr}=useSelector(state => state)
-    const [detailprod] =allproductr.products.filter((produit)=> produit._id==props.match.params.id)
+    const [detailprod] =allproductr.products.filter((produit)=> produit._id==id)
+	console.log("details",detailprod)
+	 const product =detailprod
        /*  const dispatch = useDispatch();
     const {productDetail}=useSelector(state => state)
 
@@ -63,24 +72,16 @@ import Image from './image';
 								<span class="fa fa-star"></span>
 								<span class="fa fa-star"></span>
 							</div>
-							<span class="review-no">41 reviews</span>
 						</div>
 						<p class="product-description">{detailprod?.description}</p>
 						<h4 class="price">current price: <span>${detailprod?.price}</span></h4>
-						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-						<h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5>
-						<h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5>
+						
+						
 						<div class="action">
-							<button class="add-to-cart  orang" type="button">add to cart</button>
+							<a class="add-to-cart  orang" 
+						   onClick={() => addToCart(product)}
+
+							>add to cart</a>
 
 						</div>
 					</div>
@@ -93,4 +94,6 @@ import Image from './image';
 }
 
 
-export default Detailsproduct
+export default connect((state) => ({}), {
+	addToCart,
+  })(Detailsproduct);

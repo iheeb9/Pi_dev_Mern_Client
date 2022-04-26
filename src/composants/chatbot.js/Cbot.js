@@ -44,24 +44,8 @@ export default class  Cbot extends Component {
      
     return (
         <>
-        <div>
-            {this.state.chat.map((message)=>{
-             return (
-             <div>
-                 
-           <div>
-           <span> {message.from}</span>  
-           </div>
-           <div>
-           <span> {message.message}</span> </div>
-
-           </div>
-             
-              )   
-
-             
-            })}  
-            <div class="wrapper">
+       
+            <div class="wwrapper">
         <div class="main">
         <div class="card-header">
        
@@ -92,7 +76,7 @@ export default class  Cbot extends Component {
                         <p class="msg"> {message.message}</p> </div>
                     <div>
 
-                    <img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" /> 
+                    {/* <img src="https://i.imgur.com/HpF4BFG.jpg" width="30" class="img1" />  */}
                 </div>
                 
                                 </div>)
@@ -114,7 +98,6 @@ export default class  Cbot extends Component {
         
     </div>
     
-        </div>
           
          
            </>

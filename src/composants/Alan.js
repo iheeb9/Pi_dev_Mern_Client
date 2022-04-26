@@ -10,84 +10,142 @@ import { getProducts } from '../redux/action/productActions';
 const COMMANDS = {
     OPEN_CART : 'open-cart',
     CLOSE_CART: 'close-cart',
-    ADD_ITEM:  'add-item'
+    FIND_PRODUCT: 'find-product',
+    OPEN_SHOP :'open-shop',
+    OPEN_ESHOP:'open-eshop',
+    OPEN_ESHOP_SELL:'open-eshop-sell',
+    SIGNIN:'open-signin',
+    SIGNUP:'open-signup',
+    OPEN_PROTOTYPE:'open-prototype',
+    OPEN_ALL_PROTOTYPE:'open-allprototype',
+    OPEN_BID:'open-bid',
+    OPEN_ROOM_BID:'open-roombid'
+
 }
 
 
 
-const a=2
+
 
 function useAlan() {
     const cart = useSelector((state) => state.cart.cartItems);
-        console.log("chat cart",cart)
   const [alanInstance , setAlanInstance ] = useState()
+  const {products} = useSelector((state) => state.products);
+  console.log("for find ",products)
+
+
+
 
  
-
-    const  openCart  = useCallback(() => {
-        if (cart.length === 0 ){
-            alanInstance.playText("cart is empty")
-        }else{
+//View Cart 
+    const  openCart  = useCallback(() => {   
               alanInstance.playText("Opening cart")
-              setTimeout(() => {  window.location.replace("http://localhost:3000/checkout");  }, 5000);
-             
-           
-
-        }  console.log("function de open cart",cart)
-    }, [alanInstance,cart])
-
-
-    const  closeCart  = useCallback(() => {
-        if (cart.length == 0){
-             alanInstance.playText(" you have no items in your cart ")
-        }else{
-            alanInstance.playText(" Closing Cart")
-            setTimeout(() => {  window.location.replace("http://localhost:3000/allproduct");  }, 3000);
-        }
-             
+              setTimeout(() => {  window.location.replace("http://localhost:3000/checkout");  }, 5000);        
     }, [alanInstance])
 
-   
+//Close cart
+    const  closeCart  = useCallback(() => {
+       
+            alanInstance.playText(" Closing Cart")
+            setTimeout(() => {  window.location.replace("http://localhost:3000/allproduct");  }, 3000);        
+    }, [alanInstance])
 
- const {products} = useSelector((state) => state.products);
-
- console.log(products)
- //const pro =products.find(i => i.name.toLowerCase() ==="hp")
- //console.log("recherche produsct",pro)
-
-
-    const addItem =  useCallback(({detail : {name , quantity}})=>{
-        const product =products.find(i => i.name.toLowerCase() === name.toLowerCase() )
-        console.log("getproducts2",product)
-     
+//Find Product 
+    const  findproduct  = useCallback(({detail : {name , category}}) => {
+         const product =products.find(i => i.name.toLowerCase() === name.toLowerCase() )          
          if (product ==null){
+             setTimeout(() => {  
             alanInstance.playText(`I cannot find the ${name} item `)
-        }else {
-            console.log("produit li yetzed ",product)
-             
-         
-            alanInstance.playText(`Item ${name} was added to your cart `)
-            addToCart(product)
-        }
-    
+       }, 3000) }else {
+           alanInstance.playText(`we find your product  `)
+           setTimeout(() => {  window.location.replace(`http://localhost:3000/search/${name}`);  }, 3500);
+        }         
+    }, [alanInstance,products])
 
-    },[alanInstance,products])
+//open shop
+const  openshop  = useCallback(() => {     
+    alanInstance.playText(" Opening Shop")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/allproduct");  }, 3000);        
+}, [alanInstance])
+
+//open Eshop
+const  openEshop  = useCallback(() => {     
+    alanInstance.playText(" Opening EShop")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/annonce");  }, 3000);        
+}, [alanInstance])
+
+//openEshopsell
+const  openEshopsell  = useCallback(() => {      
+    alanInstance.playText(" Opening EShop for selling ")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/addannonce");  }, 3000);        
+}, [alanInstance])
+
+//open sign in
+const  signin  = useCallback(() => {   
+    alanInstance.playText(" Opening signin page ")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/register");  }, 3000);        
+}, [alanInstance])
+
+//sign up 
+const  signup  = useCallback(() => { 
+    alanInstance.playText(" Opening signup page ")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/register");  }, 3000);        
+}, [alanInstance])
+//open Prototype
+const  openPrototype  = useCallback(() => {
+    alanInstance.playText(" Opening new prototype page ")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/shareprototype");  }, 3000);        
+}, [alanInstance])
+
+//all prototype
+const  openAllPrototype  = useCallback(() => {
+    alanInstance.playText(" Opening All prototype page")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/allprototype");  }, 3000);        
+}, [alanInstance])
+
+//open bid page
+const  openBid  = useCallback(() => {
+    alanInstance.playText(" Opening  biding page")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/auction-details");  }, 3000);        
+}, [alanInstance])
+
+//open new room bid page
+const  openRoomBid  = useCallback(() => {
+    alanInstance.playText(" Opening  new room for biding")
+    setTimeout(() => {  window.location.replace("http://localhost:3000/auction");  }, 3000);        
+}, [alanInstance])
+
+
    
-     useEffect(()=>  {
+
+    useEffect(()=>  {
         window.addEventListener(COMMANDS.OPEN_CART,openCart)
         window.addEventListener(COMMANDS.CLOSE_CART,closeCart)
-        window.addEventListener(COMMANDS.ADD_ITEM,addItem)
-
-
-
+        window.addEventListener(COMMANDS.FIND_PRODUCT,findproduct)
+        window.addEventListener(COMMANDS.OPEN_SHOP,openshop)
+        window.addEventListener(COMMANDS.OPEN_ESHOP,openEshop)
+        window.addEventListener(COMMANDS.OPEN_ESHOP_SELL,openEshopsell)
+        window.addEventListener(COMMANDS.SIGNIN,signin)
+        window.addEventListener(COMMANDS.SIGNUP,signup)
+        window.addEventListener(COMMANDS.OPEN_PROTOTYPE,openPrototype)
+        window.addEventListener(COMMANDS.OPEN_ALL_PROTOTYPE,openAllPrototype)
+        window.addEventListener(COMMANDS.OPEN_BID,openBid)
+        window.addEventListener(COMMANDS.OPEN_ROOM_BID,openRoomBid)
         return () => {
             window.addEventListener(COMMANDS.OPEN_CART,openCart)
             window.addEventListener(COMMANDS.CLOSE_CART,closeCart)
-            window.addEventListener(COMMANDS.ADD_ITEM,addItem)
-
-
+            window.addEventListener(COMMANDS.FIND_PRODUCT,findproduct)
+            window.addEventListener(COMMANDS.OPEN_SHOP,openshop)
+            window.addEventListener(COMMANDS.OPEN_ESHOP,openEshop)
+            window.addEventListener(COMMANDS.OPEN_ESHOP_SELL,openEshopsell)
+            window.addEventListener(COMMANDS.SIGNIN,signin)
+            window.addEventListener(COMMANDS.SIGNUP,signup)
+            window.addEventListener(COMMANDS.OPEN_PROTOTYPE,openPrototype)
+            window.addEventListener(COMMANDS.OPEN_ALL_PROTOTYPE,openAllPrototype)
+            window.addEventListener(COMMANDS.OPEN_BID,openBid)
+            window.addEventListener(COMMANDS.OPEN_ROOM_BID,openRoomBid)
         }
-    },[openCart, closeCart,addItem])
+    },[openCart, closeCart,products,findproduct,])
 
     
     useEffect(() => {
@@ -111,6 +169,4 @@ function useAlan() {
   )
 }
 
-export default useAlan;connect((state) => ({}), {
-    addToCart,
-  });
+export default useAlan

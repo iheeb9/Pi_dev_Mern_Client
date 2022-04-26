@@ -44,6 +44,7 @@ import Checkout from "./composants/Checkout";
 import useAlan from "./composants/Alan"
 import Cbot from "./composants/chatbot.js/Cbot";
 import Icon from "./composants/chatbot/icon";
+import axios from "axios";
 function App() {
   const a = useHistory();
   const { auth, allproductr } = useSelector((state) => state);
@@ -60,6 +61,7 @@ function App() {
     dispatch(getProducts());
     dispatch(GetAllUsers());
   }, [dispatch]);
+  
 
   useEffect(() => {
     if (auth.token) {
@@ -93,7 +95,6 @@ function App() {
           <Navbar />
            {/* <Cbot/>  */}
             <Icon/> 
-
           <Route exact path="/register" component={Login} />
 
           <Route exact path="/" component={Home} />

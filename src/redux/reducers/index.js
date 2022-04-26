@@ -11,6 +11,7 @@ import { productDetailReducer } from './productReducers'
 import { productAddReducer } from './productReducers'
 import { CategoryReducer } from './catReducer'
 import { productReducerPage } from './productReducers'
+import { newReviewReducer } from './productReducers'
 
 import post from './postReducer'
 import sharedpost from './sharedpostReducer'
@@ -30,6 +31,7 @@ export default combineReducers({
     productReducerPage,
     post,
     sharedpost,
-    user
+    user,
+    newReviewReducer
 
 })
