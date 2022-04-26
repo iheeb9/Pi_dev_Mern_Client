@@ -1,3 +1,5 @@
+
+
 import "./App.css";
 import Navbar from "./composants/Navbar/Navbar";
 import Footer from "./composants/Footer/footer";
@@ -40,6 +42,8 @@ import Shop from "./composants/Shop";
 import Auction from "./composants/Auction/Auction";
 import { AuctionDetails } from "./composants/Auction/AuctionDetails";
 import { BidAuction } from "./composants/Auction/BidAuction";
+import DetectionHand from "./composants/Auction/DetectionHand";
+
 import Checkout from "./composants/Checkout";
 import useAlan from "./composants/Alan"
 import Cbot from "./composants/chatbot.js/Cbot";
@@ -127,6 +131,8 @@ function App() {
 
           <Route exact path="/auction" component={Auction} />
           <Route exact path="/auction-details" component={AuctionDetails} />
+          <Route exact path="/hand" component={DetectionHand} />
+
           <Route
             path="/bid/:id"
             render={(props) => <BidAuction {...props} />}
