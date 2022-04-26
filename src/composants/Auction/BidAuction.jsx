@@ -105,6 +105,7 @@ export function BidAuction(props) {
       {bidAmount ? (
         <DetectionHand placeBid={placeBid} bidAmount={bidAmount} />
       ) : null}
+      
       <div class="row" style={{ width: "70%" }}>
         <div class="col-3">
           <Card style={{ width: "18rem" }}>
@@ -125,14 +126,15 @@ export function BidAuction(props) {
               }}
             ></h6>
             <hr />
+            
             <div>
               <div class="d-flex justify-content-between">
-                BasePrice:
-                {auction.basePrice?.$numberDecimal}$
+              BasePrice:
+ {auction.basePrice?.$numberDecimal}$
               </div>
               <div class="d-flex justify-content-between">
-                CurrentPrice:
-                {auction.currentPrice?.$numberDecimal}$
+              CurrentPrice:
+ {auction.currentPrice?.$numberDecimal}$
               </div>
             </div>
             <hr />
@@ -159,8 +161,8 @@ export function BidAuction(props) {
             />
 
             <div>
-              <label>Current price:</label>
-              <div> {auction.currentPrice?.$numberDecimal}$</div>
+              
+              <div> Current price:{auction.currentPrice?.$numberDecimal}$</div>
               Bid Amount:
               <input
                 type="number"
@@ -196,8 +198,11 @@ export function BidAuction(props) {
                 </div>
               ))}
             </ul>
+          
           </Card>
+         
         </div>
+        
       </div>
     </>
   );

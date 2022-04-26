@@ -108,6 +108,12 @@ class DetectionHand extends Component {
               height: 240,
             }}
           />
+          <br/>
+          <img style={{ width: 50 }} src="/images/thumbs_up.png"></img>
+          <h2> Bid with :100£</h2>
+          <br/>
+            <img style={{ width: 40 }} src="/images/victory.png"></img>
+            <h2>Bid with :200£</h2>          
         </div>
       </>
     );
