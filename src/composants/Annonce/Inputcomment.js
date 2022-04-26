@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -8,7 +9,7 @@ export default function Inputcomment(post) {
     const {auth} = useSelector(state=>state)
     const dispatch=useDispatch()
     const history=useHistory()
- const handlesubmit=(e)=>{
+ const handlesubmit=async(e)=>{
      e.preventDefault()
      if (!content.trim()) return
      setcontent('')
@@ -17,7 +18,17 @@ export default function Inputcomment(post) {
          user:auth.user,
          createdAt:new Date().toDateString()
      }
-     dispatch(createComment(post.post,newComment,auth))
+     
+    dispatch({type:'NOTIFY',payload:{warning:" check for comment"}})
+     const res=await axios.get(`/python/detection/${content}`)
+
+     if ( res.data[1]){
+        dispatch({type:'NOTIFY',payload:{error:` your comment:(${res.data[0]}) cant be added`}})
+     }else{
+
+        dispatch(createComment(post.post,newComment,auth))
+        dispatch({type:'NOTIFY',payload:{success:" comment added"}})
+     }
  }
   return (
     <div>
