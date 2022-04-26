@@ -34,7 +34,10 @@ function CheckoutCart({
   }
 
   if (cartItems.length === 0) {
-    return <>Cart is Empty !</>;
+    return <><h1 style={{textAlign:"center", fontSize:"5rem"}}>Cart is Empty</h1>
+            <img  style={{width:"50%",}}
+              src="https://res.cloudinary.com/socila-marketing/image/upload/v1650119278/panier_gjerpb.png" alt="" />
+    </>;
   }
   return (
     <>

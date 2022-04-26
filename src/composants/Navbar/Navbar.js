@@ -12,7 +12,11 @@ import Cart from "./../Cart";
 export default function Navbar({ history }) {
   const a = useHistory();
   const auth = useSelector((state) => state.auth);
+  const cart = useSelector((state) => state.cart.cartItems);
+
   const dispatch = useDispatch();
+    const  setShowCartItems = false
+    
 
   return (
     <div>
@@ -36,10 +40,11 @@ export default function Navbar({ history }) {
                 <div class="right-content">
                   <ul class="list-main">
                     <li>
-                      <i class="ti-location-pin"></i> Store location
+                      <i class="ti-location-pin"  ></i> Store location
                     </li>
                     <li>
                       <i class="ti-alarm-clock"></i> <a href="#">Daily deal</a>
+                      
                     </li>
                     {auth.token ? (
                       <li>
@@ -60,7 +65,7 @@ export default function Navbar({ history }) {
                     ) : (
                       <li>
                         <i class="ti-power-off"></i>
-                        <Link to={"/register"}>Login </Link>
+                        <Link to={"/register"} >Login </Link>
                       </li>
                     )}
                   </ul>
@@ -118,8 +123,8 @@ export default function Navbar({ history }) {
 							</div>
 						</div>*/}
               </div>
-
-              <div class="col-lg-2 col-md-3 col-12">
+ 
+              <div class="col-lg-2 col-md-3 col-12" >
                 <div class="right-bar">
                   <div class="sinlge-bar">
                     <a href="#" class="single-icon">
@@ -133,15 +138,17 @@ export default function Navbar({ history }) {
                   </div>
                   <div class="sinlge-bar shopping">
                     <a href="#" class="single-icon">
-                      <i class="ti-bag"></i> <span class="total-count">2</span>
+                      <i class="ti-bag"></i> <span class="total-count">{cart.length}</span>
                     </a>
-
-                    <Cart />
+                   
+                   
+                 <Cart/>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+              
+            </div> 
+          </div> 
         </div>
         <div class="header-inner">
           <div class="container">

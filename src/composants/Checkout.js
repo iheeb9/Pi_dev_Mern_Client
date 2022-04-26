@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import { placeOrder } from "../redux/action/orderAction";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import CheckoutCart from "./checkout/CheckoutCart";
 import { CheckoutDeliveryAddress } from "./checkout/CheckoutDeliveryAddress";
 import { CheckoutPayment } from "./checkout/CheckoutPayment";
 import { CheckoutFinish } from "./checkout/CheckoutFinish";
 import { CheckoutSummary } from "./checkout/CheckoutSummary";
+import { Link } from "react-router-dom";
 
 function Checkout({ cartItems, placeOrder }) {
   const steps = ["cart", "delivery", "payment", "finish"];
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [canProceed, setCanProceed] = useState(false);
+  const [useror, setuseror] = useState({});
+
 
   const [deliveryAddressData, setDeliveryAddressData] = useState({});
   const [paymentMethodData, setPaymentMethodData] = useState({});
+  const { auth } = useSelector((state) => state);
+  
+
 
   function canProceedChange(newValue) {
     setCanProceed(newValue);
   }
-
+const user = auth.user
   function back() {
     if (currentStepIndex) {
       setCurrentStepIndex(currentStepIndex - 1);
@@ -38,11 +44,16 @@ function Checkout({ cartItems, placeOrder }) {
   async function finnishCheckout() {
     const order = {
       cartItems,
+      user,
       shippingAddress: deliveryAddressData,
       paymentMethod: paymentMethodData,
       total: cartItems.reduce((a, c) => a + c.price * c.count, 0),
+      
     };
     console.log("order", order);
+    console.log("adresssssssssss",deliveryAddressData)
+
+
     await placeOrder(order);
     setCurrentStepIndex(3);
   }
@@ -97,6 +108,7 @@ function Checkout({ cartItems, placeOrder }) {
                         <button class="btn back-btn" onClick={back}>
                           Back
                         </button>
+                        {auth.token?
                         <button
                           class={`btn next-btn ${
                             !canProceed ? "disabled" : ""
@@ -104,7 +116,10 @@ function Checkout({ cartItems, placeOrder }) {
                           onClick={next}
                         >
                           Next Step
-                        </button>
+                        </button>:
+                        <Link to={"/register"} >   Next Step
+                        </Link>
+                        }
                       </>
                     )}
                   </div>
@@ -124,7 +139,7 @@ function Checkout({ cartItems, placeOrder }) {
 export default connect(
   (state) => ({
     cartItems: state.cart.cartItems,
-  }),
+    }),
   {
     placeOrder,
   }
