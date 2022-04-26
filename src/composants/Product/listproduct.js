@@ -42,7 +42,7 @@ const listproduct = ({ product, addToCart }) => {
         </div>
         <div class="product-content">
           <h3>
-            <Link to={`/allproduct/${product._id}`}>{product.name}</Link>
+          <Link to={`/detailp/${product._id}`}>{product.name}</Link>
           </h3>
           <div class="product-price">
             <span>${product.price}</span>

@@ -8,6 +8,8 @@ export function CheckoutDeliveryAddress({
   onValueChange,
 }) {
   const [deliveryAddressData, setDeliveryAddressData] = useState({});
+  const [shippingAddress, setShippingAddress] = useState({});
+
   const requiredInputs = ["address", "country", "city", "postalCode"];
 
   countries.registerLocale(enLocale);
@@ -22,6 +24,7 @@ export function CheckoutDeliveryAddress({
   useEffect(() => {
     validate();
     setDeliveryAddressData(value);
+    setShippingAddress(value);
   }, []);
 
   useEffect(() => {
@@ -32,6 +35,7 @@ export function CheckoutDeliveryAddress({
   function handleChangeInput(e) {
     const { name, value } = e.target;
     setDeliveryAddressData({ ...deliveryAddressData, [name]: value });
+    setShippingAddress({ ...deliveryAddressData, [name]: value })
   }
   const selectCountryHandler = (value) =>
     handleChangeInput({ target: { name: "country", value } });
@@ -39,6 +43,9 @@ export function CheckoutDeliveryAddress({
   function validate() {
     canProceedChange(requiredInputs.every((val) => deliveryAddressData[val]));
   }
+  console.log("west l'adress adresssssssssss",deliveryAddressData)
+  console.log("delevryyyyy",shippingAddress)
+
 
   return (
     <>
