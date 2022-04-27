@@ -18,7 +18,7 @@ export default class  Cbot extends Component {
     }
 
       else{
-            axios.post(' http://127.0.0.1:5000/predict',{'message':this.state.message})
+            axios.post('/python/predict',{'message':this.state.message})
            // .then(res=>console.log(res))
            .then(res=>{
                let ch= this.state.chat;

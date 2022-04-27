@@ -40,31 +40,25 @@ export default function HOme() {
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#"/>
+						<img src="https://res.cloudinary.com/socila-marketing/image/upload/v1651017657/3070-TI-GPU-OFFER_iizgy8.jpg" alt="#"/>
 						<div class="content">
-							<p>Man's Collectons</p>
-							<h3>Summer travel <br/> collection</h3>
-							<a href="#">Discover Now</a>
+							<p>Coming soon</p>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="single-banner">
-						<img src="https://via.placeholder.com/600x370" alt="#"/>
+						<img src="https://res.cloudinary.com/socila-marketing/image/upload/v1651017797/3070ti-offer_zz8jmi.jpg" alt="#"/>
 						<div class="content">
-							<p>Bag Collectons</p>
-							<h3>Awesome Bag <br/> 2020</h3>
-							<a href="#">Shop Now</a>
+							<p>Coming soon</p>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-12">
 					<div class="single-banner tab-height">
-						<img src="https://via.placeholder.com/600x370" alt="#"/>
+						<img src="https://res.cloudinary.com/socila-marketing/image/upload/v1651018028/RTX-3060-TI-WEB_ng16pc.jpg" alt="#"/>
 						<div class="content">
-							<p>Flash Sale</p>
-							<h3>Mid Season <br/> Up to <span>40%</span> Off</h3>
-							<a href="#">Discover Now</a>
+							<p>Coming soon</p>
 						</div>
 					</div>
 				</div>
@@ -1249,14 +1243,17 @@ export default function HOme() {
 				 {  lastc?.map((pro) => ( 
 				<div class="col-lg-6 col-md-6 col-12">
 					<div class="single-banner"> 
-					{pro.image.map((img, index) => (
-              <Image img={img} index={index} />
-              /* <img class="default-img" src={img.url} alt="#"/>*/
-            ))}
+					<img
+                                src={pro.image[0].url}
+                                alt={pro._id}
+                              ></img>
 						<div class="content">
 							 <p>{pro.category}</p> 
 							 <h3>{pro.name} <br/>Up to<span> 50%</span></h3> 
-							<a href="#">Shop Now</a>
+							 <Link title="Quick View" to={`/detailp/${pro._id}`}>
+             											   <i class=" ti-eye"></i>
+              												  <span>Quick Shop</span>
+              														</Link>
 						</div>
 					</div>
 				</div>
@@ -1393,7 +1390,7 @@ export default function HOme() {
         </div>
     </div> */}
 	<br/><br/><br/><br/><br/>	
-	<section class="shop-home-list section">
+	{/* <section class="shop-home-list section">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 col-12">
@@ -1595,7 +1592,7 @@ export default function HOme() {
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> */}
 	<section class="shop-blog section">
 		<div class="container">
 			<div class="row">

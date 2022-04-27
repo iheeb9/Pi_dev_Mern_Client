@@ -48,9 +48,7 @@ export const AddProd = ({ history }) => {
 
     files.forEach((file) => {
       if (!file) return (err = "Files does not exist.");
-      if (file.type !== "image/jpg " && file.type !== "image/png"&& file.type !== "image/JPG"&& file.type !== "image/PNG") {
-        return (err = "Image format is incorrect");
-      }
+    
       return newImages.push(file);
     });
     if (err) {

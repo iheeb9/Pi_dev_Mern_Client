@@ -61,6 +61,7 @@ export const GetAllUsers=()=>  async (dispatch)=> {
 
     export const UpdateUser=(data,images, auth,a)=>  async (dispatch)=> {
         let media=[]
+        let img=''
         const check = valid(data)
         console.log(check.errLength)
 
@@ -69,15 +70,16 @@ export const GetAllUsers=()=>  async (dispatch)=> {
        return dispatch({type: 'NOTIFY', payload: check.errMsg})
        if (images.length>0) 
        media=await imageUpload(images)
-       const imageUpdate=media
-       console.log(imageUpdate)
+
+       {media.map((i)=> img=i.url)}
+  
   
         try {
             dispatch({type: 'NOTIFY', payload: {loading: true}})
           
          const id=data._id
            
-            const res = await putDataAPI(`updateUser/${id}`, {fullname:data.fullname,username:data.username,mobile:data.mobile,images:imageUpdate},auth.token)
+            const res = await putDataAPI(`updateUser/${id}`, {fullname:data.fullname,username:data.username,mobile:data.mobile,images:img},auth.token)
             console.log(res)
             dispatch({ 
                 type: 'UPDATE_USER_INFO', 
