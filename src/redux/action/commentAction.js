@@ -36,15 +36,17 @@ export const createComment=(post,newComment,auth)=>async(dispatch)=>{
     
   export const deleteComment = ({post, comment, auth}) => async (dispatch) => {
     const newPost = {...post.post, comments: post.post.comments.filter(comm => comm._id!== comment._id)}
- console.log(newPost  )
+    console.log(comment)  
     dispatch({ type: POST_TYPE.UPDATE_POST, payload: newPost })
 
-    try {      
+    try {    
+    
          deleteDataAPI(`comment/${comment._id}`, auth.token)
 
         
     
     } catch (err) {
+            console.log(comment)  
         dispatch({ type: "NOTIFY", payload: {error: err.response.data.msg} })
     }
 

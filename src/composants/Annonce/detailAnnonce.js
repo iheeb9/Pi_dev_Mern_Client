@@ -34,22 +34,23 @@ export default function DetailAnnonce(props) {
        <div class="li-main-blog-page li-main-blog-details-page pt-60 pb-60 pb-sm-45 pb-xs-45 " style={{textAlign:"start"}}>
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3 order-lg-1 order-2">
+                        <div class="col-lg-4 order-lg-1 order-2">
                             <div class="li-blog-sidebar-wrapper">
                             <div  >
                         <div class="card-container  ">
 	<span class="pro">New</span>
-    {detailpost?.user.images.map((img)=>(
-        	<img class="round" src={img.url} alt="user" style={{width:"130px  "}}/>
-    ))}
+ 
+        	<img class="round" src={detailpost?.user.images[0]}  alt="user" style={{width:"100px  ",height:"100px"}}/>
+  
 
 	<h3>{detailpost?.user.fullname}</h3>
 	
 	<p>{detailpost?.user.email} </p>
-	<div class="buttons">
-		<button class="primary ghost"style={{border:"none"}} >
+    <button class="primary ghost"style={{border:"none"}} >
         {detailpost?.user.mobile}
 		</button>
+	<div class="buttons">
+		
 		<button class="primary " style={{border:"none"}}>
 			 profil..
 		</button>
@@ -137,14 +138,9 @@ export default function DetailAnnonce(props) {
                                             
                                         </ul>
                                     </div>
-                                    <div class="li-blog-sharing text-center pt-30">
-                                                    <h4>share this post:</h4>
-                                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                                </div>
+                              
                                 </div>
+                              
                             </div>
                         </div>
                     </div>

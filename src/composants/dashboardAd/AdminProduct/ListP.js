@@ -35,10 +35,11 @@ export default function ListP() {
     <h3>Product List</h3>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">descrition</th>
-      <th scope="col">Category</th>
+      <th scope="col">price</th>
+      <th scope="col">description</th>
+      <th scope="col">category</th>
       <th scope="col">Stock</th>
+      <th scope="col">image</th>
 
     </tr>
   </thead>
@@ -49,6 +50,11 @@ export default function ListP() {
       <td>{product.description}</td>
       <td>{product.category}</td>
       <td>{product.countInStock}</td>
+      <td style={{width:"20px",height:"20px"}}>   {product.image.map((img,index)=>(
+                 
+                 index==0&& <Image img={img} index={index} />
+                   ))}</td>
+
 
       <td><button variant="danger" className='btn btn-danger mx-2' onClick={()=> deleteHandler(product._id)}>Delete</button></td>
      {/* <td><Link  title="Quick View" to={`/upp/${product._id}`}><i class=" ti-eye"></i><span>edit</span></Link></td>   */}
@@ -61,34 +67,7 @@ export default function ListP() {
   </tbody>
 </table>    
 </div>
-<div id ="ca" style={{backgroundColor:"aliceblue", marginLeft:"6px"}}className='row'>
-{allproductr.products && allproductr.products.map(product=>(
-  <div class="col-md-3">
-    {product.image.map((img,index)=>(
-                 
-            index==0&& <Image img={img} index={index}/>
-              ))}
-    <figure class="card card-product-grid card-lg"> <a href="#" class="img-wrap" data-abc="true"> <img src=""/> </a>
-        <figcaption class="info-wrap">
-            <div class="row">
-                <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">{product.name}</a> <span class="rated"></span> </div>
-             
-            </div>
-        </figcaption>
-        <div class="bottom-wrap-payment">
-            <figcaption class="info-wrap">
-                <div class="row">
-                    <div class="col-md-9 col-xs-9"> <a href="#" class="title" data-abc="true">${product.price}</a> <span class="rated"></span> </div>
-                </div>
-            </figcaption>
-        </div>
-        <div class="bottom-wrap" > <button className='btn btn-warning float-right' onClick={()=> history.replace(`/upp/${product._id}`)}> Edit</button>
-            <div class="price-wrap"><button style={{backgroundColor:"red"}} variant="danger" className='btn btn-danger float-left mx-2' onClick={()=> deleteHandler(product._id)}>Delete</button> </div>
-        </div>
-    </figure>
-</div>
-))}
-</div>
+
 
     </div>
   )

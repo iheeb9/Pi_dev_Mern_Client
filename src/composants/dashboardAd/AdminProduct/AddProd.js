@@ -1,6 +1,7 @@
-import { height } from "@mui/system";
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { AddProduct } from "../../../redux/action/productActions";
 
 export const AddProd = ({ history }) => {
@@ -10,7 +11,7 @@ export const AddProd = ({ history }) => {
   const [stock, setStock] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-
+  const red=useHistory()
   const Categories = [
     "Electronics",
     "Cameras",
@@ -32,10 +33,14 @@ export const AddProd = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("categories", category);
-    dispatch(AddProduct(name, description, images, stock, price, category));
+    dispatch(AddProduct(name, description, images, stock, price, category,red));
     if ((!name, description)) return;
   };
-
+  const deleteImage = (index) => {
+    const newArr = [...images];
+    newArr.splice(index, 1);
+    setimages(newArr);
+  };
   const handleChangeImages = (e) => {
     const files = [...e.target.files];
     let err = "";
@@ -55,113 +60,6 @@ export const AddProd = ({ history }) => {
     setimages([...images, ...newImages]);
   };
   return (<>
-    <div   className="center col-md-7"style={{marginLeft:"200px" ,height:"200%" }} > 
-    <br/>
- 
-      <div    style={{border:"solid yellow" ,backgroundColor:"white"}} class="container">
-        {productAddReducer.loading && <div>aaaaa</div>}
-
-        <h1 >Add Product</h1>
-        <form    onSubmit={submitHandler}>
-          <fieldset>
-            <legend>formulaire </legend>
-
-            <div class="form-group">
-              <label for="nom"> Name </label>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="title"
-                class="form-control col-md-4"
-                placeholder="Product Name"
-              />
-            </div>
-
-            <div class="form-group col-md-4">
-              <label for="bio">Description</label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                class="form-control"
-                id="Desc"
-                rows="3"
-              ></textarea>
-            </div>
-
-            <div class="form-group row ">
-              <label for="price">Price</label>
-              <input
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                class="form-control col-md-2"
-                id="price"
-                placeholder="Price"
-              />
-              <label for="stock">Stock</label>
-              <input
-                value={stock}
-                onChange={(e) => setStock(e.target.value)}
-                class="form-control col-md-2"
-                id="stock"
-                placeholder="Stock"
-              />
-            </div>
-
-            <div class="form-group col-md-4">
-              <label for="selection">Select Categories</label>
-
-              <select class="custom-select custom-select-lg mb-3" onChange={(e)=>setCategory(e.target.value)}>
-                <option selected> select Category</option>
-                {Categories.map((category) => (
-                  <option key={category} 
-                  value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div class="custom-file col-md-4">
-              <input
-                onChange={handleChangeImages}
-                type="file"
-                multiple
-                accept="image/*"
-                name="file"
-                class="custom-file-input"
-                id="customFile"
-              />
-              <label class="custom-file-label" for="customFile">
-                Choose file
-              </label>
-            </div>
-          </fieldset>
-          <br />
-          <div class="form-group"><label class="col-md-4 control-label"></label>
-  <div class="col-md-4"><br/>
-   <button id="12" style={{textTransform: "none" ,width:"50%"}}  type="submit" class="btn btn-warning" >Add <span class="glyphicon glyphicon-send"></span></button>
-  </div>
- <br/>
- 
-</div> 
-       
-        </form>
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div>
 <section id="contact-us" class="contact-us section">
 <div class="container">
@@ -252,7 +150,22 @@ export const AddProd = ({ history }) => {
                                      
                                     multiple accept='image/*'style={{position:"absolute",top:"0",left:"0",opacity:"0",}} 
                                    />
-                                    </div>
+                                    </div>   {images.map((img, index) => (
+            <div key={index} style={{width:"30%" , height:"30%"}} id="file_img " className="mx-3" >
+              <button
+                onClick={() => deleteImage(index)}
+                type="button"
+                class="close"
+                aria-label="Close"
+                style={{ color: "#F7941D" }}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <img src={img.url?img.url:URL.createObjectURL(img)} alt="images" ></img>
+
+              <hr></hr>
+            </div>
+          ))}
                                     
             </div>
                                

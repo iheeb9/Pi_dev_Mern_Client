@@ -151,6 +151,3 @@ export const unLikePost = ({post, auth}) => async (dispatch) => {
       })
   }
 }
-
-
-

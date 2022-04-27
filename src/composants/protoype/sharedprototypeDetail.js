@@ -85,7 +85,7 @@ if (state.positive ){a.push({ y: state.positive*100, label: "positive" })}
 if (state.sadness ){a.push({ y: state.sadness*100, label: "sadness" })}
 if (state.surprise){a.push({ y: state.surprise*100, label: "surprise" })}
 if (state.trust){a.push({ y: state.trust*100, label: "trust" })}
-if (state.length==0||progress==0){a.push({ y: 100, label: "Neutre" })}
+if (state.length==0||progress==0){a.push({ y: 100, label: "Neutre" });}
 		setdata({
 			animationEnabled: true,
 			exportEnabled: true,
@@ -146,7 +146,7 @@ const update=async()=>{
 								<h3 class="title">recent post</h3>
 								<div class="single-post">
 									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#"/>
+										<img src="/images/msi.png" alt="#"/>
 									</div>
 									<div class="content">
 										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
@@ -158,7 +158,7 @@ const update=async()=>{
 								</div>
 								<div class="single-post">
 									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#"/>
+									<img src="/images/lenovo.jpg" alt="#"/>
 									</div>
 									<div class="content">
 										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
@@ -170,7 +170,7 @@ const update=async()=>{
 								</div>
 								<div class="single-post">
 									<div class="image">
-										<img src="https://via.placeholder.com/100x100" alt="#"/>
+									<img src="/images/asus.png" alt="#"/>
 									</div>
 									<div class="content">
 										<h5><a href="#">Top 10 Beautyful Women Dress in the world</a></h5>
@@ -254,11 +254,25 @@ const update=async()=>{
 									
 								</div>
 								
-								<div class="col-12">
+																
+								<div class="product-area pt-35">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="li-product-tab">
+                                <ul class="nav li-product-menu blog-meta d-flex d-flex justify-content-between">
+                                   <li><a class="active" data-toggle="tab" href="#description"><span class="author"><a ><i class="fa fa-comments"></i>Best Comment ({detailsharedpost?.topreview.length})</a></span></a></li>
+                                   <li><a  data-toggle="tab" href="#product-details"><span class="author"><a ><i class="fa fa-comments"></i>Bad Comment ({detailsharedpost?.badreview.length})</a></span></a></li>
+                      
+                                </ul>               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div id="description" class="tab-pane active show" role="tabpanel">
+                          
 									<div class="comments">
-                                    <div class="blog-meta">
-											<span class="author"><a href="#"><i class="fa fa-comments"></i>Best Comment ({detailsharedpost?.topreview.length})</a></span>
-										</div>
+                            
 										{detailsharedpost?.topreview.length==0?<p>No comments</p>:detailsharedpost?.topreview.map((comm)=>(
 												<div class="single-comment" >
 												<img src="https://icon-library.com/images/facebook-user-icon/facebook-user-icon-17.jpg" alt="#"/>
@@ -271,9 +285,29 @@ const update=async()=>{
 										))}
 									
 										
+									</div>				
+                        </div>
+                        <div id="product-details" class="tab-pane" role="tabpanel">
+                  
+							<div class="col-12">
+									<div class="comments">
+                            
+										{detailsharedpost?.badreview.length==0?<p>No comments</p>:detailsharedpost?.badreview.map((comm)=>(
+												<div class="single-comment" >
+												<img src="https://icon-library.com/images/facebook-user-icon/facebook-user-icon-17.jpg" alt="#"/>
+												<div class="content">
+												 <h4>Facebook user <span>page...</span></h4> 
+													<p>{comm}</p>
+													
+												</div>
+											</div>
+										))}
+									
+										
 									</div>									
-								</div>											
-											
+								</div>	
+                            
+                        </div></div></div></div>			
 							</div>
 						</div>
 					</div>

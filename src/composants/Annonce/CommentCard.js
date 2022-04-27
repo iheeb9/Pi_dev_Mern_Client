@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState,useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteComment, updateComment } from '../../redux/action/commentAction'
@@ -11,11 +12,22 @@ const dispatch=useDispatch()
 },[comment])
 const [Edit,seEdit]=useState(false)
 const [content,setContent]=useState('')
-const handleupdate = () => {
+const handleupdate =async () => {
   if(comment.content !== content){
+
+    dispatch({type:'NOTIFY',payload:{warning:" check for comment"}})
+    const res=await axios.get(`/python/detection/${content}`)
+
+    if ( res.data[1]){
+       dispatch({type:'NOTIFY',payload:{error:` your comment:(${res.data[0]}) cant be updated`}})
+    }else{
+
       dispatch(updateComment({comment, post, content, auth}))
+       dispatch({type:'NOTIFY',payload:{success:" comment updated"}})
+       
     
       seEdit(false)
+    }
   }else{
       seEdit(false)
   }
@@ -23,14 +35,16 @@ const handleupdate = () => {
 const handleRemove = () => {
   if(post.post.user._id === auth.user._id || comment.user._id === auth.user._id){
       dispatch(deleteComment({post, auth, comment, }))
+      
+      dispatch({type:'NOTIFY',payload:{success:" comment delete"}})
   }
 }
   return ( <>
     <div class="author-avatar pt-15">
-                {comment.user.images.map((img)=>(
+             
 
-<img class="round" src={img.url} alt={comment.user.fullname} style={{width:"130px  "}}/>
-                ))}
+ <img src={comment.user.images[0]}  id="avatar"alt="User"  />
+           
     </div>
     <div class="comment-body pl-15">
         {/* <span class="reply-btn pt-15 pt-xs-5" style={{margin:"20px"}}><a href="#">reply</a></span> */}

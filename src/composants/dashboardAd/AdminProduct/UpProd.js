@@ -71,8 +71,8 @@ export default function UpProd(props) {
     setImage([...image, ...newImages]);
   };
 
-  const handlesubmit = () => {
-    //e.preventDefault();
+  const handlesubmit = (e) => {
+    e.preventDefault();
       let product= {name:name,description:description,price:price,image:image,countInStock:stock,id:id,history:history,category:category}
     dispatch(UpdateProduct( product ,history));
   
@@ -80,114 +80,7 @@ export default function UpProd(props) {
 
   return (
     <>
-    <div>
-     
-      <div class="container">
-        <h1> UpdateProduct</h1>
-      <form>
-      <div class="form-group">
-              <label for="nom"> Name </label>
-          <input
-            type="text"
-            value={name}
-            className="m-2"
-            name="name"
-            onChange={(e) => setName(e.target.value)}
-          />
-         <div/>
-
-         <div class="form-group">
-              <label for="nom"> Description </label>
-          <input
-            type="text"
-            value={description}
-            className="m-2"
-            name="description"
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          </div>
-          <div class="form-group row ">
-              <label for="price">Price</label>
-              <input
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                class="form-control col-md-1"
-                id="price"
-                placeholder="Price"
-              />
-               <label for="price">Price</label>
-              <input
-                value={stock}
-                onChange={(e) => setStock(e.target.value)}
-                class="form-control col-md-1"
-                
-                placeholder="Stock"
-              />
-            </div>
-
-            <div class="form-group col-md-4">
-              <label for="selection">Select Categories</label>
-
-              <select class="custom-select custom-select-lg mb-3" onChange={(e)=>setCategory(e.target.value)}>
-                <option selected> select Category</option>
-                {Categories.map((category) => (
-                  <option key={category} 
-                  value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-              </div>
-
-
-          {image.map((img, index) => (
-            <div key={index} style={{width:"30%" , height:"30%"}} id="file_img ">
-              <button
-                onClick={() => deleteImage(index)}
-                type="button"
-                class="close"
-                aria-label="Close"
-                style={{ color: "#F7941D" }}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <img src={img.url} alt="images"></img>
-
-              <hr></hr>
-            </div>
-          ))}
-          <div className="file_upload">
-            <i className="fas fa-image" />
-            <input
-              type="file"
-              onChange={handleChangeImages}
-              name="file"
-              id="file"
-              multiple
-              accept="image/*"
-            />{" "}
-          </div>
-          <button type="button" onClick={() => handlesubmit()}>
-            send
-          </button>
-        </div>
-      </form>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <div >
     <section id="contact-us" class="contact-us section" >
     <div class="container">
@@ -198,7 +91,7 @@ export default function UpProd(props) {
             <div class="title">
               <h4 style={{fontSize:"xx-large"}}>UpdateProduct</h4>
             </div>
-            <form class="form" method="post" >
+            <form class="form" >
               <div class="row">
                 <div class="col-lg-6 col-12">
                   <div class="form-group">
@@ -313,7 +206,7 @@ export default function UpProd(props) {
                                     
                 <div class="col-12">
                   <div class="form-group button">
-                    <button type="button " class="btn float-right" onClick={() => handlesubmit()}>Update </button>
+                    <button type="button " class="btn float-right" onClick={(e) => handlesubmit(e)}>Update </button>
                   </div>
                 </div>
               </div>
