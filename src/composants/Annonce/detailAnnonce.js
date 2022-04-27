@@ -41,7 +41,7 @@ export default function DetailAnnonce(props) {
 	<span class="pro">New</span>
 
  
-        	<img class="round" src={detailpost?.user.images[0]}  alt="user" style={{width:"100px  ",height:"100px"}}/>
+        	<img class="round" src={detailpost?.user.images}  alt="user" style={{width:"100px  ",height:"100px"}}/>
 
   
 

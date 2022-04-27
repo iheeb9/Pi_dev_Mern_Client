@@ -29,7 +29,7 @@ class DetectionHand extends Component {
     console.log("Handpose model loaded.");
     setInterval(() => {
       this.detect(net);
-    }, 300);
+    }, 2000);
   };
 
   detect = async (net) => {

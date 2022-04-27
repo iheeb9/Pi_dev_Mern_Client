@@ -43,7 +43,7 @@ export default class  Cbot extends Component {
   render(){
      
     return (
-        <>
+        < div id="c">
        
             <div class="wwrapper">
         <div class="main">
@@ -100,7 +100,7 @@ export default class  Cbot extends Component {
     
           
          
-           </>
+           </div>
       )
     }
     

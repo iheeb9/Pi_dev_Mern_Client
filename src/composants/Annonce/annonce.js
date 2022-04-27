@@ -254,7 +254,7 @@ const handleCatSearch=async(e)=>{
                         <div style={{color:"#333",fontWeight:"bold"}}> {post.price} dt</div>
                                                 <div class="li-blog-meta d-flex" >
 
-                                               <img src={post?.user.images[0]}  id="avatar"alt="User"  />
+                                    
                                                                                 
 
                                               { auth.token

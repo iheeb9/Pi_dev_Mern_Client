@@ -43,7 +43,7 @@ const handleRemove = () => {
     <div class="author-avatar pt-15">
              
 
- <img src={comment.user.images[0]}  id="avatar"alt="User"  />
+ <img src={comment.user.images}  id="avatar"alt="User"  />
            
     </div>
     <div class="comment-body pl-15">

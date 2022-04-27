@@ -45,8 +45,10 @@ export class AuctionDetails extends React.Component {
         {this.state.auctions.map((auction) => (
           <div className="col-lg-6">
             <Card style={{ width: "18rem" }}>
-              <Card.Img src="https://media.istockphoto.com/photos/gavel-on-auction-word-picture-id917901978?k=20&m=917901978&s=612x612&w=0&h=NULGu8-bVpy28gbW6AZbZlEVra-Q4s2rg607emPfkCs="></Card.Img>
-              <Card.Body>
+              {auction.product.images.map((img)=>
+                <Card.Img src={img.url}></Card.Img>
+              )}
+               <Card.Body>
                 <Card.Title>{auction.product.name}</Card.Title>
                 <Card.Text>{auction.product.description}</Card.Text>
                 <a

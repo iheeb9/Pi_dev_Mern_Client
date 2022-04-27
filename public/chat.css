@@ -1,24 +1,24 @@
-body {
+#c body {
     background-color: #fff
 }
 
-::-webkit-scrollbar {
+#c ::-webkit-scrollbar {
     width: 10px
 }
 
-::-webkit-scrollbar-track {
+#c ::-webkit-scrollbar-track {
     background: #eee
 }
 
-::-webkit-scrollbar-thumb {
+#c ::-webkit-scrollbar-thumb {
     background: #888
 }
 
-::-webkit-scrollbar-thumb:hover {
+#c ::-webkit-scrollbar-thumb:hover {
     background: #555
 }
 
-.wwrapper {
+#c .wwrapper {
     font-size: 12px;
     line-height: 1.3;
     position: fixed;
@@ -47,7 +47,7 @@ body {
     /* background-color: #651FFF */
 }
 
-.main {
+#c .main {
     background-color: #eee;
     width: 320px;
     position: right ;
@@ -56,22 +56,22 @@ body {
     padding: 6px 0px 0px 0px
 }
 
-.scroll {
+#c .scroll {
     overflow-y: scroll;
     scroll-behavior: smooth;
     height: 325px
 }
 
-.img1 {
+#c .img1 {
     border-radius: 50%;
     background-color: #66BB6A
 }
 
-.name {
+#c .name {
     font-size: 8px
 }
 
-.msg {
+#c .msg {
     background-color: #fff;
     font-size: 11px;
     padding: 5px;
@@ -80,19 +80,19 @@ body {
     color: #3e3c3c
 }
 
-.between {
+#c .between {
     font-size: 8px;
     font-weight: 500;
     color: #a09e9e
 }
 
-.navbar {
+#c .navbar {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
-.form-control {
+#c .form-control {
     font-size: 12px;
     font-weight: 400;
     width: 230px;
@@ -100,23 +100,23 @@ body {
     border: none
 }
 
-form-control : focus {
+#c form-control : focus {
     box-shadow: none;
     overflow: hidden;
     border: none
 }
 
-.form-control:focus {
+#c .form-control:focus {
     box-shadow: none !important
 }
 
-.icon1 {
+#c .icon1 {
     color: #7C4DFF !important;
     font-size: 18px !important;
     cursor: pointer
 }
 
-.icon2 {
+#c .icon2 {
     color: #512DA8 !important;
     font-size: 18px !important;
     position: relative;
@@ -125,7 +125,7 @@ form-control : focus {
     cursor: pointer
 }
 
-.icondiv {
+#c .icondiv {
     border-radius: 50%;
     width: 15px;
     height: 15px;
