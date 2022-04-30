@@ -53,13 +53,10 @@ function useAlan() {
 //Find Product 
     const  findproduct  = useCallback(({detail : {name , category}}) => {
          const product =products.find(i => i.name.toLowerCase() === name.toLowerCase() )          
-         if (product ==null){
-             setTimeout(() => {  
-            alanInstance.playText(`I cannot find the ${name} item `)
-       }, 3000) }else {
+      
            alanInstance.playText(`we find your product  `)
            setTimeout(() => {  window.location.replace(`http://localhost:3000/search/${name}`);  }, 3500);
-        }         
+               
     }, [alanInstance,products])
 
 //open shop

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Register from './register'
 import { useDispatch, useSelector } from 'react-redux'
-import {login,register,facebooklogin} from '../../redux/action/authAction'
+import {login,register,facebooklogin,googlelogin} from '../../redux/action/authAction'
 import axios from 'axios'
 import  {GoogleLogin}  from 'react-google-login';
 import { Link, useHistory } from 'react-router-dom'
@@ -46,7 +46,7 @@ export default function Login() {
       try {
         console.log(response) 
          const res = await axios.post('/api/google_login', {tokenId: response.tokenId})
-          dispatch (login(res.data.user))
+          dispatch (googlelogin(res.data))
         
 
             // localStorage.setItem('firstLogin', true)

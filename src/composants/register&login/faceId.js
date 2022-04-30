@@ -12,7 +12,7 @@ const initialState = { email:'', password: '' }
 const [userData, setUserData] = useState(initialState)
 const {notif,auth,user}=useSelector (state=>state) 
 const a=props.match.params.mail
-    const profile = user.users.filter((u) => u.email ==a)[0];
+  const profile = user.users.filter((u) => u.email ==a)[0];
   const img=profile.images;
   const emails=profile.email;
 
@@ -44,7 +44,7 @@ const handleSubmit =async () => {
      }
         
     }
-  },500)
+  },)
 }
 useEffect(() => {
 

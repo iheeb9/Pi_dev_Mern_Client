@@ -284,7 +284,7 @@ export default function Navbar({ history }) {
                               <a href="#">Home</a>
                             </li>
                             <li>
-                              <a href="/allproduct">Shop</a>
+                            <Link to={"/allproduct"}>Shop</Link>
                             </li>
                             <li>
                               <a href="#">Service</a>
