@@ -4,7 +4,7 @@ module.exports = function(app) {
 app.use(
     '/api',
      createProxyMiddleware({
-       target: 'http://localhost:5000',
+       target: 'https://emark-detection-emotion-server.herokuapp.com',
        changeOrigin: true,
      })
   );
